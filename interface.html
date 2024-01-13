@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClassyPhishIA Interface</title>
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="app" class="container mt-5">
+  <h1>ClassyPhishIA Interface</h1>
+  <div class="form-group">
+    <label for="template1">Template 1 HTML:</label>
+    <input type="file" @change="handleFileUpload(1)" class="form-control-file">
+    <textarea v-if="template1" class="form-control mt-2" v-model="template1Content" rows="5" readonly></textarea>
+  </div>
+  <div class="form-group">
+    <label for="template2">Template 2 HTML:</label>
+    <input type="file" @change="handleFileUpload(2)" class="form-control-file">
+    <textarea v-if="template2" class="form-control mt-2" v-model="template2Content" rows="5" readonly></textarea>
+  </div>
+  <button class="btn btn-primary" @click="compareTemplates" :disabled="!template1Content || !template2Content">Compare Templates</button>
+  <div v-if="similarity !== null" class="mt-3">
+    <p>Similarity: {{ similarity }}</p>
+  </div>
+</div>
+
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+<script src="your_ml_model.js"></script>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    template1: null,
+    template1Content: '',
+    template2: null,
+    template2Content: '',
+    similarity: null
+  },
+  methods: {
+    handleFileUpload(templateNumber) {
+      const input = templateNumber === 1 ? this.$refs.fileInput1 : this.$refs.fileInput2;
+      const file = input.files[0];
+      
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (templateNumber === 1) {
+            this.template1Content = e.target.result;
+          } else {
+            this.template2Content = e.target.result;
+          }
+        };
+        reader.readAsText(file);
+      }
+    },
+    compareTemplates() {
+      const similarity = yourMLModelFunction(this.template1Content, this.template2Content);
+      this.similarity = similarity;
+    }
+  }
+});
+</script>
+
+</body>
+</html>
