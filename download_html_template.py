@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 def get_html_structure(url):
     try:
@@ -15,7 +16,7 @@ def get_html_structure(url):
             soup = BeautifulSoup(html_content, 'html.parser')
             
             # Extrait toutes les balises sans leur contenu
-            html_structure = '\n'.join(tag.prettify(formatter=None) for tag in soup.find_all(True, recursive=False))
+            html_structure = [tag.prettify(formatter=None) for tag in soup.find_all(True, recursive=False)]
             
             return html_structure
         else:
@@ -26,7 +27,14 @@ def get_html_structure(url):
 # Demande à l'utilisateur de fournir l'URL
 url = input("Entrez l'URL de la page dont vous souhaitez récupérer le code HTML : ")
 
-# Appelle la fonction et affiche la structure HTML si disponible
+# Appelle la fonction et récupère la structure HTML si disponible
 html_structure = get_html_structure(url)
-if html_structure:
-    print(html_structure)
+
+# Crée un DataFrame pandas avec une colonne 'Balise HTML'
+df = pd.DataFrame({'Balise HTML': html_structure})
+
+# Enregistre le DataFrame dans un fichier Excel
+excel_filename = 'output_html_structure.xlsx'
+df.to_excel(excel_filename, index=False)
+
+print(f"L'extraction a été enregistrée dans le fichier Excel : {excel_filename}")
