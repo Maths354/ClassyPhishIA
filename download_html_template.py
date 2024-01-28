@@ -30,11 +30,17 @@ url = input("Entrez l'URL de la page dont vous souhaitez récupérer le code HTM
 # Appelle la fonction et récupère la structure HTML si disponible
 html_structure = get_html_structure(url)
 
-# Crée un DataFrame pandas avec une colonne 'Balise HTML'
-df = pd.DataFrame({'Balise HTML': html_structure})
-
-# Enregistre le DataFrame dans un fichier Excel
-excel_filename = 'output_html_structure.xlsx'
-df.to_excel(excel_filename, index=False)
-
-print(f"L'extraction a été enregistrée dans le fichier Excel : {excel_filename}")
+if html_structure:
+    # Affiche la structure HTML
+    print("\n".join(html_structure))
+    
+    # Crée un DataFrame pandas avec une colonne 'Balise HTML'
+    df = pd.DataFrame({'Balise HTML': html_structure})
+    
+    # Enregistre le DataFrame dans un fichier Excel
+    excel_filename = 'output_html_structure.xlsx'
+    df.to_excel(excel_filename, index=False)
+    
+    print(f"\nL'extraction a été enregistrée dans le fichier Excel : {excel_filename}")
+else:
+    print("La structure HTML n'a pas pu être récupérée.")
