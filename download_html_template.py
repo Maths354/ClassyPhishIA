@@ -2,6 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+def clean_text_tags(tag):
+    # Supprime complètement le contenu de la balise
+    tag.clear()
+
 def get_html_structure(url):
     try:
         # Effectue une requête GET à l'URL fournie
@@ -16,6 +20,15 @@ def get_html_structure(url):
             soup = BeautifulSoup(html_content, 'html.parser')
             
             # Extrait toutes les balises sans leur contenu
+            html_structure = [tag.prettify(formatter=None) for tag in soup.find_all(True, recursive=False)]
+            
+            # Nettoie le contenu texte des balises spécifiques
+            tags_to_clean = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a']
+            for tag_name in tags_to_clean:
+                for tag in soup.find_all(tag_name):
+                    clean_text_tags(tag)
+            
+            # Recrée la structure HTML mise à jour
             html_structure = [tag.prettify(formatter=None) for tag in soup.find_all(True, recursive=False)]
             
             return html_structure
