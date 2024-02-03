@@ -1,2 +1,4 @@
 *.html
 *.xlsx
+__pycache__
+.vscode

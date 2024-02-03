@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 def clean_html(input_file, output_file):
     with open(input_file, 'r') as f:
         lines = f.readlines()
