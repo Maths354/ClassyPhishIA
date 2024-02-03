@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+import re
 
 def clean_html(input_file, output_file):
     with open(input_file, 'r') as f:
@@ -31,7 +31,18 @@ def fix_duplicates(output_file):
         for line in lines:
             f.write(line.replace(">>", ">"))
 
+def remove_text_inside_tags(output_file):
+    with open(output_file, 'r') as f:
+        content = f.read()
+
+    # Utilisation d'une expression régulière pour supprimer le contenu texte entre les balises
+    content = re.sub(r'>[^<]+<', '><', content)
+
+    with open(output_file, 'w') as f:
+        f.write(content)
+
 input_file = "test.html"
 output_file = "cleaned_output.html"
 clean_html(input_file, output_file)
 fix_duplicates(output_file)
+remove_text_inside_tags(output_file)
