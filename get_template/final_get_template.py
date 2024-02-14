@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import re
 
 def clean_text_tags(tag):
     # Supprime complètement le contenu de la balise
@@ -44,10 +45,52 @@ url = input("Entrez l'URL de la page dont vous souhaitez récupérer le code HTM
 html_structure = get_html_structure(url)
 
 if html_structure:
-    # Crée un fichier HTML et écrit la structure HTML
-    with open('test.html', 'w', encoding='utf-8') as f:
+    # Écriture de la structure HTML dans un fichier temporaire
+    temp_file = "temp_html_structure.html"
+    with open(temp_file, 'w') as f:
         f.write("\n".join(html_structure))
     
-    print("\nL'extraction a été enregistrée dans le fichier HTML : test.html")
+    # Fonction pour nettoyer le HTML
+    def clean_html(input_file, output_file):
+        with open(input_file, 'r') as f:
+            lines = f.readlines()
+
+        with open(output_file, 'w') as f:
+            for line in lines:
+                line = line.strip()
+                if line.startswith("<") and line.endswith(">"):
+                    # Balise ouvrante et fermante
+                    tag = line.split()[0]
+                    f.write(tag + ">\n")
+                elif line.startswith("<"):
+                    # Balise ouvrante
+                    tag = line.split()[0]
+                    f.write(tag + ">\n")
+                elif line.endswith(">"):
+                    # Balise fermante
+                    tag = line.split()[0].replace("</", "<")
+                    f.write(tag + "\n")
+                else:
+                    # Contenu texte
+                    f.write(line + "\n")
+    
+    # Nettoyage du HTML
+    clean_html(temp_file, "cleaned_output.html")
+    
+    # Correction des balises en double
+    with open("cleaned_output.html", 'r') as f:
+        lines = f.readlines()
+    with open("cleaned_output.html", 'w') as f:
+        for line in lines:
+            f.write(line.replace(">>", ">"))
+    
+    # Suppression du texte à l'intérieur des balises
+    with open("cleaned_output.html", 'r') as f:
+        content = f.read()
+    content = re.sub(r'>[^<]+<', '><', content)
+    with open("final_output.html", 'w') as f:
+        f.write(content)
+    
+    print("Le fichier HTML final a été créé avec succès : final_output.html")
 else:
     print("La structure HTML n'a pas pu être récupérée.")
