@@ -26,7 +26,7 @@ def get_html_structure(url):
             html_structure = [tag.prettify(formatter=None) for tag in soup.find_all(True, recursive=False)]
             
             # Nettoie le contenu texte des balises spécifiques
-            tags_to_clean = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a']
+            tags_to_clean = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'script']
             for tag_name in tags_to_clean:
                 for tag in soup.find_all(tag_name):
                     clean_text_tags(tag)
