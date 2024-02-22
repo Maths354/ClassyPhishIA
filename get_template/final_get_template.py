@@ -59,22 +59,25 @@ if html_structure:
 
         with open(output_file, 'w') as f:
             for line in lines:
-                line = line.strip()
-                if line.startswith("<") and line.endswith(">"):
-                    # Balise ouvrante et fermante
-                    tag = line.split()[0]
-                    f.write(tag + ">\n")
-                elif line.startswith("<"):
-                    # Balise ouvrante
-                    tag = line.split()[0]
-                    f.write(tag + ">\n")
-                elif line.endswith(">"):
-                    # Balise fermante
-                    tag = line.split()[0].replace("</", "<")
-                    f.write(tag + "\n")
-                else:
-                    # Contenu texte
-                    f.write(line + "\n")
+                # Supprimer les lignes de commentaire HTML
+                if not re.match(r'^\s*<!--.*?-->\s*$', line):
+                    # Réécrire la ligne si elle n'est pas un commentaire
+                    line = line.strip()
+                    if line.startswith("<") and line.endswith(">"):
+                        # Balise ouvrante et fermante
+                        tag = line.split()[0]
+                        f.write(tag + ">\n")
+                    elif line.startswith("<"):
+                        # Balise ouvrante
+                        tag = line.split()[0]
+                        f.write(tag + ">\n")
+                    elif line.endswith(">"):
+                        # Balise fermante
+                        tag = line.split()[0].replace("</", "<")
+                        f.write(tag + "\n")
+                    else:
+                        # Contenu texte
+                        f.write(line + "\n")
     
     # Nettoyage du HTML
     clean_html(temp_file, "cleaned_output.html")
