@@ -11,8 +11,13 @@ def clean_text_tags(tag):
 
 def get_html_structure(url):
     try:
-        # Effectue une requête GET à l'URL fournie
-        response = requests.get(url)
+        # Définir un en-tête User-Agent
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+        }
+        
+        # Effectue une requête GET à l'URL fournie avec l'en-tête User-Agent
+        response = requests.get(url, headers=headers)
         
         # Vérifie si la requête a réussi (statut 200)
         if response.status_code == 200:
@@ -35,6 +40,8 @@ def get_html_structure(url):
             html_structure = [tag.prettify(formatter=None) for tag in soup.find_all(True, recursive=False)]
             
             return html_structure
+        elif response.status_code == 403:
+            print("Accès refusé. Veuillez vérifier vos permissions.")
         else:
             print(f"La requête a échoué avec le code d'état : {response.status_code}")
     except Exception as e:
