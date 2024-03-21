@@ -97,7 +97,12 @@ def process_html(url):
                         else:
                             # Contenu texte
                             cleaned_lines.append(line)
-                return '\n'.join(cleaned_lines)
+                cleaned_html = '\n'.join(cleaned_lines)
+
+                # Supprimer les caractères [ et ]
+                cleaned_html = cleaned_html.replace("[", "").replace("]", "")
+
+                return cleaned_html
             
             # Nettoyage du HTML
             cleaned_html = clean_html(html_content)
