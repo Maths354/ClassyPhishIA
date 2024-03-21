@@ -31,15 +31,6 @@ def extract_and_save_urls(url):
             # Extraire les URL avec l'expression régulière
             regex_urls = re.findall(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+|http://[^\s<>"]+', response.text)
 
-            # Enregistrer les URL dans les fichiers
-            with open('all_url.txt', 'w') as non_url_file:
-                for non_url in non_url_list:
-                    non_url_file.write(str(non_url) + '\n')
-
-            with open('url.txt', 'w') as url_file:
-                for regex_url in regex_urls:
-                    url_file.write(str(regex_url) + '\n')
-
             return non_url_list, regex_urls
         elif response.status_code == 403:
             print("Accès refusé. Veuillez vérifier vos permissions.")
@@ -82,77 +73,71 @@ def process_html(url):
             # Recrée la structure HTML mise à jour
             html_structure = [tag.prettify(formatter=None) for tag in soup.find_all(True, recursive=False)]
             
-            # Écriture de la structure HTML dans un fichier temporaire
-            temp_file = "temp_html_structure.html"
-            with open(temp_file, 'w') as f:
-                f.write("\n".join(html_structure))
-            
             # Fonction pour nettoyer le HTML
-            def clean_html(input_file, output_file):
-                with open(input_file, 'r') as f:
-                    lines = f.readlines()
-
-                with open(output_file, 'w') as f:
-                    for line in lines:
-                        # Supprimer les lignes de commentaire HTML
-                        if not re.match(r'^\s*<!--.*?-->\s*$', line):
-                            # Réécrire la ligne si elle n'est pas un commentaire
-                            line = line.strip()
-                            if line.startswith("<") and line.endswith(">"):
-                                # Balise ouvrante et fermante
-                                tag = line.split()[0]
-                                f.write(tag + ">\n")
-                            elif line.startswith("<"):
-                                # Balise ouvrante
-                                tag = line.split()[0]
-                                f.write(tag + ">\n")
-                            elif line.endswith(">"):
-                                # Balise fermante
-                                tag = line.split()[0].replace("</", "<")
-                                f.write(tag + "\n")
-                            else:
-                                # Contenu texte
-                                f.write(line + "\n")
+            def clean_html(html_content):
+                lines = html_content.splitlines()
+                cleaned_lines = []
+                for line in lines:
+                    # Supprimer les lignes de commentaire HTML
+                    if not re.match(r'^\s*<!--.*?-->\s*$', line):
+                        # Réécrire la ligne si elle n'est pas un commentaire
+                        line = line.strip()
+                        if line.startswith("<") and line.endswith(">"):
+                            # Balise ouvrante et fermante
+                            tag = line.split()[0]
+                            cleaned_lines.append(tag + ">")
+                        elif line.startswith("<"):
+                            # Balise ouvrante
+                            tag = line.split()[0]
+                            cleaned_lines.append(tag + ">")
+                        elif line.endswith(">"):
+                            # Balise fermante
+                            tag = line.split()[0].replace("</", "<")
+                            cleaned_lines.append(tag)
+                        else:
+                            # Contenu texte
+                            cleaned_lines.append(line)
+                return '\n'.join(cleaned_lines)
             
             # Nettoyage du HTML
-            clean_html(temp_file, "cleaned_output.html")
+            cleaned_html = clean_html(html_content)
             
             # Correction des balises en double
-            with open("cleaned_output.html", 'r') as f:
-                lines = f.readlines()
-            with open("cleaned_output.html", 'w') as f:
-                for line in lines:
-                    f.write(line.replace(">>", ">"))
+            cleaned_html = cleaned_html.replace(">>", ">")
             
             # Suppression du texte à l'intérieur des balises
-            with open("cleaned_output.html", 'r') as f:
-                content = f.read()
-            content = re.sub(r'>[^<]+<', '><', content)
-            with open("final_output.html", 'w') as f:
-                f.write(content)
+            cleaned_html = re.sub(r'>[^<]+<', '><', cleaned_html)
             
-            print("Le fichier HTML final a été créé avec succès : final_output.html")
-            return True
+            return cleaned_html
         elif response.status_code == 403:
             print("Accès refusé. Veuillez vérifier vos permissions.")
-            return False
+            return None
         else:
             print(f"La requête a échoué avec le code d'état : {response.status_code}")
-            return False
+            return None
     except Exception as e:
         print(f"Une erreur s'est produite lors du traitement du HTML : {e}")
-        return False
+        return None
 
 def main():
     # Demande à l'utilisateur de fournir l'URL
     url = input("Entrez l'URL de la page dont vous souhaitez récupérer le code HTML : ")
 
     # Appelle la fonction et récupère la structure HTML si disponible
-    if process_html(url):
+    cleaned_html = process_html(url)
+    if cleaned_html:
         # Exemple d'utilisation de la fonction extract_and_save_urls
         print("\nExtraction des URLs...")
         non_url_list, regex_urls = extract_and_save_urls(url)
 
-        print("URLs extraites des attributs href et src (all_url.txt) :")
+        print("URLs extraites des attributs href et src :")
+        # for non_url in non_url_list:
+        #     print(non_url)
+        for regex_url in regex_urls:
+            print(regex_url)
+
+        # Print de la variable contenant le HTML nettoyé
+        print("\nHTML nettoyé :")
+        print(cleaned_html)
 
 main()
