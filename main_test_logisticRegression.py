@@ -5,12 +5,12 @@ from sklearn.metrics import accuracy_score
 
 # Données fictives
 data = {
-    'url_score':        [0.95, 0.80, 0.60, 0.40, 0.30, 0.35, 0.15, 0.05, 0.90],
-    'text_score':       [0.90, 0.65, 0.55, 0.30, 0.25, 0.58, 0.20, 0.20, 0.62],
-    'logo_similarity':  [0.98, 0.10, 0.50, 0.15, 0.20, 0.99, 0.99, 0.05, 0.10],
+    'url_score':        [0.95, 0.80, 0.60, 0.40, 0.30, 0.35, 0.15, 0.05, 0.90, 0.20, 0.05],
+    'text_score':       [0.90, 0.65, 0.55, 0.30, 0.25, 0.58, 0.20, 0.20, 0.62, 0.10, 0.20],
+    'logo_similarity':  [0.98, 0.10, 0.50, 0.15, 0.20, 0.99, 0.99, 0.05, 0.10, 0.33, 0.10],
     # 'has_https':        [1, 0, 1, 1, 0],
     # 'cert_valid':       [1, 0, 0, 1, 0],
-    'site_identity':    [1, 1, 1, 0, 0, 1, 1, 0, 1]  # Identité réelle du site (label)
+    'site_identity':    [1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0]  # Identité réelle du site (label)
 }
 
 # Création d'un DataFrame
@@ -41,9 +41,9 @@ print(f'Logistic Regression Accuracy: {logistic_accuracy}')
 
 # Nouvelles caractéristiques extraites du site à tester
 new_site_features = {
-    'url_score': [0.5],
-    'text_score': [0.5],
-    'logo_similarity': [0.6],
+    'url_score': [0.1],
+    'text_score': [0.2],
+    'logo_similarity': [0.99],
     # 'has_https': [1],
     # 'cert_valid': [1]
 }
