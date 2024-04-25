@@ -75,34 +75,56 @@ def process_html(url):
             
             # Fonction pour nettoyer le HTML
             def clean_html(html_content):
-                lines = html_content.splitlines()
-                cleaned_lines = []
-                for line in lines:
-                    # Supprimer les lignes de commentaire HTML
-                    if not re.match(r'^\s*<!--.*?-->\s*$', line):
-                        # Réécrire la ligne si elle n'est pas un commentaire
-                        line = line.strip()
-                        if line.startswith("<") and line.endswith(">"):
-                            # Balise ouvrante et fermante
-                            tag = line.split()[0]
-                            cleaned_lines.append(tag + ">")
-                        elif line.startswith("<"):
-                            # Balise ouvrante
-                            tag = line.split()[0]
-                            cleaned_lines.append(tag + ">")
-                        elif line.endswith(">"):
-                            # Balise fermante
-                            tag = line.split()[0].replace("</", "<")
-                            cleaned_lines.append(tag)
-                        else:
-                            # Contenu texte
-                            cleaned_lines.append(line)
-                cleaned_html = '\n'.join(cleaned_lines)
+                # Utiliser BeautifulSoup pour analyser le HTML
+                soup = BeautifulSoup(html_content, 'html.parser')
 
-                # Supprimer les caractères [ et ]
+                # Parcourir toutes les balises <script>
+                for script_tag in soup.find_all('script'):
+                    # Supprimer le contenu des balises <script>, mais laisser les balises elles-mêmes
+                    script_tag.clear()
+
+                # Convertir l'objet soup en une chaîne de caractères (html nettoyé)
+                cleaned_html = str(soup)
+
+                # Supprimer les commentaires HTML
+                cleaned_html = re.sub(r'<!--.*?-->', '', cleaned_html, flags=re.DOTALL)
+
+                # Nettoyer les caractères indésirables (comme les crochets)
                 cleaned_html = cleaned_html.replace("[", "").replace("]", "")
 
+                # Nettoyage et réécriture des balises ouvrantes et fermantes
+                lines = cleaned_html.splitlines()
+                cleaned_lines = []
+
+                for line in lines:
+                    line = line.strip()
+
+                    if line.startswith("<") and line.endswith(">"):
+                        # Balise ouvrante et fermante
+                        tag = line.split()[0]
+                        cleaned_lines.append(tag + ">")
+                    elif line.startswith("<"):
+                        # Balise ouvrante
+                        tag = line.split()[0]
+                        cleaned_lines.append(tag + ">")
+                    elif line.endswith(">"):
+                        # Balise fermante
+                        tag = line.split()[0].replace("</", "<")
+                        cleaned_lines.append(tag)
+                    else:
+                        # Contenu texte
+                        cleaned_lines.append(line)
+
+                cleaned_html = '\n'.join(cleaned_lines)
+
+                # Correction des balises en double
+                cleaned_html = cleaned_html.replace(">>", ">")
+
+                # Supprimer le texte entre les balises
+                cleaned_html = re.sub(r'>[^<]+<', '><', cleaned_html)
+
                 return cleaned_html
+
             
             # Nettoyage du HTML
             cleaned_html = clean_html(html_content)
