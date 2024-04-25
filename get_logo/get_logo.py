@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import os
 import logging
+import hashlib
 
 # Configurer le journal
 logging.basicConfig(level=logging.INFO)
@@ -53,7 +54,7 @@ def extract_logo_url(url):
         return None
 
 def download_image(image_url, directory='./'):
-    """Télécharger une image à partir de son URL."""
+    """Télécharger une image à partir de son URL et afficher les empreintes SHA-256 et MD5."""
     try:
         # Vérifier si le répertoire existe, sinon le créer
         if not os.path.exists(directory):
@@ -65,10 +66,26 @@ def download_image(image_url, directory='./'):
         response = requests.get(image_url)
         response.raise_for_status()
 
+        # Écrire le fichier téléchargé
         with open(filename, 'wb') as file:
             file.write(response.content)
         
         logging.info(f"L'image a été téléchargée avec succès sous le nom : {filename}")
+
+        # Calculer les empreintes SHA-256 et MD5
+        sha256_hash = hashlib.sha256()
+        md5_hash = hashlib.md5()
+
+        # Lire le fichier téléchargé
+        with open(filename, 'rb') as file:
+            while chunk := file.read(8192):
+                sha256_hash.update(chunk)
+                md5_hash.update(chunk)
+
+        # Afficher les empreintes
+        print(f"SHA-256 de l'image : {sha256_hash.hexdigest()}")
+        print(f"MD5 de l'image : {md5_hash.hexdigest()}")
+
     except requests.RequestException as e:
         logging.error(f"Erreur lors du téléchargement de l'image : {e}")
 
