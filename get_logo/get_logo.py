@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 import os
 import logging
 import hashlib
+import openpyxl
 
 # Configurer le journal
 logging.basicConfig(level=logging.INFO)
@@ -53,8 +54,8 @@ def extract_logo_url(url):
         logging.error(f"Erreur lors de l'extraction du logo : {e}")
         return None
 
-def download_image(image_url, directory='./'):
-    """Télécharger une image à partir de son URL et afficher les empreintes SHA-256 et MD5."""
+def download_image_and_compute_sha256(image_url, directory='./'):
+    """Télécharger une image et retourner son SHA-256."""
     try:
         # Vérifier si le répertoire existe, sinon le créer
         if not os.path.exists(directory):
@@ -69,34 +70,61 @@ def download_image(image_url, directory='./'):
         # Écrire le fichier téléchargé
         with open(filename, 'wb') as file:
             file.write(response.content)
-        
-        logging.info(f"L'image a été téléchargée avec succès sous le nom : {filename}")
 
-        # Calculer les empreintes SHA-256 et MD5
+        # Calculer l'empreinte SHA-256
         sha256_hash = hashlib.sha256()
-        md5_hash = hashlib.md5()
 
         # Lire le fichier téléchargé
         with open(filename, 'rb') as file:
             while chunk := file.read(8192):
                 sha256_hash.update(chunk)
-                md5_hash.update(chunk)
 
-        # Afficher les empreintes
-        print(f"SHA-256 de l'image : {sha256_hash.hexdigest()}")
-        print(f"MD5 de l'image : {md5_hash.hexdigest()}")
+        # Retourner le SHA-256 de l'image
+        return sha256_hash.hexdigest()
 
     except requests.RequestException as e:
         logging.error(f"Erreur lors du téléchargement de l'image : {e}")
+        return None
 
-def main():
-    url = input("Entrez l'URL du site web : ")
+def save_to_excel(data, filename='data.xlsx'):
+    """Sauvegarder les données dans un fichier Excel."""
+    # Ouvrir le fichier Excel ou le créer s'il n'existe pas
+    try:
+        workbook = openpyxl.load_workbook(filename)
+        sheet = workbook.active
+    except FileNotFoundError:
+        workbook = openpyxl.Workbook()
+        sheet = workbook.active
+
+        # Ajouter les en-têtes s'il s'agit d'un nouveau fichier
+        sheet.append(['ID', 'URL', 'SHA-256'])
+
+    # Ajouter les données à la feuille
+    sheet.append(data)
+
+    # Enregistrer le fichier Excel
+    workbook.save(filename)
+    logging.info(f"Les données ont été sauvegardées dans le fichier Excel : {filename}")
+
+def logo_input(url):
     logo_url = extract_logo_url(url)
+    
     if logo_url:
         logging.info(f"L'URL du logo du site est : {logo_url}")
-        download_image(logo_url)
+
+        # Calculer le SHA-256 du logo
+        sha256_hash = download_image_and_compute_sha256(logo_url)
+
+        if sha256_hash:
+            logging.info(f"SHA-256 de l'image : {sha256_hash}")
+
+            # ID peut être généré ou basé sur un autre critère selon votre préférence
+            # Ici, nous utilisons un ID basé sur l'URL pour l'exemple
+            data_id = hashlib.md5(url.encode()).hexdigest()
+
+            # Sauvegarder les données dans le fichier Excel
+            data = [data_id, url, sha256_hash]
+            save_to_excel(data)
+
     else:
         logging.info("Aucun logo trouvé pour ce site.")
-
-if __name__ == "__main__":
-    main()
