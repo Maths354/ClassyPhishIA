@@ -146,9 +146,7 @@ def process_html(url):
         print(f"Une erreur s'est produite lors du traitement du HTML : {e}")
         return None
 
-def main():
-    # Demande à l'utilisateur de fournir l'URL
-    url = input("Entrez l'URL de la page dont vous souhaitez récupérer le code HTML : ")
+def url_input(url):
 
     # Appelle la fonction et récupère la structure HTML si disponible
     cleaned_html = process_html(url)
@@ -166,5 +164,3 @@ def main():
         # Print de la variable contenant le HTML nettoyé
         print("\nHTML nettoyé :")
         print(cleaned_html)
-
-main()
