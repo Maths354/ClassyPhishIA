@@ -5,6 +5,27 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import re
 
+def parse_html_string(html_string):
+    #using re library to get all tags
+    tags = re.findall(r'<[^>]+>', html_string)
+
+    #String variable used to concatenate parsed tag
+    parsed_tag=""
+
+    #Check every tag
+    for tag in tags:
+        #condition used to get only the start of the tag, for example "span" from <span class="time">
+        if " " in tag:
+            tag = tag.replace(tag,tag.split(" ")[0])
+        #condition used to get only start tag like <span>
+        if "/" not in tag:
+            tag=tag.split("<")[1].split(">")[0]
+            parsed_tag+=f"{tag}+("
+        #condition used to get only end tag like </span>
+        else:
+            parsed_tag+=")"
+    return parsed_tag
+
 def clean_text_tags(tag):
     # Supprime complètement le contenu de la balise
     tag.clear()
@@ -57,7 +78,7 @@ def process_html(url):
         if response.status_code == 200:
             # Récupère le contenu HTML de la page
             html_content = response.text
-            
+            html_content = re.sub(r'<!DOCTYPE[^>]*>', '', html_content)
             # Utilise BeautifulSoup pour analyser le HTML
             soup = BeautifulSoup(html_content, 'html.parser')
             
@@ -147,8 +168,7 @@ def process_html(url):
         return None
 
 def url_input(url):
-
-    # Appelle la fonction et récupère la structure HTML si disponible
+    # Appelle la fonction et récupère la structure HTML nettoyée si disponible
     cleaned_html = process_html(url)
     if cleaned_html:
         # Exemple d'utilisation de la fonction extract_and_save_urls
@@ -156,11 +176,18 @@ def url_input(url):
         non_url_list, regex_urls = extract_and_save_urls(url)
 
         print("URLs extraites des attributs href et src :")
-        # for non_url in non_url_list:
-        #     print(non_url)
+        # Imprime les URL extraites
+        for non_url in non_url_list:
+            print(non_url)
         for regex_url in regex_urls:
             print(regex_url)
 
-        # Print de la variable contenant le HTML nettoyé
+        # Imprime la variable contenant le HTML nettoyé
         print("\nHTML nettoyé :")
         print(cleaned_html)
+
+        # Appelle parse_html_string avec cleaned_html et affiche la sortie
+        print("\nTags parsés :")
+        parsed_tags = parse_html_string(cleaned_html)
+        print(parsed_tags)
+
