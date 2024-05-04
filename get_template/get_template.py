@@ -167,42 +167,33 @@ def process_html(url):
         print(f"Une erreur s'est produite lors du traitement du HTML : {e}")
         return None
 
-def url_input(input_data):
-    # Vérifier si l'entrée est une URL en utilisant une expression régulière
+def url_input(url1, url2):
+    # Définir le pattern pour vérifier si les entrées sont des URL
     url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
-    is_url = url_pattern.match(input_data)
     
-    if is_url:
-        # Si l'entrée est une URL, traiter comme une URL
-        cleaned_html = process_html(input_data)
-        if cleaned_html:
-            print("\nExtraction des URLs...")
-            non_url_list, regex_urls = extract_and_save_urls(input_data)
-
-            print("URLs extraites des attributs href et src :")
-            # Imprimer les URL extraites
-            for non_url in non_url_list:
-                print(non_url)
-            for regex_url in regex_urls:
-                print(regex_url)
-
-            print("\nHTML nettoyé :")
-            print(cleaned_html)
-
-            print("\nTags parsés :")
-            parsed_tags = parse_html_string(cleaned_html)
-            print(parsed_tags)
-    else:
-        # Si l'entrée n'est pas une URL, traiter comme du code HTML brut
-        html_string = input_data
+    for url in [url1, url2]:
+        is_url = url_pattern.match(url)
         
-        # Nettoyage du HTML brut (s'il est nécessaire)
-        # cleaned_html = clean_html(html_string)  # Appelez votre fonction de nettoyage si nécessaire
-        
-        print("\nHTML nettoyé :")
-        print(html_string)
-        
-        print("\nTags parsés :")
-        parsed_tags = parse_html_string(html_string)
-        print(parsed_tags)
+        if is_url:
+            # Si l'entrée est une URL, traiter comme une URL
+            cleaned_html = process_html(url)
+            if cleaned_html:
+                print(f"\nExtraction des URLs pour {url}...")
+                non_url_list, regex_urls = extract_and_save_urls(url)
+
+                print("URLs extraites des attributs href et src :")
+                # Imprimer les URL extraites
+                for non_url in non_url_list:
+                    print(non_url)
+                for regex_url in regex_urls:
+                    print(regex_url)
+
+                print("\nHTML nettoyé :")
+                print(cleaned_html)
+
+                print("\nTags parsés :")
+                parsed_tags = parse_html_string(cleaned_html)
+                print(parsed_tags)
+        else:
+            print(f"L'entrée {url} n'est pas une URL valide.")
 
