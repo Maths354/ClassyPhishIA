@@ -167,42 +167,101 @@ def process_html(url):
         print(f"Une erreur s'est produite lors du traitement du HTML : {e}")
         return None
 
-def url_input(input_data):
-    # Vérifier si l'entrée est une URL en utilisant une expression régulière
-    url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
-    is_url = url_pattern.match(input_data)
+# def url_input(input_data):
+#     # Vérifier si l'entrée est une URL en utilisant une expression régulière
+#     url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
+#     is_url = url_pattern.match(input_data)
     
-    if is_url:
-        # Si l'entrée est une URL, traiter comme une URL
-        cleaned_html = process_html(input_data)
-        if cleaned_html:
-            print("\nExtraction des URLs...")
-            non_url_list, regex_urls = extract_and_save_urls(input_data)
+#     if is_url:
+#         # Si l'entrée est une URL, traiter comme une URL
+#         cleaned_html = process_html(input_data)
+#         if cleaned_html:
+#             print("\nExtraction des URLs...")
+#             non_url_list, regex_urls = extract_and_save_urls(input_data)
 
-            print("URLs extraites des attributs href et src :")
-            # Imprimer les URL extraites
-            for non_url in non_url_list:
-                print(non_url)
-            for regex_url in regex_urls:
-                print(regex_url)
+#             print("URLs extraites des attributs href et src :")
+#             # Imprimer les URL extraites
+#             for non_url in non_url_list:
+#                 print(non_url)
+#             for regex_url in regex_urls:
+#                 print(regex_url)
 
-            print("\nHTML nettoyé :")
-            print(cleaned_html)
+#             print("\nHTML nettoyé :")
+#             print(cleaned_html)
 
-            print("\nTags parsés :")
-            parsed_tags = parse_html_string(cleaned_html)
-            print(parsed_tags)
+#             print("\nTags parsés :")
+#             parsed_tags = parse_html_string(cleaned_html)
+#             print(parsed_tags)
+#     else:
+#         # Si l'entrée n'est pas une URL, traiter comme du code HTML brut
+#         html_string = input_data
+        
+#         # Nettoyage du HTML brut (s'il est nécessaire)
+#         # cleaned_html = clean_html(html_string)  # Appelez votre fonction de nettoyage si nécessaire
+        
+#         print("\nHTML nettoyé :")
+#         print(html_string)
+        
+#         print("\nTags parsés :")
+#         parsed_tags = parse_html_string(html_string)
+#         print(parsed_tags)
+
+
+
+
+import difflib
+import re
+
+def compute_similarity_score(parsed_tags1, parsed_tags2):
+    # Calcul du ratio de similarité entre les deux structures de balises parsées
+    similarity_ratio = difflib.SequenceMatcher(None, parsed_tags1, parsed_tags2).ratio()
+    return similarity_ratio
+
+def url_input(url1, url2):
+    # Définition du pattern d'URL
+    url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
+
+    # Vérification de la première URL
+    is_url1 = url_pattern.match(url1)
+    if is_url1:
+        # Traitement de l'URL 1
+        cleaned_html1 = process_html(url1)
+        if cleaned_html1:
+            print("URLs extraites de l'URL 1:")
+            non_url_list1, regex_urls1 = extract_and_save_urls(url1)
+            print(non_url_list1)
+            print(regex_urls1)
+
+            print("HTML nettoyé de l'URL 1:")
+            print(cleaned_html1)
+
+            print("\nTags parsés de l'URL 1:")
+            parsed_tags1 = parse_html_string(cleaned_html1)
+            print(parsed_tags1)
     else:
-        # Si l'entrée n'est pas une URL, traiter comme du code HTML brut
-        html_string = input_data
-        
-        # Nettoyage du HTML brut (s'il est nécessaire)
-        # cleaned_html = clean_html(html_string)  # Appelez votre fonction de nettoyage si nécessaire
-        
-        print("\nHTML nettoyé :")
-        print(html_string)
-        
-        print("\nTags parsés :")
-        parsed_tags = parse_html_string(html_string)
-        print(parsed_tags)
+        print(f"L'URL 1 : {url1} n'est pas une URL valide.")
 
+    # Vérification de la deuxième URL
+    is_url2 = url_pattern.match(url2)
+    if is_url2:
+        # Traitement de l'URL 2
+        cleaned_html2 = process_html(url2)
+        if cleaned_html2:
+            print("URLs extraites de l'URL 2:")
+            non_url_list2, regex_urls2 = extract_and_save_urls(url2)
+            print(non_url_list2)
+            print(regex_urls2)
+
+            print("HTML nettoyé de l'URL 2:")
+            print(cleaned_html2)
+
+            print("\nTags parsés de l'URL 2:")
+            parsed_tags2 = parse_html_string(cleaned_html2)
+            print(parsed_tags2)
+    else:
+        print(f"L'URL 2 : {url2} n'est pas une URL valide.")
+
+    # Si les deux URLs sont valides, calculer le score de similarité
+    if is_url1 and is_url2:
+        similarity_score = compute_similarity_score(parsed_tags1, parsed_tags2)
+        print(f"\nScore de similarité entre les deux URLs : {similarity_score:.2f}")
