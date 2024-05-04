@@ -31,39 +31,7 @@ def clean_text_tags(tag):
     # Supprime complètement le contenu de la balise
     tag.clear()
 
-def extract_and_save_urls(url):
-    # Définir un en-tête User-Agent
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-    }
 
-    try:
-        # Faire la requête HTTP avec l'en-tête User-Agent
-        response = requests.get(url, headers=headers)
-        
-        # Vérifier si la requête a réussi
-        if response.status_code == 200:
-            # Utiliser BeautifulSoup pour analyser le contenu HTML
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
-            # Extraire les URL des attributs href et src
-            non_url_list = [link.get('href') for link in soup.find_all('a', href=True)] + \
-                            [img.get('src') for img in soup.find_all('img', src=True)]
-
-            # Extraire les URL avec l'expression régulière
-            regex_urls = re.findall(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+|http://[^\s<>"]+', response.text)
-
-            return non_url_list, regex_urls
-        elif response.status_code == 403:
-            print("Accès refusé. Veuillez vérifier vos permissions.")
-            return [], []
-        else:
-            # Afficher un message d'erreur si la requête a échoué pour une autre raison
-            print("La requête a échoué avec le code de statut:", response.status_code)
-            return [], []
-    except Exception as e:
-        print(f"Une erreur s'est produite lors de l'extraction des URLs : {e}")
-        return [], []
 
 def process_html(url):
     try:
@@ -185,13 +153,9 @@ def url_input(url1, url2):
         # Traitement de l'URL 1
         cleaned_html1 = process_html(url1)
         if cleaned_html1:
-            print("URLs extraites de l'URL 1:")
-            non_url_list1, regex_urls1 = extract_and_save_urls(url1)
-            print(non_url_list1)
-            print(regex_urls1)
 
-            print("HTML nettoyé de l'URL 1:")
-            print(cleaned_html1)
+            # print("HTML nettoyé de l'URL 1:")
+            # print(cleaned_html1)
 
             print("\nTags parsés de l'URL 1:")
             parsed_tags1 = parse_html_string(cleaned_html1)
@@ -205,13 +169,9 @@ def url_input(url1, url2):
         # Traitement de l'URL 2
         cleaned_html2 = process_html(url2)
         if cleaned_html2:
-            print("URLs extraites de l'URL 2:")
-            non_url_list2, regex_urls2 = extract_and_save_urls(url2)
-            print(non_url_list2)
-            print(regex_urls2)
 
-            print("HTML nettoyé de l'URL 2:")
-            print(cleaned_html2)
+            # print("HTML nettoyé de l'URL 2:")
+            # print(cleaned_html2)
 
             print("\nTags parsés de l'URL 2:")
             parsed_tags2 = parse_html_string(cleaned_html2)
