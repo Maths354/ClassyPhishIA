@@ -24,9 +24,9 @@ def extract_and_save_urls(url):
         regex_urls = re.findall(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+|http://[^\s<>"]+', response.text)
 
         # Enregistrer les URL dans les fichiers
-        with open('all_url.txt', 'w') as non_url_file:
-            for non_url in non_url_list:
-                non_url_file.write(str(non_url) + '\n')
+        # with open('all_url.txt', 'w') as non_url_file:
+        #     for non_url in non_url_list:
+        #         non_url_file.write(str(non_url) + '\n')
 
         with open('url.txt', 'w') as url_file:
             for regex_url in regex_urls:
@@ -45,9 +45,9 @@ def extract_and_save_urls(url):
 url = input("Veuillez saisir une URL : ")
 non_url_list, regex_urls = extract_and_save_urls(url)
 
-print("URLs extraites des attributs href et src (all_url.txt) :")
-for non_url in non_url_list:
-    print(non_url)
+# print("URLs extraites des attributs href et src (all_url.txt) :")
+# for non_url in non_url_list:
+#     print(non_url)
 
 print("\nURLs extraites avec l'expression régulière (url.txt) :")
 for regex_url in regex_urls:
