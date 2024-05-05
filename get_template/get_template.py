@@ -143,15 +143,15 @@ def compute_similarity_score(parsed_tags1, parsed_tags2):
     similarity_ratio = difflib.SequenceMatcher(None, parsed_tags1, parsed_tags2).ratio()
     return similarity_ratio
 
-def url_input(url1, url2):
+def url_input(url_legitime, url_phishing):
     # Définition du pattern d'URL
     url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
 
     # Vérification de la première URL
-    is_url1 = url_pattern.match(url1)
+    is_url1 = url_pattern.match(url_legitime)
     if is_url1:
         # Traitement de l'URL 1
-        cleaned_html1 = process_html(url1)
+        cleaned_html1 = process_html(url_legitime)
         if cleaned_html1:
 
             # print("HTML nettoyé de l'URL 1:")
@@ -161,13 +161,13 @@ def url_input(url1, url2):
             parsed_tags1 = parse_html_string(cleaned_html1)
             print(parsed_tags1)
     else:
-        print(f"L'URL 1 : {url1} n'est pas une URL valide.")
+        print(f"L'URL 1 : {url_legitime} n'est pas une URL valide.")
 
     # Vérification de la deuxième URL
-    is_url2 = url_pattern.match(url2)
+    is_url2 = url_pattern.match(url_phishing)
     if is_url2:
         # Traitement de l'URL 2
-        cleaned_html2 = process_html(url2)
+        cleaned_html2 = process_html(url_phishing)
         if cleaned_html2:
 
             # print("HTML nettoyé de l'URL 2:")
@@ -177,9 +177,9 @@ def url_input(url1, url2):
             parsed_tags2 = parse_html_string(cleaned_html2)
             print(parsed_tags2)
     else:
-        print(f"L'URL 2 : {url2} n'est pas une URL valide.")
+        print(f"L'URL 2 : {url_phishing} n'est pas une URL valide.")
 
     # Si les deux URLs sont valides, calculer le score de similarité
     if is_url1 and is_url2:
         similarity_score = compute_similarity_score(parsed_tags1, parsed_tags2)
-        print(f"\nScore de similarité entre les deux URLs : {similarity_score:.2f}")
+        print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
