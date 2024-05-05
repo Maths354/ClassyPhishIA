@@ -87,8 +87,7 @@ def download_image_and_compute_sha256(image_url, data_id, directory='./'):
         logging.error(f"Erreur lors du téléchargement de l'image : {e}")
         return None
 
-
-def save_to_excel(data, filename='data.xlsx'):
+def save_to_excel(data, filename):
     """Sauvegarder les données dans un fichier Excel."""
     # Ouvrir le fichier Excel ou le créer s'il n'existe pas
     try:
@@ -108,7 +107,8 @@ def save_to_excel(data, filename='data.xlsx'):
     workbook.save(filename)
     logging.info(f"Les données ont été sauvegardées dans le fichier Excel : {filename}")
 
-def logo_input(url):
+def process_url(url, filename):
+    """Traiter l'URL et enregistrer les données dans le fichier Excel spécifié."""
     logo_url = extract_logo_url(url)
     
     if logo_url:
@@ -125,7 +125,13 @@ def logo_input(url):
 
             # Sauvegarder les données dans le fichier Excel
             data = [data_id, url, sha256_hash]
-            save_to_excel(data)
+            save_to_excel(data, filename)
 
     else:
         logging.info("Aucun logo trouvé pour ce site.")
+
+def logo_input(url1, url2):
+    """Traitement principal avec deux URL d'entrée."""
+    process_url(url1, 'logo_legitime.xlsx')
+    process_url(url2, 'logo_phishing.xlsx')
+
