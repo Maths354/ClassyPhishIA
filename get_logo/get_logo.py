@@ -48,20 +48,21 @@ def extract_logo_url(url):
         response = requests.get(favicon_url, timeout=10)
         if response.status_code == 200:
             return favicon_url
-        
+
         return None
     except requests.RequestException as e:
         logging.error(f"Erreur lors de l'extraction du logo : {e}")
         return None
 
-def download_image_and_compute_sha256(image_url, directory='./'):
-    """Télécharger une image et retourner son SHA-256."""
+def download_image_and_compute_sha256(image_url, data_id, directory='./'):
+    """Télécharger une image, la renommer avec l'ID et retourner son SHA-256."""
     try:
         # Vérifier si le répertoire existe, sinon le créer
         if not os.path.exists(directory):
             os.makedirs(directory)
         
-        filename = os.path.join(directory, os.path.basename(image_url))
+        # Utiliser l'ID pour renommer le fichier téléchargé
+        filename = os.path.join(directory, f"{data_id}.png")
 
         # Télécharger l'image
         response = requests.get(image_url)
@@ -74,7 +75,7 @@ def download_image_and_compute_sha256(image_url, directory='./'):
         # Calculer l'empreinte SHA-256
         sha256_hash = hashlib.sha256()
 
-        # Lire le fichier téléchargé
+        # Ouvrir le fichier téléchargé en mode lecture binaire
         with open(filename, 'rb') as file:
             while chunk := file.read(8192):
                 sha256_hash.update(chunk)
@@ -85,6 +86,7 @@ def download_image_and_compute_sha256(image_url, directory='./'):
     except requests.RequestException as e:
         logging.error(f"Erreur lors du téléchargement de l'image : {e}")
         return None
+
 
 def save_to_excel(data, filename='data.xlsx'):
     """Sauvegarder les données dans un fichier Excel."""
@@ -112,15 +114,14 @@ def logo_input(url):
     if logo_url:
         logging.info(f"L'URL du logo du site est : {logo_url}")
 
-        # Calculer le SHA-256 du logo
-        sha256_hash = download_image_and_compute_sha256(logo_url)
+        # Calculer l'ID basé sur l'URL
+        data_id = hashlib.md5(url.encode()).hexdigest()
+
+        # Télécharger le logo et calculer le SHA-256
+        sha256_hash = download_image_and_compute_sha256(logo_url, data_id)
 
         if sha256_hash:
             logging.info(f"SHA-256 de l'image : {sha256_hash}")
-
-            # ID peut être généré ou basé sur un autre critère selon votre préférence
-            # Ici, nous utilisons un ID basé sur l'URL pour l'exemple
-            data_id = hashlib.md5(url.encode()).hexdigest()
 
             # Sauvegarder les données dans le fichier Excel
             data = [data_id, url, sha256_hash]
