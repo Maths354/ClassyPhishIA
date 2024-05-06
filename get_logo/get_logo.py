@@ -5,6 +5,9 @@ import os
 import logging
 import hashlib
 import openpyxl
+import cv2
+import numpy as np
+from skimage.metrics import structural_similarity as ssim
 
 # Configurer le journal
 logging.basicConfig(level=logging.INFO)
@@ -81,11 +84,11 @@ def download_image_and_compute_sha256(image_url, data_id, directory='./'):
                 sha256_hash.update(chunk)
 
         # Retourner le SHA-256 de l'image
-        return sha256_hash.hexdigest()
+        return filename, sha256_hash.hexdigest()
 
     except requests.RequestException as e:
         logging.error(f"Erreur lors du téléchargement de l'image : {e}")
-        return None
+        return None, None
 
 def save_to_excel(data, filename):
     """Sauvegarder les données dans un fichier Excel."""
@@ -118,7 +121,7 @@ def process_url(url, filename):
         data_id = hashlib.md5(url.encode()).hexdigest()
 
         # Télécharger le logo et calculer le SHA-256
-        sha256_hash = download_image_and_compute_sha256(logo_url, data_id)
+        image_path, sha256_hash = download_image_and_compute_sha256(logo_url, data_id)
 
         if sha256_hash:
             logging.info(f"SHA-256 de l'image : {sha256_hash}")
@@ -127,11 +130,55 @@ def process_url(url, filename):
             data = [data_id, url, sha256_hash]
             save_to_excel(data, filename)
 
+        # Retourner le chemin du fichier image téléchargé
+        return image_path
+
     else:
         logging.info("Aucun logo trouvé pour ce site.")
+        return None
+
+def load_image(file_path):
+    # Charge une image et la convertit en niveau de gris
+    image = cv2.imread(file_path)
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    return gray_image
+
+def resize_image(image, size):
+    # Redimensionne une image à la taille spécifiée
+    resized_image = cv2.resize(image, size, interpolation=cv2.INTER_AREA)
+    return resized_image
+
+def compare_images(image1, image2):
+    # Compare deux images et retourne un score de similarité entre 0 et 1
+    size = (min(image1.shape[1], image2.shape[1]), min(image1.shape[0], image2.shape[0]))
+    
+    # Redimensionner les images à la même taille
+    resized_image1 = resize_image(image1, size)
+    resized_image2 = resize_image(image2, size)
+    
+    # Calcul de la similarité structurelle (SSIM)
+    similarity, _ = ssim(resized_image1, resized_image2, full=True)
+    
+    return similarity
 
 def logo_input(url1, url2):
     """Traitement principal avec deux URL d'entrée."""
-    process_url(url1, 'logo_legitime.xlsx')
-    process_url(url2, 'logo_phishing.xlsx')
+    # Processus pour l'URL 1
+    image_path1 = process_url(url1, 'logo_legitime.xlsx')
+    
+    # Processus pour l'URL 2
+    image_path2 = process_url(url2, 'logo_phishing.xlsx')
+    
+    # Si les chemins d'image sont valides, comparez les images
+    if image_path1 and image_path2:
+        # Charger les images
+        image1 = load_image(image_path1)
+        image2 = load_image(image_path2)
 
+        # Comparez les images et obtenez un score de similarité
+        similarity_score = compare_images(image1, image2)
+        
+        # Afficher le score de similarité
+        print(f"Score de ressemblance entre les images : {similarity_score:.2f}")
+
+# Appel de la fonction principale avec les URL d'entrée
