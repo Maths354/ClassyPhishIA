@@ -1,1 +1,33 @@
-valid url
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse de site de phishing</title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+    <a href="/" id="back-button">Retour</a>
+    <div class="container">
+        <h1>Informations sur l'analyse d'un site de phishing</h1>
+        <h3>URL analysé : {% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
+        <div class="score">
+            <h2>Similarité avec le site "Orange": 85% </h2>
+        </div>
+        <div class="sub-scores">
+            <h3>Sous-scores d'analyse :</h3>
+            <ul>
+                <li>Analyse URL : {{ infoURL[0] * 100 }} %<br/>
+                    {% if infoURL %}
+                    <p style="color: red;">{{ infoURL }}</p>
+                    {% endif %}
+                </li>
+                
+                <li>Analyse logo : 80%</li>
+                <li>Analyse mot-clé : 85%</li>
+                <li>Analyse certificat : 75%</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
