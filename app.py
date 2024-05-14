@@ -1,5 +1,8 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
 from analyse_phishing.check_url.check_url import CheckURL
+from analyse_phishing.extract_url.extract_url import ExtractURL
+
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'secret_key_test'
@@ -11,18 +14,31 @@ def home():
 @app.route('/', methods=['POST'])
 def validate_url():
     phishing_link = request.form['phishing-link']
+
+    # Vérifier de l'URL
     if phishing_link.startswith('http://') or phishing_link.startswith('https://'):
-        session['phishing_link'] = phishing_link
-        return redirect(url_for('valid_url_page'))
+
+        try:
+            requests.get(phishing_link)
+            #if response.status_code == 200 :
+            session['phishing_link'] = phishing_link
+            return redirect(url_for('valid_url_page'))
+        except requests.ConnectionError:
+            error_message = "URL non disponible."
+            return render_template('home.html', error_message=error_message)           
+            
     else:
-        error_message = "L'URL n'est pas valide ou non disponible."
+        error_message = "URL n'est pas valide"
         return render_template('home.html', error_message=error_message)
 
 @app.route('/valid-url')
 def valid_url_page():
     phishing_link = session.pop('phishing_link', None)  # Récupérer l'URL depuis la session
+
     infoURL = CheckURL(phishing_link)
-    return render_template('valid_url.html', infoURL=infoURL.url_matching(), phishing_link=phishing_link)
+    extractURL = ExtractURL(phishing_link)
+
+    return render_template('valid_url.html', extractURL=extractURL.extract_and_save_urls(), infoURL=infoURL.url_matching(), phishing_link=phishing_link)
 
 if __name__ == '__main__':
     app.run(debug=True)
