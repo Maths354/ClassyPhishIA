@@ -1,6 +1,24 @@
 
-from check_url.check_url import CheckURL
+from analyse_phishing.check_url.check_url import CheckURL
+from analyse_phishing.extract_url.extract_url import ExtractURL
+from analyse_phishing.extract_logo.extract_logo import ExtractLogo
 
-if __name__ == "__main__":
-    pass
+class Main:
+    
+    def __init__(self, url):
+        self.url = url
+
+    def main(self):
+
+        checkURL = CheckURL(self.url)
+        extractURL = ExtractURL(self.url)
+        extractLogo = ExtractLogo(self.url)
+
+        all_data = { "checkURL": checkURL.url_matching(),
+                     "extractURL": extractURL.extract_and_save_urls(),
+                      "extractLogo": extractLogo.extract_logo_url() }
+
+        return all_data
+
+
     

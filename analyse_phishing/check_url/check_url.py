@@ -1,7 +1,6 @@
 
 import difflib
 
-
 class CheckURL:
     
     def __init__(self, url):

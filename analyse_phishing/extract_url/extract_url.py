@@ -1,6 +1,5 @@
 
 import requests
-from bs4 import BeautifulSoup
 import re
 
 class ExtractURL:
@@ -17,9 +16,6 @@ class ExtractURL:
 
         # Faire la requête HTTP avec l'en-tête User-Agent
         response = requests.get(self.url, headers=headers)
-
-        # Utiliser BeautifulSoup pour analyser le contenu HTML
-        soup = BeautifulSoup(response.text, 'html.parser')
 
         # Extraire les URL avec l'expression régulière
         regex_urls = re.findall(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+|http://[^\s<>"]+', response.text)

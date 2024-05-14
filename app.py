@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
-from analyse_phishing.check_url.check_url import CheckURL
-from analyse_phishing.extract_url.extract_url import ExtractURL
+# from analyse_phishing.check_url.check_url import CheckURL
+# from analyse_phishing.extract_url.extract_url import ExtractURL
+from analyse_phishing.main import Main
 
 import requests
 
@@ -34,11 +35,10 @@ def validate_url():
 @app.route('/valid-url')
 def valid_url_page():
     phishing_link = session.pop('phishing_link', None)  # Récupérer l'URL depuis la session
+    
+    allData = Main(phishing_link)
 
-    infoURL = CheckURL(phishing_link)
-    extractURL = ExtractURL(phishing_link)
-
-    return render_template('valid_url.html', extractURL=extractURL.extract_and_save_urls(), infoURL=infoURL.url_matching(), phishing_link=phishing_link)
+    return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link)
 
 if __name__ == '__main__':
     app.run(debug=True)
