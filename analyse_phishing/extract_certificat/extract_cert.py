@@ -22,12 +22,8 @@ class ExtractCert():
     def __init__(self, url):
         assert isinstance(url, str)
         self.url=url.split("/")[2]
-        if "https" in url:
-            self._port=443
-            self._cert_info=self.__get_cert()
-        elif "http" in url:
-            self._port=80
-            self._cert_info=dict()
+        self._port=443
+        self._cert_info=self.__get_cert()
 
 
 
