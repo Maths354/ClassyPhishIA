@@ -6,7 +6,7 @@ import numpy as np
 
 class Graph:
 
-    def __init__(self,y_tab=[10,30,80,40]):
+    def __init__(self,y_tab=[0,0,0,0]):
         assert isinstance(y_tab,list)
         self.y_tab=y_tab
         self.x_tab=["URL","Certificat","Logo","toto"]
