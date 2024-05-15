@@ -22,16 +22,30 @@ class ExtractCert():
     def __init__(self, url):
         assert isinstance(url, str)
         self.url=url.split("/")[2]
-        self._port=443
-        self._cert_info=self.__get_cert()
+        if "https" in url:
+            self._port=443
+            self._cert_info=self.__get_cert()
+        elif "http" in url:
+            self._port=80
+            self._cert_info=dict()
+
+
 
     def __get_cert(self):
-        context = ssl.create_default_context()
-        with socket.create_connection((self.url, self._port)) as sock:
-            with context.wrap_socket(sock, server_hostname=self.url) as ssock:
-                cert = ssock.getpeercert()
-                return cert
+        try:
+            context = ssl.create_default_context()
+            with socket.create_connection((self.url, self._port)) as sock:
+                with context.wrap_socket(sock, server_hostname=self.url) as ssock:
+                    cert = ssock.getpeercert()
+                    return cert
+        except:
+            return dict()
     
     def get_cert_info(self):
+        """
+        If the variable self._cert_info is empty {}, it can be due by two things : 
+            - HTTP protocol (no cert available)
+            - Website not hosted on port 443
+        """
         return self._cert_info
         
