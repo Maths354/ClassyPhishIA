@@ -2,4 +2,4 @@
 
 ## Install Flask
 
-pip install Flask
+pip install flask flask_sqlalchemy flask-migrate
