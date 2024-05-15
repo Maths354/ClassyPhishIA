@@ -12,6 +12,7 @@ class Graph:
         self.x_tab=["URL","Certificat","Logo","toto"]
 
     def grt(self):
+        
         fig = Figure()
 
         x = np.array(self.x_tab)
