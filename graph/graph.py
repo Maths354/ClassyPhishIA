@@ -6,14 +6,16 @@ import numpy as np
 
 class Graph:
 
-    def __init__(self):
-        pass
+    def __init__(self,y_tab=[10,30,80,40]):
+        assert isinstance(y_tab,list)
+        self.y_tab=y_tab
+        self.x_tab=["URL","Certificat","Logo","toto"]
 
     def grt(self):
         fig = Figure()
 
-        x = np.array(["A", "B", "C", "D"])
-        y = np.array([3, 8, 1, 10])
+        x = np.array(self.x_tab)
+        y = np.array(self.y_tab)
     
         ax = fig.subplots()
         ax.bar(x, y)
