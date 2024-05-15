@@ -1,7 +1,9 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
-# from analyse_phishing.check_url.check_url import CheckURL
-# from analyse_phishing.extract_url.extract_url import ExtractURL
+
 from analyse_phishing.main import Main
+from graph.graph import Graph
+from markupsafe import Markup # type: ignore
+
 
 import requests
 
@@ -37,8 +39,9 @@ def valid_url_page():
     phishing_link = session.pop('phishing_link', None)  # Récupérer l'URL depuis la session
     
     allData = Main(phishing_link)
+    graph = Graph().grt()
 
-    return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link)
+    return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link, graph=Markup(graph))
 
 if __name__ == '__main__':
     app.run(debug=True)
