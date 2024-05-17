@@ -4,7 +4,8 @@ from flask_sqlalchemy import SQLAlchemy # type: ignore
 from models import db
 from analyse_phishing.main import Main
 from graph.graph import BarChart
-from request_db import post_data
+from models import OfficalSite, PhishingSite
+from request_db import insert_table, update_recurrant_domain
 
 from markupsafe import Markup # type: ignore
 import requests
@@ -24,7 +25,7 @@ def validate_url():
     phishing_link = request.form['phishing-link']
 
     # Vérifier de l'URL
-    if phishing_link.startswith('http://') or phishing_link.startswith('https://'):
+    if (phishing_link.startswith('http://') or phishing_link.startswith('https://')) and len(phishing_link)<=255:
 
         try:
             requests.get(phishing_link)
@@ -46,7 +47,12 @@ def valid_url_page():
     allData = Main(phishing_link)
     barchart = BarChart().grt()
 
-    post_data(phishing_link)
+    my_off_site = OfficalSite(url="www.orange.fr", list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
+    insert_table(upload=my_off_site)
+    my_phish_site = PhishingSite(id_offical_site=1, url=phishing_link, list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
+    insert_table(upload=my_phish_site)
+
+    update_recurrant_domain(phishing_link=phishing_link)
 
     return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link, barchart=Markup(barchart))
 

@@ -8,9 +8,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
 
-def post_data(phishing_link):
-    upload = PhishingSite(url_phish=phishing_link, data_logo='data_logo', data_cert='data_cert',data_url='data_url')
 
+def insert_table(upload):
     try:
         with app.app_context():
             db.session.add(upload)
@@ -18,6 +17,7 @@ def post_data(phishing_link):
     except:
         raise Exception("Error while trying to use Flask app")
 
+def update_recurrant_domain(phishing_link):
     try:
         url = phishing_link.split("/")[2].split(".")
         domain_id = url[len(url)-1]
