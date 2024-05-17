@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy # type: ignore
 
 from models import db, PhishingInfo, ReccurentDomain
 from analyse_phishing.main import Main
-from graph.graph import Graph
+from graph.graph import BarChart
 from request_db import post_data
 
 from markupsafe import Markup # type: ignore
@@ -45,11 +45,11 @@ def valid_url_page():
     phishing_link = session.pop('phishing_link', None)  # Récupérer l'URL depuis la session
     
     allData = Main(phishing_link)
-    graph = Graph().grt()
+    barchart = BarChart().grt()
 
     post_data(phishing_link)
 
-    return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link, graph=Markup(graph))
+    return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link, barchart=Markup(barchart))
 
 if __name__ == '__main__':
     app.run(debug=True)

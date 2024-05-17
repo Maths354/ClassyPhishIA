@@ -4,7 +4,7 @@ import base64
 from io import BytesIO
 import numpy as np
 
-class Graph:
+class BarChart:
 
     def __init__(self,y_tab=[0,0,0,0]):
         assert isinstance(y_tab,list)
@@ -26,5 +26,3 @@ class Graph:
 
         data = base64.b64encode(buf.getbuffer()).decode("ascii")
         return f"<img src='data:image/png;base64,{data}'/>"
-    
-    
