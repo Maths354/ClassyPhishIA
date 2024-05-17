@@ -1,13 +1,12 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
-from models import db, PhishingInfo, ReccurentDomain
+from models import db
 from analyse_phishing.main import Main
 from graph.graph import BarChart
 from request_db import post_data
 
 from markupsafe import Markup # type: ignore
-from os import path
 import requests
 
 app = Flask(__name__)
