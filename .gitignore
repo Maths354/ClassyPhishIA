@@ -4,6 +4,7 @@ env
 # Flask stuff:
 instance/
 .webassets-cache
+.db
 
 # Environments
 .env
