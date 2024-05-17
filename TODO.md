@@ -15,3 +15,7 @@
 
 - Carte intéractive possible avec librairie -> Leaftet JS
 
+## Faire un upload styler des fichier
+
+- Utiliser : Filepond
+
