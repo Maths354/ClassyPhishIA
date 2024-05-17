@@ -1,9 +1,10 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
-from models import db, PhishingInfo
+from models import db, PhishingInfo, ReccurentDomain
 from analyse_phishing.main import Main
 from graph.graph import Graph
+from request_db import post_data
 
 from markupsafe import Markup # type: ignore
 from os import path
@@ -37,17 +38,7 @@ def validate_url():
     else:
         error_message = "URL n'est pas valide"
         return render_template('home.html', error_message=error_message)
-    
-def post_data(phishing_link):
-    upload = PhishingInfo(url_phish=phishing_link, data_logo='data_logo', data_cert='data_cert',
-        data_url='data_url')
 
-    try:
-        db.session.add(upload)
-        db.session.commit()
-        print("Upload success")
-    except:
-        print("Error Upload")
 
 @app.route('/valid-url', methods=['GET', 'POST'])
 def valid_url_page():
