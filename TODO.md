@@ -11,3 +11,7 @@
 - Positif : Protocole "https" utilisé
 - Négatif : Nom de domaine acquis récemment
 
+## Avoir la localisation du site web
+
+- Carte intéractive possible avec librairie -> Leaftet JS
+
