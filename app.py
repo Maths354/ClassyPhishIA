@@ -5,7 +5,7 @@ from models import db
 from analyse_phishing.main import Main
 from graph.graph import BarChart
 from models import OfficalSite, PhishingSite
-from request_db import insert_table, update_recurrant_domain
+from request_db import insert_table, get_table, update_recurrant_domain
 
 from markupsafe import Markup # type: ignore
 import requests

@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 
 
 def insert_table(upload):
+    assert isinstance(upload,(OfficalSite,PhishingSite,ReccurentDomain,Score))
     try:
         with app.app_context():
             db.session.add(upload)
@@ -17,7 +18,19 @@ def insert_table(upload):
     except:
         raise Exception("Error while trying to use Flask app")
 
+
+def get_table(table):
+    assert isinstance(table,(OfficalSite,PhishingSite,ReccurentDomain,Score))
+    try:
+        with app.app_context():
+            datas = db.session.get(table,1)
+            return datas
+    except:
+        raise Exception("Error while trying to use Flask app")
+
+
 def update_recurrant_domain(phishing_link):
+    assert isinstance(phishing_link,str)
     try:
         url = phishing_link.split("/")[2].split(".")
         domain_id = url[len(url)-1]
