@@ -1,11 +1,12 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
-from models import db
 from analyse_phishing.main import Main
 from graph.graph import BarChart
-from models import OfficalSite, PhishingSite
-from request_db import insert_table, get_table, update_recurrant_domain
+from models.models import OfficalSite, PhishingSite
+#from models.post import insert_table, update_recurrant_domain
+from models.questions import Questions
+from models.post import Post
 
 from markupsafe import Markup # type: ignore
 import requests
@@ -48,11 +49,11 @@ def valid_url_page():
     barchart = BarChart().grt()
 
     my_off_site = OfficalSite(url="www.orange.fr", list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
-    insert_table(upload=my_off_site)
+    Post().insert_table(upload=my_off_site)
     my_phish_site = PhishingSite(id_offical_site=1, url=phishing_link, list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
-    insert_table(upload=my_phish_site)
+    Post().insert_table(upload=my_phish_site)
 
-    update_recurrant_domain(phishing_link=phishing_link)
+    Post().update_recurrant_domain(phishing_link=phishing_link)
 
     return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link, barchart=Markup(barchart))
 
