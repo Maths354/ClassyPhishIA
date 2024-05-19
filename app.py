@@ -2,19 +2,20 @@ from flask import Flask, request, redirect, url_for, render_template, session # 
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
 from analyse_phishing.main import Main
-from graph.graph import BarChart
-from models.models import OfficalSite, PhishingSite
-#from models.post import insert_table, update_recurrant_domain
-from models.questions import Questions
-from models.post import Post
+from apps.graph.graph import BarChart
+
+#Import DB things
+from apps.models.models import OfficalSite, PhishingSite
+from apps.models.questions import Questions
+from apps.models.post import Post
 
 from markupsafe import Markup # type: ignore
 import requests
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
 app.secret_key = 'secret_key_test'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///apps/data.db'
 db = SQLAlchemy(app)
 
 @app.route('/')

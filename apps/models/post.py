@@ -1,7 +1,7 @@
 from flask import Flask # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
-from models.models import db, OfficalSite, PhishingSite, ReccurentDomain, Score
+from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, Score
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
