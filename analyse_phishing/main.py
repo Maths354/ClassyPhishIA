@@ -1,7 +1,7 @@
 
 from analyse_phishing.check_url.check_url import CheckURL
-from analyse_phishing.extract_url.extract_url import ExtractURL
-from analyse_phishing.extract_logo.extract_logo import ExtractLogo
+from analyse_phishing.extract_url.extract_url import ExtractUrlBalises
+from analyse_phishing.extract_logo.extract_logo import ExtractLOGO
 from analyse_phishing.extract_certificat.extract_cert import ExtractCert
 
 from analyse_phishing.model.model import Model
@@ -14,8 +14,8 @@ class Main:
     def main(self):
 
         checkURL = CheckURL(self.url)
-        extractURL = ExtractURL(self.url)
-        extractLogo = ExtractLogo(self.url)
+        extractURL = ExtractUrlBalises(self.url)
+        extractLogo = ExtractLOGO(self.url)
         extractCert = ExtractCert(self.url)
 
         #Il faut envoyer au model le score en 0 et 1 des analyse de l'url, logo, cert...
