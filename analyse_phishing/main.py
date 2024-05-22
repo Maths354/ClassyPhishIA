@@ -25,7 +25,7 @@ class Main:
 
         all_data = { "resultModel": modelResult.prediction(),
                      "checkURL": checkURL.url_matching(),
-                     "extractURL": extractURL.extract_and_save_urls(),
+                     "extractURL": extractURL.extract_urls(),
                      "extractLogo": extractLogo.extract_logo_url(),
                      "extractCert": extractCert.get_cert_info() }
 
