@@ -15,7 +15,7 @@ import requests
 app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
 app.secret_key = 'secret_key_test'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///apps/data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
 @app.route('/')
@@ -49,14 +49,16 @@ def valid_url_page():
     allData = Main(phishing_link)
     barchart = BarChart().grt()
 
+    allData=allData.main()
+
     my_off_site = OfficalSite(url="www.orange.fr", list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
     Post().insert_table(upload=my_off_site)
-    my_phish_site = PhishingSite(id_offical_site=1, url=phishing_link, list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
+    my_phish_site = PhishingSite(id_offical_site=1, url=str(allData["checkURL"]), list_url=str(allData["extractURL"]), logo=str(allData["extractLogo"]), key_word=str(allData["extractKeyword"]), certificate=str(allData["extractCert"]), template=str(allData["extractTemplate"]))
     Post().insert_table(upload=my_phish_site)
 
     Post().update_recurrant_domain(phishing_link=phishing_link)
 
-    return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link, barchart=Markup(barchart))
+    return render_template('valid_url.html', allData=allData, phishing_link=phishing_link, barchart=Markup(barchart))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -27,7 +27,10 @@ class Main:
                      "checkURL": checkURL.url_matching(),
                      "extractURL": extractURL.extract_and_save_urls(),
                      "extractLogo": extractLogo.extract_logo_url(),
-                     "extractCert": extractCert.get_cert_info() }
+                     "extractCert": extractCert.get_cert_info(),
+                     "extractTemplate": "template",
+                     "extractKeyword": "keyword"
+                    }
 
         return all_data
     
