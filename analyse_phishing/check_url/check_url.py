@@ -23,6 +23,4 @@ class CheckURL:
                         top_ratio=ratio
                         top_string=company[start_letter:end_letter+1]
 
-        print("test1 : ", top_ratio, " ", top_string)
-
         return float("%.3f" % top_ratio), top_string

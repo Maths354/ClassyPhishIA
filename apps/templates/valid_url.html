@@ -12,7 +12,7 @@
         <h1>Informations sur l'analyse d'un site de phishing</h1>
         <h3>URL analysé : {% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
         <div class="score">
-            <h2>Similarité avec le site "Orange": 85% </h2>
+            <h2>Similarité avec le site "Orange": {{ allData.resultModel * 100 }}% </h2>
         </div>
         <div class="sub-scores">
             <h3>Sous-scores d'analyse :</h3>
@@ -62,7 +62,7 @@
                 </li>
             </ul>
             <p>TEST GRAPH</p><br>
-            {{ graph }}
+            {{ barchart }}
         </div>
     </div>
 </body>
