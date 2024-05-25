@@ -12,7 +12,6 @@ class ExtractLOGO:
     def __init__(self, url=None):
         self.url = url
 
-    @staticmethod
     def extract_logo_url(url):
         try:
             response = requests.get(url, timeout=10)
@@ -51,7 +50,6 @@ class ExtractLOGO:
             logging.error(f"Erreur lors de l'extraction du logo : {e}")
             return None
 
-    @staticmethod
     def download_image_and_compute_sha256(image_url, data_id, directory='./'):
         try:
             if not os.path.exists(directory):
@@ -77,7 +75,6 @@ class ExtractLOGO:
             logging.error(f"Erreur lors du téléchargement de l'image : {e}")
             return None, None
 
-    @staticmethod
     def process_url(url):
         logo_url = ExtractLOGO.extract_logo_url(url)
 
@@ -93,18 +90,15 @@ class ExtractLOGO:
             logging.info("Aucun logo trouvé pour ce site.")
             return None, None
 
-    @staticmethod
     def load_image(file_path):
         image = cv2.imread(file_path)
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         return gray_image
 
-    @staticmethod
     def resize_image(image, size):
         resized_image = cv2.resize(image, size, interpolation=cv2.INTER_AREA)
         return resized_image
 
-    @staticmethod
     def compare_images(image1, image2):
         size = (min(image1.shape[1], image2.shape[1]), min(image1.shape[0], image2.shape[0]))
         resized_image1 = ExtractLOGO.resize_image(image1, size)
@@ -112,7 +106,6 @@ class ExtractLOGO:
         similarity, _ = ssim(resized_image1, resized_image2, full=True)
         return similarity
 
-    @classmethod
     def logo_info(cls, url1, url2=None):
         image_path1, hash1 = cls.process_url(url1)
         image_path2 = None

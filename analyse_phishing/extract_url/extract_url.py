@@ -6,13 +6,11 @@ class ExtractUrlBalises:
     def __init__(self, url):
         self.url = url
 
-    @staticmethod
     def compute_similarity_score(urls_balises1, urls_balises2):
         # Calcul du ratio de similarité entre les deux structures de balises parsées
         similarity_ratio = difflib.SequenceMatcher(None, urls_balises1, urls_balises2).ratio()
         return similarity_ratio
 
-    @staticmethod
     def extract_urls(url):
         # Définir un en-tête User-Agent
         headers = {
@@ -36,7 +34,6 @@ class ExtractUrlBalises:
             print("La requête a échoué avec le code de statut:", response.status_code)
             return []
 
-    @classmethod
     def urls_balises_info(cls, url_legitime, url_phishing=None):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
 

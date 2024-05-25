@@ -10,7 +10,6 @@ class ExtractBALISES:
     def __init__(self, url):
         self.url = url
 
-    @staticmethod
     def parse_html_string(html_string):
         # Using re library to get all tags
         tags = re.findall(r'<[^>]+>', html_string)
@@ -32,7 +31,6 @@ class ExtractBALISES:
                 parsed_tag += ")"
         return parsed_tag
 
-    @staticmethod
     def clean_text_tags(tag):
         # Supprime complètement le contenu de la balise
         tag.clear()
@@ -125,13 +123,11 @@ class ExtractBALISES:
             print(f"Une erreur s'est produite lors du traitement du HTML : {e}")
             return None
 
-    @staticmethod
     def compute_similarity_score(parsed_tags1, parsed_tags2):
         # Calcul du ratio de similarité entre les deux structures de balises parsées
         similarity_ratio = difflib.SequenceMatcher(None, parsed_tags1, parsed_tags2).ratio()
         return similarity_ratio
 
-    @staticmethod
     def balises_info(url_legitime, url_phishing):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
         
