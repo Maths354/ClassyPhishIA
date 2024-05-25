@@ -37,25 +37,26 @@ class ExtractUrlBalises:
             return []
 
     @classmethod
-    def urls_balises_info(cls, url_legitime, url_phishing):
+    def urls_balises_info(cls, url_legitime, url_phishing=None):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
 
         # Initialisation des variables pour les balises HTML extraites
         urls_balises1 = cls.extract_urls(url_legitime)
         urls_balises2 = None
 
-        # Vérification de l'URL de phishing
-        url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
-        if url_pattern.match(url_phishing):
-            # Traitement de l'URL de phishing
-            urls_balises2 = cls.extract_urls(url_phishing)
-        else:
-            print(f"L'URL de phishing : {url_phishing} n'est pas une URL valide.")
+        # Vérification de l'URL de phishing si fournie
+        if url_phishing:
+            url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
+            if url_pattern.match(url_phishing):
+                # Traitement de l'URL de phishing
+                urls_balises2 = cls.extract_urls(url_phishing)
+            else:
+                print(f"L'URL de phishing : {url_phishing} n'est pas une URL valide.")
 
         # Si les deux URLs sont valides, calculer le score de similarité des balises
         if urls_balises1 and urls_balises2:
             similarity_score = cls.compute_similarity_score(urls_balises1, urls_balises2)
-            # print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
+            print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
 
         # Retourner les balises HTML extraites
         return urls_balises1
@@ -63,4 +64,4 @@ class ExtractUrlBalises:
 # if __name__ == "__main__":
 #     url_legitime = "https://www.orange.fr/portail"
 #     url_phishing = "https://www.keraunos.org/"
-#     ExtractUrlBalises.urls_balises_info(url_legitime, url_phishing)
+#     ExtractUrlBalises.urls_balises_info(url_legitime)

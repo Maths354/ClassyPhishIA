@@ -113,9 +113,13 @@ class ExtractLOGO:
         return similarity
 
     @classmethod
-    def logo_info(cls, url1, url2):
+    def logo_info(cls, url1, url2=None):
         image_path1, hash1 = cls.process_url(url1)
-        image_path2, hash2 = cls.process_url(url2)
+        image_path2 = None
+        hash2 = None
+
+        if url2:
+            image_path2, hash2 = cls.process_url(url2)
 
         if image_path1 and image_path2:
             image1 = cls.load_image(image_path1)
@@ -130,4 +134,4 @@ class ExtractLOGO:
 # if __name__ == "__main__":
 #     url1 = "https://www.orange.fr/portail"
 #     url2 = "https://www.keraunos.org/"
-#     ExtractLOGO.logo_info(url1, url2)
+#     ExtractLOGO.logo_info(url1)
