@@ -1,16 +1,18 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
-from models import db, PhishingInfo, ReccurentDomain
 from analyse_phishing.main import Main
-from graph.graph import BarChart
-from request_db import post_data
+from apps.graph.graph import BarChart
+
+#Import DB things
+from apps.models.models import OfficalSite, PhishingSite
+from apps.models.questions import Questions
+from apps.models.post import Post
 
 from markupsafe import Markup # type: ignore
-from os import path
 import requests
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
 app.secret_key = 'secret_key_test'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -18,14 +20,14 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
-    return render_template('home.html', bg_class='left-image')
+    return render_template('home.html')
 
 @app.route('/', methods=['POST'])
 def validate_url():
     phishing_link = request.form['phishing-link']
 
     # Vérifier de l'URL
-    if phishing_link.startswith('http://') or phishing_link.startswith('https://'):
+    if (phishing_link.startswith('http://') or phishing_link.startswith('https://')) and len(phishing_link)<=255:
 
         try:
             requests.get(phishing_link)
@@ -47,9 +49,16 @@ def valid_url_page():
     allData = Main(phishing_link)
     barchart = BarChart().grt()
 
-    post_data(phishing_link)
+    allData=allData.main()
 
-    return render_template('valid_url.html', allData=allData.main(), phishing_link=phishing_link, barchart=Markup(barchart))
+    my_off_site = OfficalSite(url="www.orange.fr", list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
+    Post().insert_table(upload=my_off_site)
+    my_phish_site = PhishingSite(id_offical_site=1, url=str(allData["checkURL"]), list_url=str(allData["extractURL"]), logo=str(allData["extractLogo"]), key_word=str(allData["extractKeyword"]), certificate=str(allData["extractCert"]), template=str(allData["extractTemplate"]))
+    Post().insert_table(upload=my_phish_site)
+
+    Post().update_recurrant_domain(phishing_link=phishing_link)
+
+    return render_template('valid_url.html', allData=allData, phishing_link=phishing_link, barchart=Markup(barchart))
 
 if __name__ == '__main__':
     app.run(debug=True)

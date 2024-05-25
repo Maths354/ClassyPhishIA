@@ -1,0 +1,75 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(112.5deg, rgb(162,162,162) 0%, rgb(162,162,162) 10%,rgb(195, 195, 195) 10%, rgb(195, 195, 195) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157, 157, 157) 55%, rgb(157, 157, 157) 60%,rgb(137, 137, 137) 60%, rgb(137, 137, 137) 88%,rgb(118, 118, 118) 88%, rgb(118, 118, 118) 91%,rgb(99, 99, 99) 91%, rgb(99, 99, 99) 100%),linear-gradient(157.5deg, rgb(162,162,162) 0%, rgb(162,162,162) 10%,rgb(195, 195, 195) 10%, rgb(195, 195, 195) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157, 157, 157) 55%, rgb(157, 157, 157) 60%,rgb(137, 137, 137) 60%, rgb(137, 137, 137) 88%,rgb(118, 118, 118) 88%, rgb(118, 118, 118) 91%,rgb(99, 99, 99) 91%, rgb(99, 99, 99) 100%),linear-gradient(135deg, rgb(162,162,162) 0%, rgb(162,162,162) 10%,rgb(195, 195, 195) 10%, rgb(195, 195, 195) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157, 157, 157) 55%, rgb(157, 157, 157) 60%,rgb(137, 137, 137) 60%, rgb(137, 137, 137) 88%,rgb(118, 118, 118) 88%, rgb(118, 118, 118) 91%,rgb(99, 99, 99) 91%, rgb(99, 99, 99) 100%),linear-gradient(90deg, rgb(195, 195, 195),rgb(228, 228, 228)); background-blend-mode:overlay,overlay,overlay,normal;
+}
+
+.container {
+    text-align: center;
+    padding: 50px;
+    color: black;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    min-height: calc(50vh - 70px); /* Ajuste la hauteur en fonction du header et footer */
+    color: black;
+}
+
+.left-image {
+    flex: 1; /* Maintient la flexibilité mais avec un ajustement de la largeur ci-dessous */
+    height: 350px; /* Conserve une hauteur fixe pour un aspect uniforme */
+    width: 50%; /* Réduit la largeur de l'image par rapport à son conteneur */
+    margin-left: 50px; /* Garde l'image un peu plus à droite */
+    object-fit: cover; /* Assure que l'image couvre la zone définie sans perdre ses proportions */
+}
+
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#phishing-form {
+    flex: 2;
+    margin-left: 20px;
+}
+
+input[type="text"] {
+    padding: 15px; /* Agrandir la hauteur du champ */
+    margin: 10px;
+    width: 80%; /* Agrandir la largeur du champ */
+    font-size: 16px; /* Agrandir la taille de la police */
+    border: 2px solid blue; /* Accentuer la bordure */
+    border-radius: 5px;
+}
+
+button {
+    padding: 15px 30px;
+    background-color: blue;
+    color: white;
+    font-size: 16px; /* Agrandir la taille de la police pour le bouton */
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+button:hover {
+    background-color: darkblue;
+}
+
+.error-message {
+    color: red;
+}
+
+footer {
+    position: fixed;
+    bottom: 1;
+    width: 100%;
+    text-align: center;
+}
