@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', bg_class='left-image')
 
 @app.route('/', methods=['POST'])
 def validate_url():

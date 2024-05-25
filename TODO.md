@@ -19,3 +19,8 @@
 
 - Utiliser : Filepond
 
+
+## POUR FAIRE DES GRAPHS JS 
+
+- utiliser chart.js : https://www.chartjs.org/
+
