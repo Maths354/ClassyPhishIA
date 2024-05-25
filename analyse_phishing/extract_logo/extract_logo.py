@@ -122,7 +122,7 @@ class ExtractLOGO:
             logging.info(f"SHA-256 de l'image 1 : {hash1}")
             logging.info(f"SHA-256 de l'image 2 : {hash2}")
 
-        return hash1
+        return hash1, similarity_score
 
 # if __name__ == "__main__":
 #     url1 = "https://www.orange.fr/portail"

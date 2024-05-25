@@ -56,7 +56,7 @@ class ExtractUrlBalises:
             print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
 
         # Retourner les balises HTML extraites
-        return urls_balises1
+        return urls_balises1, similarity_score
 
 # if __name__ == "__main__":
 #     url_legitime = "https://www.orange.fr/portail"

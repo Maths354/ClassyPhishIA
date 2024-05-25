@@ -169,7 +169,7 @@ class ExtractBALISES:
             similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags1, parsed_tags2)
             print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
         
-        return parsed_tags1
+        return parsed_tags1, similarity_score
 
 # if __name__ == "__main__":
 #     url_legitime = "https://www.keraunos.org/"
