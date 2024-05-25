@@ -12,24 +12,24 @@ class ExtractBALISES:
 
     @staticmethod
     def parse_html_string(html_string):
-        #using re library to get all tags
+        # Using re library to get all tags
         tags = re.findall(r'<[^>]+>', html_string)
 
-        #String variable used to concatenate parsed tag
+        # String variable used to concatenate parsed tag
         parsed_tag=""
 
-        #Check every tag
+        # Check every tag
         for tag in tags:
-            #condition used to get only the start of the tag, for example "span" from <span class="time">
+            # Condition used to get only the start of the tag, for example "span" from <span class="time">
             if " " in tag:
-                tag = tag.replace(tag,tag.split(" ")[0])
-            #condition used to get only start tag like <span>
+                tag = tag.replace(tag, tag.split(" ")[0])
+            # Condition used to get only start tag like <span>
             if "/" not in tag:
-                tag=tag.split("<")[1].split(">")[0]
-                parsed_tag+=f"{tag}+("
-            #condition used to get only end tag like </span>
+                tag = tag.split("<")[1].split(">")[0]
+                parsed_tag += f"{tag}+("
+            # Condition used to get only end tag like </span>
             else:
-                parsed_tag+=")"
+                parsed_tag += ")"
         return parsed_tag
 
     @staticmethod
@@ -132,7 +132,7 @@ class ExtractBALISES:
         return similarity_ratio
 
     @staticmethod
-    def url_input(url_legitime, url_phishing):
+    def balises_info(url_legitime, url_phishing):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
         
         # Définition du pattern d'URL
@@ -150,9 +150,7 @@ class ExtractBALISES:
             
             if cleaned_html1:
                 # Extraction et affichage des balises HTML parsées
-                print("\nTags parsés de l'URL 1:")
                 parsed_tags1 = extract1.parse_html_string(cleaned_html1)
-                print(parsed_tags1)
 
         else:
             print(f"L'URL légitime : {url_legitime} n'est pas une URL valide.")
@@ -165,9 +163,7 @@ class ExtractBALISES:
             
             if cleaned_html2:
                 # Extraction et affichage des balises HTML parsées
-                print("\nTags parsés de l'URL 2:")
                 parsed_tags2 = extract2.parse_html_string(cleaned_html2)
-                print(parsed_tags2)
         
         else:
             print(f"L'URL de phishing : {url_phishing} n'est pas une URL valide.")
@@ -177,10 +173,9 @@ class ExtractBALISES:
             similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags1, parsed_tags2)
             print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
         
-        # Retourner les balises HTML extraites
-        return parsed_tags1, parsed_tags2
+        return parsed_tags1
 
-if __name__ == "__main__":
-    url_legitime = "https://www.keraunos.org/"
-    url_phishing = "https://www.keraunos.org/"
-    ExtractBALISES.url_input(url_legitime, url_phishing)
+# if __name__ == "__main__":
+#     url_legitime = "https://www.keraunos.org/"
+#     url_phishing = "https://www.keraunos.org/"
+#     ExtractBALISES.balises_info(url_legitime, url_phishing)

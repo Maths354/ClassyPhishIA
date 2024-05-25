@@ -34,7 +34,7 @@ class ExtractUrlBalises:
             print("La requête a échoué avec le code de statut:", response.status_code)
             return []
 
-    def input_urls_balises(self, url_phishing):
+    def urls_balises_info(self, url_phishing):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
 
         # Initialisation des variables pour les balises HTML extraites
@@ -56,11 +56,10 @@ class ExtractUrlBalises:
             print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
 
         # Retourner les balises HTML extraites
-        return urls_balises1, urls_balises2
+        return urls_balises1
 
-
-if __name__ == "__main__":
-    url_legitime = "https://www.orange.fr/portail"
-    url_phishing = "https://www.keraunos.org/"
-    extractor = ExtractUrlBalises(url_legitime)
-    extractor.input_urls_balises(url_phishing)
+# if __name__ == "__main__":
+#     url_legitime = "https://www.orange.fr/portail"
+#     url_phishing = "https://www.keraunos.org/"
+#     extractor = ExtractUrlBalises(url_legitime)
+#     extractor.urls_balises_info(url_phishing)

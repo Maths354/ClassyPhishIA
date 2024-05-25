@@ -85,7 +85,6 @@ class ExtractLOGO:
 
             if sha256_hash:
                 logging.info(f"SHA-256 de l'image : {sha256_hash}")
-
             return image_path, sha256_hash
         else:
             logging.info("Aucun logo trouvé pour ce site.")
@@ -107,7 +106,7 @@ class ExtractLOGO:
         similarity, _ = ssim(resized_image1, resized_image2, full=True)
         return similarity
 
-    def logo_input(self, url1, url2):
+    def logo_info(self, url1, url2):
         image_path1, hash1 = self.process_url(url1)
         image_path2, hash2 = self.process_url(url2)
 
@@ -115,13 +114,14 @@ class ExtractLOGO:
             image1 = self.load_image(image_path1)
             image2 = self.load_image(image_path2)
             similarity_score = self.compare_images(image1, image2)
-            print(f"Score de ressemblance entre les images : {similarity_score:.2f}")
-            print(f"SHA-256 de l'image 1 : {hash1}")
-            print(f"SHA-256 de l'image 2 : {hash2}")
+            # print(f"Score de ressemblance entre les images : {similarity_score:.2f}")
+            # print(f"SHA-256 de l'image 1 : {hash1}")
+            # print(f"SHA-256 de l'image 2 : {hash2}")
 
-if __name__ == "__main__":
+        return hash1
 
-    url1 = "https://www.orange.fr/portail"
-    url2 = "https://www.keraunos.org/"
-    extractor = ExtractLOGO(url1)
-    extractor.logo_input(url1, url2)
+# if __name__ == "__main__":
+#     url1 = "https://www.orange.fr/portail"
+#     url2 = "https://www.keraunos.org/"
+#     extractor = ExtractLOGO(url1)
+#     extractor.logo_info(url1, url2)
