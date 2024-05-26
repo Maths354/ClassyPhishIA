@@ -43,5 +43,5 @@ class ExtractCert():
             - HTTP protocol (no cert available)
             - Website not hosted on port 443
         """
-        return self._cert_info
+        return self._cert_info, 0
         

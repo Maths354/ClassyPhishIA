@@ -10,7 +10,7 @@ class ExtractBALISES:
     def __init__(self, url):
         self.url = url
 
-    def parse_html_string(html_string):
+    def parse_html_string(self, html_string):
         # Using re library to get all tags
         tags = re.findall(r'<[^>]+>', html_string)
 
@@ -31,11 +31,11 @@ class ExtractBALISES:
                 parsed_tag += ")"
         return parsed_tag
 
-    def clean_text_tags(tag):
+    def clean_text_tags(self, tag):
         # Supprime complètement le contenu de la balise
         tag.clear()
 
-    def process_html(self):
+    def process_html(self, url):
         try:
             # Définir un en-tête User-Agent
             headers = {
@@ -43,7 +43,7 @@ class ExtractBALISES:
             }
             
             # Effectue une requête GET à l'URL fournie avec l'en-tête User-Agent
-            response = requests.get(self.url, headers=headers)
+            response = requests.get(url, headers=headers)
             
             # Vérifie si la requête a réussi (statut 200)
             if response.status_code == 200:
@@ -113,65 +113,48 @@ class ExtractBALISES:
                 cleaned_html = re.sub(r'>[^<]+<', '><', cleaned_html)
                 
                 return cleaned_html
-            elif response.status_code == 403:
-                print("Accès refusé. Veuillez vérifier vos permissions.")
-                return None
             else:
-                print(f"La requête a échoué avec le code d'état : {response.status_code}")
                 return None
         except Exception as e:
-            print(f"Une erreur s'est produite lors du traitement du HTML : {e}")
             return None
 
-    def compute_similarity_score(parsed_tags1, parsed_tags2):
+    def compute_similarity_score(parsed_tags_legitime, parsed_tags_phishing):
         # Calcul du ratio de similarité entre les deux structures de balises parsées
-        similarity_ratio = difflib.SequenceMatcher(None, parsed_tags1, parsed_tags2).ratio()
+        similarity_ratio = difflib.SequenceMatcher(None, parsed_tags_legitime, parsed_tags_phishing).ratio()
         return similarity_ratio
 
-    def balises_info(url_legitime, url_phishing):
+    def balises_info(self, url_legitime="https://www.orange.fr"):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
         
         # Définition du pattern d'URL
         url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
         
         # Initialisation des variables pour les balises HTML extraites
-        parsed_tags1 = None
-        parsed_tags2 = None
+        parsed_tags_legitime = None
+        parsed_tags_phishing = None
         
         # Vérification de l'URL légitime
         if url_pattern.match(url_legitime):
             # Traitement de l'URL légitime
-            extract1 = ExtractBALISES(url_legitime)
-            cleaned_html1 = extract1.process_html()
+            extract_legitime = ExtractBALISES(url_legitime)
+            cleaned_html_legitime = extract_legitime.process_html(url_legitime)
             
-            if cleaned_html1:
+            if cleaned_html_legitime:
                 # Extraction et affichage des balises HTML parsées
-                parsed_tags1 = extract1.parse_html_string(cleaned_html1)
-
-        else:
-            print(f"L'URL légitime : {url_legitime} n'est pas une URL valide.")
+                parsed_tags_legitime = extract_legitime.parse_html_string(cleaned_html_legitime)
         
         # Vérification de l'URL de phishing
-        if url_pattern.match(url_phishing):
+        if url_pattern.match(self.url):
             # Traitement de l'URL de phishing
-            extract2 = ExtractBALISES(url_phishing)
-            cleaned_html2 = extract2.process_html()
+            extract_phishing = ExtractBALISES(self.url)
+            cleaned_html_phishing = extract_phishing.process_html(self.url)
             
-            if cleaned_html2:
+            if cleaned_html_phishing:
                 # Extraction et affichage des balises HTML parsées
-                parsed_tags2 = extract2.parse_html_string(cleaned_html2)
-        
-        else:
-            print(f"L'URL de phishing : {url_phishing} n'est pas une URL valide.")
+                parsed_tags_phishing = extract_phishing.parse_html_string(cleaned_html_phishing)
         
         # Si les deux URLs sont valides, calculer le score de similarité des balises
-        if parsed_tags1 and parsed_tags2:
-            similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags1, parsed_tags2)
-            print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
+        if parsed_tags_legitime and parsed_tags_phishing:
+            similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags_legitime, parsed_tags_phishing)
         
-        return parsed_tags1, similarity_score
-
-# if __name__ == "__main__":
-#     url_legitime = "https://www.keraunos.org/"
-#     url_phishing = "https://www.keraunos.org/"
-#     ExtractBALISES.balises_info(url_legitime, url_phishing)
+        return parsed_tags_phishing, similarity_score

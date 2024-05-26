@@ -12,7 +12,7 @@ class ExtractLOGO:
     def __init__(self, url=None):
         self.url = url
 
-    def extract_logo_url(url):
+    def extract_logo_url(self, url):
         try:
             response = requests.get(url, timeout=10)
             response.raise_for_status()
@@ -50,7 +50,7 @@ class ExtractLOGO:
             logging.error(f"Erreur lors de l'extraction du logo : {e}")
             return None
 
-    def download_image_and_compute_sha256(image_url, data_id, directory='./'):
+    def download_image_and_compute_sha256(self, image_url, data_id, directory='./'):
         try:
             if not os.path.exists(directory):
                 os.makedirs(directory)
@@ -75,13 +75,13 @@ class ExtractLOGO:
             logging.error(f"Erreur lors du téléchargement de l'image : {e}")
             return None, None
 
-    def process_url(url):
-        logo_url = ExtractLOGO.extract_logo_url(url)
+    def process_url(self, url):
+        logo_url = self.extract_logo_url(url)
 
         if logo_url:
             logging.info(f"L'URL du logo du site est : {logo_url}")
             data_id = hashlib.md5(url.encode()).hexdigest()
-            image_path, sha256_hash = ExtractLOGO.download_image_and_compute_sha256(logo_url, data_id)
+            image_path, sha256_hash = self.download_image_and_compute_sha256(logo_url, data_id)
 
             if sha256_hash:
                 logging.info(f"SHA-256 de l'image : {sha256_hash}")
@@ -90,41 +90,35 @@ class ExtractLOGO:
             logging.info("Aucun logo trouvé pour ce site.")
             return None, None
 
-    def load_image(file_path):
-        image = cv2.imread(file_path)
-        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        return gray_image
+    def load_image(self, file_path):
+        try:
+            image = cv2.imread(file_path)
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            return gray_image
+        except:
+            return None
 
-    def resize_image(image, size):
+    def resize_image(self, image, size):
         resized_image = cv2.resize(image, size, interpolation=cv2.INTER_AREA)
         return resized_image
 
-    def compare_images(image1, image2):
-        size = (min(image1.shape[1], image2.shape[1]), min(image1.shape[0], image2.shape[0]))
-        resized_image1 = ExtractLOGO.resize_image(image1, size)
-        resized_image2 = ExtractLOGO.resize_image(image2, size)
-        similarity, _ = ssim(resized_image1, resized_image2, full=True)
+    def compare_images(self, image_legitime, image_phishing):
+        size = (min(image_legitime.shape[1], image_phishing.shape[1]), min(image_legitime.shape[0], image_phishing.shape[0]))
+        resized_image_legitime = self.resize_image(image_legitime, size)
+        resized_image_phishing = self.resize_image(image_phishing, size)
+        similarity, _ = ssim(resized_image_legitime, resized_image_phishing, full=True)
         return similarity
 
-    def logo_info(cls, url1, url2=None):
-        image_path1, hash1 = cls.process_url(url1)
-        image_path2 = None
-        hash2 = None
+    def logo_info(self, url_legitime="https://www.orange.fr",):
+        image_path_legitime, hash_legitime = self.process_url(url_legitime)
+        image_path_phishing, hash_phishing = self.process_url(self.url)
 
-        if url2:
-            image_path2, hash2 = cls.process_url(url2)
-
-        if image_path1 and image_path2:
-            image1 = cls.load_image(image_path1)
-            image2 = cls.load_image(image_path2)
-            similarity_score = cls.compare_images(image1, image2)
+        if image_path_legitime and image_path_phishing:
+            image_legitime = self.load_image(image_path_legitime)
+            image_phishing = self.load_image(image_path_phishing)
+            similarity_score = self.compare_images(image_legitime, image_phishing)
             logging.info(f"Score de ressemblance entre les images : {similarity_score:.2f}")
-            logging.info(f"SHA-256 de l'image 1 : {hash1}")
-            logging.info(f"SHA-256 de l'image 2 : {hash2}")
+            logging.info(f"SHA-256 de l'image 1 : {hash_legitime}")
+            logging.info(f"SHA-256 de l'image 2 : {hash_phishing}")
 
-        return hash1, similarity_score
-
-# if __name__ == "__main__":
-#     url1 = "https://www.orange.fr/portail"
-#     url2 = "https://www.keraunos.org/"
-#     ExtractLOGO.logo_info(url1)
+        return hash_phishing, similarity_score
