@@ -24,8 +24,15 @@
                             <li>
                                 <p style="color: red;">{{ datas.checkURL }}</p>
                             </li>
+                        </ul>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Analyse URL List : {{ scores.extractURL * 100 }}%</summary>
+                        <ul>
                             <li>
-                                <p style="color: red;">{{ datas.extractURL }}</p>
+                                <p style="color: red">{{ datas.extractURL }}</p>
                             </li>
                         </ul>
                     </details>
@@ -40,7 +47,7 @@
                         </ul>
                     </details>
                 </li>
-		 <li>
+		        <li>
                     <details>
                         <summary>Analyse mot-clé : {{ scores.extractKeyword * 100 }}%</summary>
                         <ul>
