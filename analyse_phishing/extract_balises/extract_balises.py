@@ -71,34 +71,31 @@ class ExtractBALISES:
                     cleaned_html = cleaned_html.replace("[", "").replace("]", "")
 
                     # Nettoyage et réécriture des balises ouvrantes et fermantes
-                    lines = cleaned_html.splitlines()
+                    lines = cleaned_html.split(">")
                     cleaned_lines = []
 
                     for line in lines:
                         line = line.strip()
 
-                        if line.startswith("<") and line.endswith(">"):
-                            # Balise ouvrante et fermante
-                            tag = line.split()[0]
-                            cleaned_lines.append(tag + ">")
-                        elif line.startswith("<"):
-                            # Balise ouvrante
-                            tag = line.split()[0]
-                            cleaned_lines.append(tag + ">")
-                        elif line.endswith(">"):
-                            # Balise fermante
-                            tag = line.split()[0].replace("</", "<")
-                            cleaned_lines.append(tag)
-                        else:
-                            # Contenu texte
-                            cleaned_lines.append(line)
+                        if line:
+                            if line.startswith("<"):
+                                # Balise ouvrante et fermante
+                                tag = line.split()[0]
+                                cleaned_lines.append(tag + ">")
+                            elif line.endswith("</"):
+                                # Balise fermante
+                                tag = line.split()[0].replace("</", "<")
+                                cleaned_lines.append(tag)
+                            else:
+                                # Contenu texte
+                                cleaned_lines.append(line)
 
-                    cleaned_html = '\n'.join(cleaned_lines)
+                    cleaned_html = ">".join(cleaned_lines)
 
                     # Correction des balises en double
                     cleaned_html = cleaned_html.replace(">>", ">")
 
-                    # Supprimer le texte entre les balises
+                    # Supprimer le texte à l'intérieur des balises
                     cleaned_html = re.sub(r'>[^<]+<', '><', cleaned_html)
 
                     return cleaned_html
@@ -158,3 +155,11 @@ class ExtractBALISES:
             similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags_legitime, parsed_tags_phishing)
         
         return parsed_tags_phishing, similarity_score
+    
+    
+url = "https://www.keraunos.org/"
+extracteur = ExtractBALISES(url)
+
+# Utiliser la méthode balises_info pour extraire et comparer les balises
+balises, score = extracteur.balises_info()
+print(balises)
