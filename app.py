@@ -46,7 +46,9 @@ def validate_url():
 def valid_url_page():
     phishing_link = session.pop('phishing_link', None)  # Récupérer l'URL depuis la session
     
-    allDatas = Main(phishing_link).main()
+    official_sites=Questions().get_all_table(OfficalSite)
+
+    allDatas = Main(phishing_link).main(official_sites)
     barchart = BarChart().grt()
 
     datas=allDatas["datas"]

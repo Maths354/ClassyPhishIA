@@ -12,7 +12,7 @@ class Main:
     def __init__(self, url):
         self.url = url
 
-    def main(self):
+    def main(self, official_sites):
 
         checkURL = CheckURL(self.url)
         extractURL = ExtractUrlBalises(self.url)
