@@ -31,7 +31,7 @@ class PhishingSite(db.Model):
     logo = db.Column(db.String(10000), nullable=False)
     key_word = db.Column(db.String(10000), nullable=False)
     certificate = db.Column(db.String(10000), nullable=False)
-    template = db.Column(db.String(10000), nullable=False)
+    template = db.Column(db.String(100000), nullable=False)
 
 
 # Création table 'score'
