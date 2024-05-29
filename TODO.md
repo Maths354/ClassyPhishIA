@@ -1,5 +1,17 @@
+# Taches actuel
+===
+
+## Parsing script utilise la bdd pour la comparaison
+
+- ~~checkURL
+- extractURL
+- extractLogo
+- extractCert
+- extractBalises
+- extractKeyword
 
 # Idée
+===
 
 ## Faire une analyse camamber des extensions des sites de phishing
 
@@ -19,14 +31,11 @@
 
 - Utiliser : Filepond
 
-<<<<<<< HEAD
 
 ## POUR FAIRE DES GRAPHS JS 
 
 - utiliser chart.js : https://www.chartjs.org/
 
-=======
 ## Export du report
 
 - Export PDF Library : fpdf2
->>>>>>> 416fb06848e4766ebc6c069a880bfade100d4fed
