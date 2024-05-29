@@ -14,7 +14,7 @@ class Main:
 
     def main(self, official_sites):
 
-        checkURL = CheckURL(self.url)
+        checkURL = CheckURL(self.url, official_sites)
         extractURL = ExtractUrlBalises(self.url)
         extractLogo = ExtractLOGO(self.url)
         extractCert = ExtractCert(self.url)
