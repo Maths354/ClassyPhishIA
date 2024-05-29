@@ -1,5 +1,4 @@
 # Taches actuel
-===
 
 ## Parsing script utilise la bdd pour la comparaison
 
@@ -11,7 +10,6 @@
 - extractKeyword
 
 # Idée
-===
 
 ## Faire une analyse camamber des extensions des sites de phishing
 
