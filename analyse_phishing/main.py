@@ -15,9 +15,9 @@ class Main:
     def main(self, official_sites):
 
         checkURL = CheckURL(self.url, official_sites)
-        extractURL = ExtractUrlBalises(self.url)
+        extractURL = ExtractUrlBalises(self.url, official_sites)
         extractLogo = ExtractLOGO(self.url)
-        extractCert = ExtractCert(self.url)
+        extractCert = ExtractCert(self.url, official_sites)
         extractBalises = ExtractBALISES(self.url)
 
         #Il faut envoyer au model le score en 0 et 1 des analyse de l'url, logo, cert...

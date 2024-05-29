@@ -54,8 +54,6 @@ def valid_url_page():
     datas=allDatas["datas"]
     scores=allDatas["scores"]
 
-    my_off_site = OfficalSite(url="www.orange.fr", list_url="list_url", logo="logo", key_word="key_word", certificate="certificate", template="template")
-    Post().insert_table(upload=my_off_site)
     my_phish_site = PhishingSite(id_offical_site=1, phishing_url=phishing_link, url=str(datas["checkURL"]), list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"]), template=str(datas["extractTemplate"]))
     Post().insert_table(upload=my_phish_site)
 

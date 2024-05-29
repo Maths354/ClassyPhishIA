@@ -1,14 +1,25 @@
 import requests
 import re
 import difflib
+from time import sleep
 
 class ExtractUrlBalises:
-    def __init__(self, url):
+    def __init__(self, url, official_sites):
         self.url = url
+        self.official_sites = list()
+        for official_site in official_sites:
+            self.official_sites.append(official_site["list_url"])
 
-    def compute_similarity_score(self,urls_balises_legitime, urls_balises_phishing):
+        self.urls_balises_phishing = list()
+
+    def compute_similarity_score(self):
         # Calcul du ratio de similarité entre les deux structures de balises parsées
-        similarity_ratio = difflib.SequenceMatcher(None, urls_balises_legitime, urls_balises_phishing).ratio()
+        similarity_ratio = 0
+        for urls_official_site in self.official_sites:
+            #eval is used to convert str to list
+            ratio = difflib.SequenceMatcher(None, eval(urls_official_site), self.urls_balises_phishing).ratio()
+            if ratio >= similarity_ratio:
+                similarity_ratio = ratio
         return similarity_ratio
 
     def extract_urls(self,url):
@@ -32,20 +43,16 @@ class ExtractUrlBalises:
     def urls_balises_info(self, url_legitime="https://www.orange.fr"):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
 
-        # Initialisation des variables pour les balises HTML extraites
-        urls_balises_legitime = self.extract_urls(url_legitime)
-        urls_balises_phishing = None
-
         # Vérification de l'URL de phishing si fournie
         if self.url:
             url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
             if url_pattern.match(self.url):
                 # Traitement de l'URL de phishing
-                urls_balises_phishing = self.extract_urls(self.url)
+                self.urls_balises_phishing = self.extract_urls(self.url)
 
         # Si les deux URLs sont valides, calculer le score de similarité des balises
-        if urls_balises_legitime and urls_balises_phishing:
-            similarity_score = self.compute_similarity_score(urls_balises_legitime, urls_balises_phishing)
+        if self.urls_balises_phishing:
+            similarity_score = self.compute_similarity_score()
 
         # Retourner les balises HTML extraites
-        return urls_balises_phishing, similarity_score
+        return self.urls_balises_phishing, similarity_score

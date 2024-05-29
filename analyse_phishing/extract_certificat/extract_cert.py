@@ -19,9 +19,10 @@ import socket
 
 class ExtractCert():
 
-    def __init__(self, url):
+    def __init__(self, url, official_sites):
         assert isinstance(url, str)
         self.url=url.split("/")[2]
+        self.official_sites=official_sites
         self._port=443
         self._cert_info=self.__get_cert()
 
