@@ -11,8 +11,8 @@
 
 ## Metre au propre les scripts de parsing
 
-- checkURL
-- extractURL
+- ~~checkURL
+- ~~extractURL
 - extractLogo
 - extractCert
 - extractBalises
