@@ -18,6 +18,10 @@
 - extractBalises
 - extractKeyword
 
+## DB
+
+- Lié la clé étrangère des PhishingSite vers le bon OfficialSite
+
 # Idée
 
 ## Faire une analyse camamber des extensions des sites de phishing
@@ -45,4 +49,4 @@
 
 ## Export du report
 
-- Export PDF Library : fpdf2
+- Export PDF Library : [fpdf2](https://py-pdf.github.io/fpdf2/)
