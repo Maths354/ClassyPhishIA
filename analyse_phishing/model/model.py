@@ -28,7 +28,7 @@ class Model:
 
         # Faire une prédiction avec le modèle
         predicted_site_proba = logistic_model.predict_proba(new_site_df)
-        print(f'The proba is : {predicted_site_proba[0][1]}')
+        #print(f'The proba is : {predicted_site_proba[0][1]}')
 
         return float("%.4f" % predicted_site_proba[0][1])
         # Récupérer le nom du site légitime à partir de l'ID (supposons que `site_id_to_name` est un dictionnaire que vous avez créé)

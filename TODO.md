@@ -1,3 +1,26 @@
+# Taches actuel
+
+## Parsing script utilise la bdd pour la comparaison
+
+- ~~checkURL
+- ~~extractURL
+- extractLogo
+- extractCert
+- extractBalises
+- extractKeyword
+
+## Metre au propre les scripts de parsing
+
+- ~~checkURL
+- ~~extractURL
+- extractLogo
+- extractCert
+- extractBalises
+- extractKeyword
+
+## DB
+
+- Lié la clé étrangère des PhishingSite vers le bon OfficialSite
 
 # Idée
 
@@ -19,14 +42,11 @@
 
 - Utiliser : Filepond
 
-<<<<<<< HEAD
 
 ## POUR FAIRE DES GRAPHS JS 
 
 - utiliser chart.js : https://www.chartjs.org/
 
-=======
 ## Export du report
 
-- Export PDF Library : fpdf2
->>>>>>> 416fb06848e4766ebc6c069a880bfade100d4fed
+- Export PDF Library : [fpdf2](https://py-pdf.github.io/fpdf2/)

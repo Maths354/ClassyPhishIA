@@ -12,37 +12,44 @@
         <h1>Informations sur l'analyse d'un site de phishing</h1>
         <h3>URL analysé : {% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
         <div class="score">
-            <h2>Similarité avec le site "Orange": {{ allData.resultModel * 100 }}% </h2>
+            <h2>Similarité avec le site "Orange": {{ scores.resultModel * 100 }}% </h2>
         </div>
         <div class="sub-scores">
             <h3>Sous-scores d'analyse :</h3>
             <ul>
                 <li>
                     <details>
-                        <summary>Analyse URL : {{ allData.checkURL[0] * 100 }} %</summary>
+                        <summary>Analyse URL : {{ scores.checkURL * 100 }}%</summary>
                         <ul>
                             <li>
-                                <p style="color: red;">{{ allData.checkURL }}</p>
-                            </li>
-                            <li>
-                                <p style="color: red;">{{ allData.extractURL }}</p>
+                                <p style="color: red;">{{ datas.checkURL }}</p>
                             </li>
                         </ul>
                     </details>
                 </li>
                 <li>
                     <details>
-                        <summary>Analyse logo : 80%</summary>
+                        <summary>Analyse URL List : {{ scores.extractURL * 100 }}%</summary>
                         <ul>
                             <li>
-                                <p style="color: red">{{ allData.extractLogo }}</p>
+                                <p style="color: red">{{ datas.extractURL }}</p>
                             </li>
                         </ul>
                     </details>
                 </li>
-		 <li>
+                <li>
                     <details>
-                        <summary>Analyse mot-clé : 85%</summary>
+                        <summary>Analyse logo : {{ scores.extractLogo * 100 }}%</summary>
+                        <ul>
+                            <li>
+                                <p style="color: red">{{ datas.extractLogo }}</p>
+                            </li>
+                        </ul>
+                    </details>
+                </li>
+		        <li>
+                    <details>
+                        <summary>Analyse mot-clé : {{ scores.extractKeyword * 100 }}%</summary>
                         <ul>
                             <li>
                                 <p style="color: red">static html, insert data here</p>
@@ -52,10 +59,10 @@
                 </li>
                 <li>
                     <details>
-                        <summary>Analyse certificat : 75%</summary>
+                        <summary>Analyse certificat : {{ scores.extractCert * 100 }}%</summary>
                         <ul>
                             <li>
-                                <p style="color: red">{{ allData.extractCert }}</p>
+                                <p style="color: red">{{ datas.extractCert }}</p>
                             </li>
                         </ul>
                     </details>

@@ -1,24 +1,35 @@
 import requests
 import re
 import difflib
+from time import sleep
 
 class ExtractUrlBalises:
-    def __init__(self, url):
+    def __init__(self, url, official_sites):
         self.url = url
+        self.official_sites = list()
+        for official_site in official_sites:
+            self.official_sites.append(official_site["list_url"])
 
-    def compute_similarity_score(urls_balises1, urls_balises2):
+        self.urls_balises_phishing = list()
+
+    def compute_similarity_score(self):
         # Calcul du ratio de similarité entre les deux structures de balises parsées
-        similarity_ratio = difflib.SequenceMatcher(None, urls_balises1, urls_balises2).ratio()
+        similarity_ratio = 0
+        for urls_official_site in self.official_sites:
+            #eval is used to convert str to list
+            ratio = difflib.SequenceMatcher(None, eval(urls_official_site), self.urls_balises_phishing).ratio()
+            if ratio >= similarity_ratio:
+                similarity_ratio = ratio
         return similarity_ratio
 
-    def extract_urls(url):
+    def extract_urls(self):
         # Définir un en-tête User-Agent
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
         }
 
         # Faire la requête HTTP avec l'en-tête User-Agent
-        response = requests.get(url, headers=headers)
+        response = requests.get(self.url, headers=headers)
 
         # Vérifier si la requête a réussi
         if response.status_code == 200:
@@ -26,39 +37,21 @@ class ExtractUrlBalises:
             regex_urls = re.findall(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+|http://[^\s<>"]+', response.text)
 
             return regex_urls
-        elif response.status_code == 403:
-            print("Accès refusé. Veuillez vérifier vos permissions.")
-            return []
         else:
-            # Afficher un message d'erreur si la requête a échoué pour une autre raison
-            print("La requête a échoué avec le code de statut:", response.status_code)
             return []
 
-    def urls_balises_info(cls, url_legitime, url_phishing=None):
+    def urls_balises_info(self):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
 
-        # Initialisation des variables pour les balises HTML extraites
-        urls_balises1 = cls.extract_urls(url_legitime)
-        urls_balises2 = None
-
         # Vérification de l'URL de phishing si fournie
-        if url_phishing:
-            url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
-            if url_pattern.match(url_phishing):
-                # Traitement de l'URL de phishing
-                urls_balises2 = cls.extract_urls(url_phishing)
-            else:
-                print(f"L'URL de phishing : {url_phishing} n'est pas une URL valide.")
+        url_pattern = re.compile(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+')
+        if url_pattern.match(self.url):
+            # Traitement de l'URL de phishing
+            self.urls_balises_phishing = self.extract_urls()
 
         # Si les deux URLs sont valides, calculer le score de similarité des balises
-        if urls_balises1 and urls_balises2:
-            similarity_score = cls.compute_similarity_score(urls_balises1, urls_balises2)
-            print(f"\nScore de similarité des balises entre les deux URLs : {similarity_score:.2f}")
+        if self.urls_balises_phishing:
+            similarity_score = self.compute_similarity_score()
 
         # Retourner les balises HTML extraites
-        return urls_balises1, similarity_score
-
-# if __name__ == "__main__":
-#     url_legitime = "https://www.orange.fr/portail"
-#     url_phishing = "https://www.keraunos.org/"
-#     ExtractUrlBalises.urls_balises_info(url_legitime)
+        return self.urls_balises_phishing, similarity_score

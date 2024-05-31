@@ -19,9 +19,10 @@ import socket
 
 class ExtractCert():
 
-    def __init__(self, url):
+    def __init__(self, url, official_sites):
         assert isinstance(url, str)
         self.url=url.split("/")[2]
+        self.official_sites=official_sites
         self._port=443
         self._cert_info=self.__get_cert()
 
@@ -43,5 +44,5 @@ class ExtractCert():
             - HTTP protocol (no cert available)
             - Website not hosted on port 443
         """
-        return self._cert_info
+        return self._cert_info, 0
         

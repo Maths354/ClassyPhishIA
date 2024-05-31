@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy # type: ignore
 
 from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, Score
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
@@ -123,4 +124,11 @@ class Questions():
                     return results
         except:
             raise Exception("Error while trying to use Flask app")
+        
+
+    def get_last_phishing_id(self):
+        with app.app_context():
+            last_phishing = db.session.query(PhishingSite).order_by(PhishingSite.id.desc()).first()
+            return last_phishing.id if last_phishing else None
+
 
