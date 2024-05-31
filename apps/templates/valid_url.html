@@ -7,7 +7,20 @@
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
 </head>
 <body>
-    <a href="/" id="back-button">Retour</a>
+    <header>
+        <nav class="nav-bar">
+            <a href="/" class="logo-nav animate__animated animate__fadeInDown">ClassyPhishIA</a>
+            <div class="nav-links">
+                <ul>
+                    <li class="active"><a href="/">Acceuil</a></li>
+                    <li><a href="/stats">Stats</a></li>
+                    <li><a href="/informations">Information</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+    </main>
     <div class="container">
         <h1>Informations sur l'analyse d'un site de phishing</h1>
         <h3>URL analysé : {% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
@@ -72,5 +85,8 @@
             {{ barchart }}
         </div>
     </div>
+    <footer>
+        <p>© 2021 - All rights reserved</p>
+    </footer>
 </body>
 </html>

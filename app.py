@@ -22,6 +22,14 @@ db = SQLAlchemy(app)
 def home():
     return render_template('home.html')
 
+@app.route('/stats')
+def stats():
+    return render_template('stats.html')
+
+@app.route('/informations')
+def informations():
+    return render_template('informations.html')
+
 @app.route('/', methods=['POST'])
 def validate_url():
     phishing_link = request.form['phishing-link']

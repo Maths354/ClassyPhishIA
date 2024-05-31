@@ -162,4 +162,4 @@ extracteur = ExtractBALISES(url)
 
 # Utiliser la méthode balises_info pour extraire et comparer les balises
 balises, score = extracteur.balises_info()
-print(balises)
+#print(balises)

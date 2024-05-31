@@ -3,6 +3,51 @@ body, html {
     margin: 0;
     font-family: Arial, sans-serif;
     background-image: linear-gradient(112.5deg, rgb(162,162,162) 0%, rgb(162,162,162) 10%,rgb(195, 195, 195) 10%, rgb(195, 195, 195) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157, 157, 157) 55%, rgb(157, 157, 157) 60%,rgb(137, 137, 137) 60%, rgb(137, 137, 137) 88%,rgb(118, 118, 118) 88%, rgb(118, 118, 118) 91%,rgb(99, 99, 99) 91%, rgb(99, 99, 99) 100%),linear-gradient(157.5deg, rgb(162,162,162) 0%, rgb(162,162,162) 10%,rgb(195, 195, 195) 10%, rgb(195, 195, 195) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157, 157, 157) 55%, rgb(157, 157, 157) 60%,rgb(137, 137, 137) 60%, rgb(137, 137, 137) 88%,rgb(118, 118, 118) 88%, rgb(118, 118, 118) 91%,rgb(99, 99, 99) 91%, rgb(99, 99, 99) 100%),linear-gradient(135deg, rgb(162,162,162) 0%, rgb(162,162,162) 10%,rgb(195, 195, 195) 10%, rgb(195, 195, 195) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157, 157, 157) 55%, rgb(157, 157, 157) 60%,rgb(137, 137, 137) 60%, rgb(137, 137, 137) 88%,rgb(118, 118, 118) 88%, rgb(118, 118, 118) 91%,rgb(99, 99, 99) 91%, rgb(99, 99, 99) 100%),linear-gradient(90deg, rgb(195, 195, 195),rgb(228, 228, 228)); background-blend-mode:overlay,overlay,overlay,normal;
+    background-size: cover;
+}
+
+/* Styles pour la barre de navigation */
+.nav-bar {
+    position: absolute;
+    padding: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.nav-bar a {
+    color: black;
+    text-decoration: none;
+}
+
+.nav-bar .logo-nav {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.nav-bar .nav-links ul{
+    display: flex;   
+}
+
+.nav-bar .nav-links ul li{
+    margin: 0 25px;
+    list-style: none;
+}
+
+.nav-bar .nav-links ul li.active a{
+    font-weight: 600;
+}
+
+main {
+    padding-top: 150px;
+}
+
+/* main de la page */
+.head-top {
+    text-align: center;
+    color: black;
 }
 
 .container {
@@ -11,41 +56,34 @@ body, html {
     color: black;
 }
 
-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    min-height: calc(50vh - 70px); /* Ajuste la hauteur en fonction du header et footer */
-    color: black;
-}
-
 .left-image {
-    flex: 1; /* Maintient la flexibilité mais avec un ajustement de la largeur ci-dessous */
-    height: 350px; /* Conserve une hauteur fixe pour un aspect uniforme */
-    width: 50%; /* Réduit la largeur de l'image par rapport à son conteneur */
-    margin-left: 50px; /* Garde l'image un peu plus à droite */
-    object-fit: cover; /* Assure que l'image couvre la zone définie sans perdre ses proportions */
+    width: 50%;
+    height: auto;
+    margin-left: 0;
+    object-fit: cover;
 }
 
 .main-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    flex-wrap: wrap; /* Permet aux enfants de passer à la ligne suivante si nécessaire */
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center; /* Centre le contenu verticalement */
 }
 
 #phishing-form {
-    flex: 2;
-    margin-left: 20px;
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 20px auto;
 }
 
 input[type="text"] {
-    padding: 15px; /* Agrandir la hauteur du champ */
+    padding: 15px;
     margin: 10px;
-    width: 80%; /* Agrandir la largeur du champ */
-    font-size: 16px; /* Agrandir la taille de la police */
-    border: 2px solid blue; /* Accentuer la bordure */
+    width: 80%;
+    font-size: 16px;
+    border: 2px solid blue;
     border-radius: 5px;
 }
 
@@ -53,7 +91,7 @@ button {
     padding: 15px 30px;
     background-color: blue;
     color: white;
-    font-size: 16px; /* Agrandir la taille de la police pour le bouton */
+    font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
     border: none;
@@ -68,8 +106,41 @@ button:hover {
 }
 
 footer {
-    position: fixed;
-    bottom: 1;
-    width: 100%;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap; /* Permet aux enfants de passer à la ligne suivante si nécessaire */
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center; /* Centre le contenu verticalement */
+}
+
+/* Media queries pour ajuster le layout sur différentes tailles d'écran */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .left-image {
+        width: 40%;
+    }
+    
+    #phishing-form {
+        width: 90%;
+        max-width: none; /* Supprime la limite de largeur maximale */
+        margin: 0 auto; /* Centre le formulaire horizontalement */
+    }
+}
+
+@media (min-width: 769px) {
+    .main-content {
+        flex-direction: row; /* Place les enfants en ligne */
+        justify-content: space-between; /* Espace les enfants pour occuper toute la largeur */
+    }
+
+    .left-image {
+        width: 30%; /* L'image occupe 50% de la largeur de son conteneur */
+        margin-left: 50px; /* Ajoute une marge à gauche */
+    }
+
+    #phishing-form {
+        width: 100%; /* Le formulaire occupe 40% de la largeur de son conteneur */
+    }
 }
