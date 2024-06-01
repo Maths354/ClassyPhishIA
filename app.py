@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy # type: ignore
 
 from analyse_phishing.main import Main
 from apps.graph.graph import BarChart
+from apps.graph.stats_extension_phishing import CamamberExtension
 
 #Import DB things
 from apps.models.models import OfficalSite, PhishingSite, Score
@@ -24,7 +25,10 @@ def home():
 
 @app.route('/stats')
 def stats():
-    return render_template('stats.html')
+    phishing_sites=Questions().get_all_table(PhishingSite)
+    url, nbURL = CamamberExtension(phishing_sites).extract_url_extension()
+
+    return render_template('stats.html', url=url, nbURL=nbURL)
 
 @app.route('/informations')
 def informations():

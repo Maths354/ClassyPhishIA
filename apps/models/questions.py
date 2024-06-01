@@ -37,6 +37,7 @@ class Questions():
                         {
                             "id": data.id,
                             "id_offical_site" : data.id_offical_site,
+                            "phishing_url" : data.phishing_url,
                             "url": data.url,
                             "list_url" : data.list_url,
                             "logo" : data.logo,

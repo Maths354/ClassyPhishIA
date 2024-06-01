@@ -9,8 +9,8 @@
 </head>
 <body>
     <header>
-        <nav class="nav-bar">
-            <a href="/" class="logo-nav animate__animated animate__fadeInDown">ClassyPhishIA</a>
+        <nav class="nav-bar animate__animated animate__fadeInDown">
+            <a href="/" class="logo-nav">ClassyPhishIA</a>
             <div class="nav-links">
                 <ul>
                     <li class="active"><a href="/">Acceuil</a></li>
@@ -27,7 +27,7 @@
             <p class="animate__animated animate__fadeInUp">Les sites de phishing sont présents partout sur le web. Notre outil a pour but d'analyser et d'identifier le site officiel qui est usurpé.</p>
         </div>
         <div class="main-content">
-            <img src="{{ url_for('static', filename='analyse.gif') }}" alt="Image Descriptive" class="left-image">
+            <img src="{{ url_for('static', filename='analyse.gif') }}" alt="Image Descriptive" class="left-image animate__animated animate__fadeInUp">
             <div id="phishing-form" class="container animate__animated animate__zoomIn">
                 <h2>Entrez le lien URL du site de phishing</h2>
                 <form id="phishing-link-form" action="/" method="POST">
