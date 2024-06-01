@@ -17,8 +17,6 @@ class OfficalSite(db.Model):
     certificate = db.Column(db.String(10000), nullable=False)
     template = db.Column(db.String(10000), nullable=False)
 
-    def __repr__(self):
-        return f"<PhishingInfo {self.id}>"
 
 # Création table 'phishing_site'
 class PhishingSite(db.Model):
