@@ -49,6 +49,11 @@ class ReccurentDomain(db.Model):
     domain = db.Column(db.String(10000), nullable=False, primary_key=True)
     reccurent_nb = db.Column(db.Integer, nullable=False)
 
+# Création table 'reccurent_ca'
+class ReccurentCA(db.Model):
+    __tablename__ = 'reccurent_ca'
+    ca = db.Column(db.String(10000), nullable=False, primary_key=True)
+    reccurent_nb = db.Column(db.Integer, nullable=False)
 
 # Création database 'data' si non présente
 if not path.exists('data.db'):

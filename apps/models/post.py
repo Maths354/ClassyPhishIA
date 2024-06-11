@@ -1,7 +1,7 @@
 from flask import Flask # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
-from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, Score
+from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, ReccurentCA, Score
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -24,7 +24,7 @@ class Post():
         
 
 
-    def update_recurrant_domain(self,phishing_link):
+    def update_recurrant_domain(self, phishing_link):
         assert isinstance(phishing_link,str)
         try:
             url = phishing_link.split("/")[2].split(".")
@@ -36,6 +36,21 @@ class Post():
                     db.session.commit()
                 else:
                     update = ReccurentDomain(domain=domain_id,reccurent_nb=1)
+                    db.session.add(update)
+                    db.session.commit()
+        except:
+            raise Exception("Error while trying to use Flask app")
+        
+    def update_reccurent_ca(self, certificat):
+        assert isinstance(certificat,str)
+        try:
+            with app.app_context():
+                update = db.session.get(ReccurentCA, certificat)
+                if update:
+                    update.reccurent_nb += 1
+                    db.session.commit()
+                else:
+                    update = ReccurentCA(ca=certificat,reccurent_nb=1)
                     db.session.add(update)
                     db.session.commit()
         except:

@@ -75,6 +75,8 @@ def valid_url_page():
 
 
     Post().update_recurrant_domain(phishing_link=phishing_link)
+    cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
+    Post().update_reccurent_ca(certificat=cert_issuer)
 
     return render_template('valid_url.html', datas=datas, scores=scores, phishing_link=phishing_link, barchart=Markup(barchart))
 
