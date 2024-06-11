@@ -13,6 +13,7 @@ class CheckURL:
 
         top_ratio=0
         top_string=""
+        top_company=""
 
         for company in self.official_sites:
             company = company["url"]
@@ -23,5 +24,6 @@ class CheckURL:
                     if ratio>top_ratio:
                         top_ratio=ratio
                         top_string=company[start_letter:end_letter+1]
+                        top_company=company
 
-        return top_string, float("%.3f" % top_ratio)
+        return [top_company,top_string], float("%.3f" % top_ratio)

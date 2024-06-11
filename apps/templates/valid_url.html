@@ -35,7 +35,8 @@
                         <summary>Analyse URL : {{ scores.checkURL * 100 }}%</summary>
                         <ul>
                             <li>
-                                <p style="color: red;">{{ datas.checkURL }}</p>
+                                <p style="color: red;">Site officiel le plus proche : {{ datas.checkURL[0] }}</p>
+                                <p style="color: red;">Similarité sur l'url : {{ datas.checkURL[1] }}</p>
                             </li>
                         </ul>
                     </details>
