@@ -37,7 +37,8 @@
                         <summary>Analyse URL : {{ scores.checkURL * 100 }}%</summary>
                         <ul>
                             <li>
-                                <p style="color: red;">{{ datas.checkURL }}</p>
+                                <p style="color: red;">Site officiel le plus proche : {{ datas.checkURL[0] }}</p>
+                                <p style="color: red;">Similarité sur l'url : {{ datas.checkURL[1] }}</p>
                             </li>
                         </ul>
                     </details>
@@ -77,7 +78,12 @@
                         <summary>Analyse certificat : {{ scores.extractCert * 100 }}%</summary>
                         <ul>
                             <li>
-                                <p style="color: red">{{ datas.extractCert }}</p>
+                                <p style="color: black">Date émission certificat site de phishing</p>
+                                <p style="color: black">{{ datas.extractCert[0][0] }}</p>
+                                <p style="color: black">Comparaison localisation certificat</p>
+                                <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
+                                <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
+                                <p style="color: red">{{ datas.extractCert[1] }}</p>
                             </li>
                         </ul>
                     </details>
