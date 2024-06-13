@@ -65,6 +65,7 @@ def valid_url_page():
 
     datas=allDatas["datas"]
     scores=allDatas["scores"]
+    id_official=allDatas["id_official"]
 
     my_phish_site = PhishingSite(id_offical_site=1, phishing_url=phishing_link, url=str(datas["checkURL"]), list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"]), template=str(datas["extractTemplate"]))
     Post().insert_table(upload=my_phish_site)
@@ -78,7 +79,7 @@ def valid_url_page():
     cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
     Post().update_reccurent_ca(certificat=cert_issuer)
 
-    return render_template('valid_url.html', datas=datas, scores=scores, phishing_link=phishing_link, barchart=Markup(barchart))
+    return render_template('valid_url.html', datas=datas, scores=scores, id_official=id_official, phishing_link=phishing_link, barchart=Markup(barchart))
 
 
 if __name__ == '__main__':
