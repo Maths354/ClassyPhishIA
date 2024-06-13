@@ -49,4 +49,10 @@
 
 ## Export du report
 
-- Export PDF Library : [fpdf2](https://py-pdf.github.io/fpdf2/)
+- Export PDF Library : [fpdf2](https://py-pdf.github.io/fpdf2/)*
+
+## Mettre la liste tout déroulé
+
+
+## Mettre des couleurs pour le niveau du score (rouge, orange, vert)
+

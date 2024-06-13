@@ -49,7 +49,7 @@ class Model:
 
         df = pd.DataFrame(data)
 
-        #X = df[['url_score', 'text_score', 'logo_similarity', 'has_https', 'cert_valid']]
+        #X = df[['url_score', 'text_sco re', 'logo_similarity', 'has_https', 'cert_valid']]
         X = df[['url_score', 'text_score', 'logo_similarity']]
         y = df['site_identity']
 

@@ -27,6 +27,11 @@ body, html {
     font-weight: bold;
 }
 
+.logo-image {
+    width: 100px;
+    height: auto;
+}
+
 .nav-bar .nav-links ul{
     display: flex;   
 }

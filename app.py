@@ -78,5 +78,6 @@ def valid_url_page():
 
     return render_template('valid_url.html', datas=datas, scores=scores, phishing_link=phishing_link, barchart=Markup(barchart))
 
+
 if __name__ == '__main__':
     app.run(debug=True)
