@@ -5,7 +5,7 @@
 - ~~checkURL
 - ~~extractURL
 - extractLogo
-- extractCert
+- ~~extractCert
 - extractBalises
 - extractKeyword
 

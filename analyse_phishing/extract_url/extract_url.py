@@ -6,21 +6,21 @@ from time import sleep
 class ExtractUrlBalises:
     def __init__(self, url, official_sites):
         self.url = url
-        self.official_sites = list()
-        for official_site in official_sites:
-            self.official_sites.append(official_site["list_url"])
-
+        self.official_sites = official_sites
         self.urls_balises_phishing = list()
 
     def compute_similarity_score(self):
         # Calcul du ratio de similarité entre les deux structures de balises parsées
         similarity_ratio = 0
-        for urls_official_site in self.official_sites:
+        top_company = ""
+        for company in self.official_sites:
+            urls_official_site= company["list_url"]
             #eval is used to convert str to list
             ratio = difflib.SequenceMatcher(None, eval(urls_official_site), self.urls_balises_phishing).ratio()
             if ratio >= similarity_ratio:
                 similarity_ratio = ratio
-        return similarity_ratio
+                top_company=[company["id"],company["url"]]
+        return similarity_ratio, top_company
 
     def extract_urls(self):
         # Définir un en-tête User-Agent
@@ -51,7 +51,7 @@ class ExtractUrlBalises:
 
         # Si les deux URLs sont valides, calculer le score de similarité des balises
         if self.urls_balises_phishing:
-            similarity_score = self.compute_similarity_score()
+            similarity_score, top_company = self.compute_similarity_score()
 
         # Retourner les balises HTML extraites
-        return self.urls_balises_phishing, similarity_score
+        return self.urls_balises_phishing, similarity_score, top_company
