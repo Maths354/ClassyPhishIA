@@ -5,7 +5,7 @@ from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, S
 
 from apps.models.questions import Questions
 from apps.models.post import Post
-from analyse_phishing.main import Main
+from inject_db.main import Main
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -20,7 +20,7 @@ official_links=["https://x.com",
                "https://www.amazon.fr/"]
 
 for official_link in official_links:
-    allDatas = Main(official_link).main("")
+    allDatas = Main(official_link).main()
 
     datas=allDatas["datas"]
 
