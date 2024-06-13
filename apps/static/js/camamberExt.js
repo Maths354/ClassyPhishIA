@@ -37,7 +37,7 @@ function initPieChart(url, nbURL) {
                 },
                 title: {
                     display: true,
-                    text: 'Diagramme camamber des extensions utilisé sur les sites de phishing.'
+                    text: 'Diagramme camembert des extensions utilisé sur les sites de phishing.'
                 }
             }
         }

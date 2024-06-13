@@ -6,7 +6,7 @@ __pycache__
 *$py.class
 
 # Flask stuff:
-instance/
+instance/data.db
 .webassets-cache
 .db
 
