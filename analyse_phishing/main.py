@@ -20,6 +20,7 @@ class Main:
         extractCert = ExtractCert(self.url, official_sites)
         extractBalises = ExtractBALISES(self.url, official_sites)
 
+        # IMPORTANT :  Mettre dans le Model que la partie score qui sont [1]
         #Il faut envoyer au model le score en 0 et 1 des analyse de l'url, logo, cert...
         #modelResult = Model(checkURL, extractLogo[1], extractCert[1])
         modelResult = Model("0.90", "0.90", "0.90", "0.90")
