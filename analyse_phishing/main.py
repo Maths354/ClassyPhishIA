@@ -18,7 +18,7 @@ class Main:
         extractURL = ExtractUrlBalises(self.url, official_sites)
         extractLogo = ExtractLOGO(self.url)
         extractCert = ExtractCert(self.url, official_sites)
-        extractBalises = ExtractBALISES(self.url)
+        extractBalises = ExtractBALISES(self.url, official_sites)
 
         #Il faut envoyer au model le score en 0 et 1 des analyse de l'url, logo, cert...
         #modelResult = Model(checkURL, extractLogo[1], extractCert[1])
@@ -40,6 +40,14 @@ class Main:
                     "extractLogo": "logo",#extractLogo.logo_info()[0],
                     "extractCert": extractCert.get_cert_info()[0],
                     "extractTemplate": extractBalises.balises_info()[0],
+                    "extractKeyword": "keyword"
+                    },
+            "id_official":{
+                    "checkURL": checkURL.url_matching()[2],
+                    "extractURL": extractURL.urls_balises_info()[2],
+                    "extractLogo": "logo",#extractLogo.logo_info()[0],
+                    "extractCert": extractCert.get_cert_info()[2],
+                    "extractTemplate": extractBalises.balises_info()[2],
                     "extractKeyword": "keyword"
                     }
         }

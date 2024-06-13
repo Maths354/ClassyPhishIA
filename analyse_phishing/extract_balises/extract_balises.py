@@ -7,8 +7,9 @@ import difflib
 
 class ExtractBALISES:
     
-    def __init__(self, url):
+    def __init__(self, url, official_sites):
         self.url = url
+        self.official_sites=official_sites
 
     def parse_html_string(self, html_string):
         # Using re library to get all tags
@@ -129,37 +130,25 @@ class ExtractBALISES:
         # Initialisation des variables pour les balises HTML extraites
         parsed_tags_legitime = None
         parsed_tags_phishing = None
-        
-        # Vérification de l'URL légitime
-        if url_pattern.match(url_legitime):
-            # Traitement de l'URL légitime
-            extract_legitime = ExtractBALISES(url_legitime)
-            cleaned_html_legitime = extract_legitime.process_html(url_legitime)
-            
-            if cleaned_html_legitime:
-                # Extraction et affichage des balises HTML parsées
-                parsed_tags_legitime = extract_legitime.parse_html_string(cleaned_html_legitime)
+        top_score = -1
         
         # Vérification de l'URL de phishing
         if url_pattern.match(self.url):
             # Traitement de l'URL de phishing
-            extract_phishing = ExtractBALISES(self.url)
-            cleaned_html_phishing = extract_phishing.process_html(self.url)
+            cleaned_html_phishing = self.process_html(self.url)
             
             if cleaned_html_phishing:
                 # Extraction et affichage des balises HTML parsées
-                parsed_tags_phishing = extract_phishing.parse_html_string(cleaned_html_phishing)
+                parsed_tags_phishing = self.parse_html_string(cleaned_html_phishing)
         
-        # Si les deux URLs sont valides, calculer le score de similarité des balises
-        if parsed_tags_legitime and parsed_tags_phishing:
-            similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags_legitime, parsed_tags_phishing)
-        
-        return parsed_tags_phishing, similarity_score
-    
-    
-url = "https://www.keraunos.org/"
-extracteur = ExtractBALISES(url)
+        for company in self.official_sites:
+            parsed_tags_legitime = company["template"]
+            # Si les deux URLs sont valides, calculer le score de similarité des balises
+            if parsed_tags_legitime and parsed_tags_phishing:
+                similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags_legitime, parsed_tags_phishing)
+                if similarity_score > top_score:
+                    top_score = similarity_score
+                    top_company=[company["id"],company["url"]]
 
-# Utiliser la méthode balises_info pour extraire et comparer les balises
-balises, score = extracteur.balises_info()
-#print(balises)
+
+        return parsed_tags_phishing, top_score, top_company

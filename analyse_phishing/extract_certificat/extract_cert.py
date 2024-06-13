@@ -30,6 +30,7 @@ class ExtractCert():
         self._score=0
         self._cert_info_raw=self.__get_cert()
         self._cert_info_clean=list()
+        self._top_company=list()
 
     def __get_cert(self):
         try:
@@ -83,6 +84,7 @@ class ExtractCert():
                 best_comparison = subject_comparison
                 if best_score > self._score:
                     self._score=best_score
+                    self._top_company=[company["id"],company["url"]]
 
             if self._cert_info_raw["serialNumber"] == company_cert["serialNumber"]:
                 self._score=1
@@ -108,4 +110,4 @@ class ExtractCert():
             - Website not hosted on port 443
         """
         self.__manip_data()
-        return [self._cert_info_clean, self._cert_info_raw], self._score
+        return [self._cert_info_clean, self._cert_info_raw], self._score, self._top_company

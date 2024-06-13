@@ -16,14 +16,14 @@ class CheckURL:
         top_company=""
 
         for company in self.official_sites:
-            company = company["url"]
-            company_str_len=len(company)
+            company_url = company["url"]
+            company_str_len=len(company_url)
             for start_letter in range(company_str_len):
                 for end_letter in range(start_letter,company_str_len):
-                    ratio=difflib.SequenceMatcher(None, domain, company[start_letter:end_letter+1]).ratio()
+                    ratio=difflib.SequenceMatcher(None, domain, company_url[start_letter:end_letter+1]).ratio()
                     if ratio>top_ratio:
                         top_ratio=ratio
-                        top_string=company[start_letter:end_letter+1]
-                        top_company=company
+                        top_string=company_url[start_letter:end_letter+1]
+                        top_company=[company["id"],company["url"]]
 
-        return [top_company,top_string], float("%.3f" % top_ratio)
+        return top_string, float("%.3f" % top_ratio), top_company
