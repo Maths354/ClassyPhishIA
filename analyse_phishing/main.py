@@ -26,29 +26,33 @@ class Main:
         modelResult = Model("0.90", "0.90", "0.90", "0.90")
         #print("prediction :", modelResult.prediction())
 
+        Domain_URL=checkURL.url_matching()
+        Page_URL=extractURL.urls_balises_info()
+        Logo=extractLogo.logo_info()
+        Cert=extractCert.get_cert_info()
+        Template=extractBalises.balises_info()
+
         all_data = {
             "scores":{ "resultModel": modelResult.prediction(),
-                    "checkURL": checkURL.url_matching()[1],
-                    "extractURL": extractURL.urls_balises_info()[1],
-                    "extractLogo": 0.0,#extractLogo.logo_info()[1],
-                    "extractCert": extractCert.get_cert_info()[1],
-                    "extractTemplate": extractBalises.balises_info()[1],
+                    "checkURL": Domain_URL[1],
+                    "extractURL": Page_URL[1],
+                    "extractLogo": 0.0,#Logo[1],
+                    "extractCert": Cert[1],
                     "extractKeyword": 0.0
                     },
             "datas":{
-                    "checkURL": checkURL.url_matching()[0],
-                    "extractURL": extractURL.urls_balises_info()[0],
-                    "extractLogo": "logo",#extractLogo.logo_info()[0],
-                    "extractCert": extractCert.get_cert_info()[0],
-                    "extractTemplate": extractBalises.balises_info()[0],
+                    "checkURL": Domain_URL[0],
+                    "extractURL": Page_URL[0],
+                    "extractLogo": "logo",#Logo[0],
+                    "extractCert": Cert[0],
+                    "extractTemplate": Template[0],
                     "extractKeyword": "keyword"
                     },
             "id_official":{
-                    "checkURL": checkURL.url_matching()[2],
-                    "extractURL": extractURL.urls_balises_info()[2],
-                    "extractLogo": "logo",#extractLogo.logo_info()[0],
-                    "extractCert": extractCert.get_cert_info()[2],
-                    "extractTemplate": extractBalises.balises_info()[2],
+                    "checkURL": Domain_URL[2],
+                    "extractURL": Page_URL[2],
+                    "extractLogo": "logo",#Logo[2],
+                    "extractCert": Cert[2],
                     "extractKeyword": "keyword"
                     }
         }
