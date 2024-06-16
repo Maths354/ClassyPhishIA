@@ -9,14 +9,14 @@ class ExtractBALISES:
     
     def __init__(self, url, official_sites):
         self.url = url
-        self.official_sites=official_sites
+        self.official_sites = official_sites
 
-    def parse_html_string(self, html_string):
+    def parse_html_string(self, html_string, orientation):
         # Using re library to get all tags
         tags = re.findall(r'<[^>]+>', html_string)
 
         # String variable used to concatenate parsed tag
-        parsed_tag=""
+        parsed_tag = ""
 
         # Check every tag
         for tag in tags:
@@ -30,11 +30,34 @@ class ExtractBALISES:
             # Condition used to get only end tag like </span>
             else:
                 parsed_tag += ")"
+        
+        # If the tags are horizontal, modify the parsed_tag format
+        if orientation == 'horizontal':
+            parsed_tag = parsed_tag.replace("+(", " > ").replace(")", " <")
+        
         return parsed_tag
 
     def clean_text_tags(self, tag):
         # Supprime complètement le contenu de la balise
         tag.clear()
+
+    def detect_orientation(self, html_content):
+        # Utiliser BeautifulSoup pour analyser le HTML
+        soup = BeautifulSoup(html_content, 'html.parser')
+
+        # Compter les balises directement imbriquées pour évaluer la disposition
+        vertical_count = 0
+        horizontal_count = 0
+
+        for element in soup.descendants:
+            if element.name:
+                if element.parent and element.parent.name:
+                    if element.parent.name in ['div', 'ul', 'ol', 'section', 'article']:
+                        vertical_count += 1
+                    elif element.parent.name in ['tr', 'td', 'th', 'table']:
+                        horizontal_count += 1
+
+        return 'vertical' if vertical_count >= horizontal_count else 'horizontal'
 
     def process_html(self, url):
         try:
@@ -138,8 +161,11 @@ class ExtractBALISES:
             cleaned_html_phishing = self.process_html(self.url)
             
             if cleaned_html_phishing:
+                # Détection de l'orientation des balises
+                orientation = self.detect_orientation(cleaned_html_phishing)
+                
                 # Extraction et affichage des balises HTML parsées
-                parsed_tags_phishing = self.parse_html_string(cleaned_html_phishing)
+                parsed_tags_phishing = self.parse_html_string(cleaned_html_phishing, orientation)
         
         for company in self.official_sites:
             parsed_tags_legitime = company["template"]
@@ -148,7 +174,6 @@ class ExtractBALISES:
                 similarity_score = ExtractBALISES.compute_similarity_score(parsed_tags_legitime, parsed_tags_phishing)
                 if similarity_score > top_score:
                     top_score = similarity_score
-                    top_company=[company["id"],company["url"]]
-
+                    top_company = [company["id"], company["url"]]
 
         return parsed_tags_phishing, top_score, top_company
