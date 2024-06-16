@@ -12,7 +12,6 @@ import hashlib
 class ExtractLOGO:
     def __init__(self, url=None):
         self.url = url
-        logging.basicConfig(level=logging.ERROR)  # Configure logging
 
     def extract_logo_url(self, url):
         try:
@@ -92,18 +91,15 @@ class ExtractLOGO:
         return cv2.resize(image, size, interpolation=cv2.INTER_AREA)
 
     def compare_images(self, image_legitime, image_phishing):
-        size = (min(image_legitime.shape[1], image_phishing.shape[1]), min(image_legitime.shape[0], image_phishing.shape[0]))
+        # Resize both images to 32x32 for comparison
+        size = (32, 32)
+
         resized_image_legitime = self.resize_image(image_legitime, size)
         resized_image_phishing = self.resize_image(image_phishing, size)
 
         # Convert to grayscale to ensure SSIM comparison works correctly
         gray_image_legitime = cv2.cvtColor(resized_image_legitime, cv2.COLOR_BGR2GRAY)
         gray_image_phishing = cv2.cvtColor(resized_image_phishing, cv2.COLOR_BGR2GRAY)
-
-        # Ensure images have the same dimensions for SSIM
-        if gray_image_legitime.shape != gray_image_phishing.shape:
-            logging.error("Images do not have the same dimensions.")
-            return -1  # Return a special value to indicate the error
 
         # Normalizing images to reduce effects of different lighting conditions
         norm_image_legitime = cv2.normalize(gray_image_legitime, None, 0, 255, cv2.NORM_MINMAX)
@@ -119,16 +115,8 @@ class ExtractLOGO:
         logo_url_legitime = self.extract_logo_url(url_legitime)
         logo_url_phishing = self.extract_logo_url(url_phishing)
 
-        if not logo_url_legitime or not logo_url_phishing:
-            logging.error("Failed to extract logo URLs.")
-            return None, None
-
         image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
         image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
-
-        if image_legitime is None or image_phishing is None:
-            logging.error("Failed to download one or both of the logos.")
-            return None, None
 
         similarity_score = self.compare_images(image_legitime, image_phishing)
         return hash_phishing, similarity_score
