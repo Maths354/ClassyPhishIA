@@ -10,12 +10,12 @@ class ExtractBALISES:
     def __init__(self, url):
         self.url = url
 
-    def parse_html_string(self, html_string):
+    def parse_html_string(self, html_string, orientation):
         # Using re library to get all tags
         tags = re.findall(r'<[^>]+>', html_string)
 
         # String variable used to concatenate parsed tag
-        parsed_tag=""
+        parsed_tag = ""
 
         # Check every tag
         for tag in tags:
@@ -29,11 +29,34 @@ class ExtractBALISES:
             # Condition used to get only end tag like </span>
             else:
                 parsed_tag += ")"
+        
+        # If the tags are horizontal, modify the parsed_tag format
+        if orientation == 'horizontal':
+            parsed_tag = parsed_tag.replace("+(", " > ").replace(")", " <")
+        
         return parsed_tag
 
     def clean_text_tags(self, tag):
         # Supprime complètement le contenu de la balise
         tag.clear()
+
+    def detect_orientation(self, html_content):
+        # Utiliser BeautifulSoup pour analyser le HTML
+        soup = BeautifulSoup(html_content, 'html.parser')
+
+        # Compter les balises directement imbriquées pour évaluer la disposition
+        vertical_count = 0
+        horizontal_count = 0
+
+        for element in soup.descendants:
+            if element.name:
+                if element.parent and element.parent.name:
+                    if element.parent.name in ['div', 'ul', 'ol', 'section', 'article']:
+                        vertical_count += 1
+                    elif element.parent.name in ['tr', 'td', 'th', 'table']:
+                        horizontal_count += 1
+
+        return 'vertical' if vertical_count >= horizontal_count else 'horizontal'
 
     def process_html(self, url):
         try:
@@ -115,7 +138,6 @@ class ExtractBALISES:
         except Exception as e:
             return None
 
-
     def balises_info(self):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
         
@@ -131,8 +153,10 @@ class ExtractBALISES:
             cleaned_html_phishing = self.process_html(self.url)
             
             if cleaned_html_phishing:
+                # Détection de l'orientation des balises
+                orientation = self.detect_orientation(cleaned_html_phishing)
+                
                 # Extraction et affichage des balises HTML parsées
-                parsed_tags_official = self.parse_html_string(cleaned_html_phishing)
-        
+                parsed_tags_official = self.parse_html_string(cleaned_html_phishing, orientation)
 
         return parsed_tags_official
