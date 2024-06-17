@@ -1,14 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-import os
 import logging
-import hashlib
+from skimage.metrics import structural_similarity as ssim
 import cv2
 import numpy as np
-from skimage.metrics import structural_similarity as ssim
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from io import BytesIO
+from PIL import Image
+import hashlib
 
 class ExtractLOGO:
     def __init__(self, url=None):
@@ -16,124 +15,111 @@ class ExtractLOGO:
 
     def extract_logo_url(self, url):
         try:
-            response = requests.get(url, timeout=10)
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                              'AppleWebKit/537.36 (KHTML, like Gecko) '
+                              'Chrome/58.0.3029.110 Safari/537.3'
+            }
+            response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
 
-            favicon_link = (
-                soup.find('link', rel='icon', type='image/x-icon') or
-                soup.find('link', rel='shortcut icon', type='image/x-icon') or
-                soup.find('link', rel='icon', type='image/png') or
-                soup.find('link', rel='icon', type='image/jpeg') or
-                soup.find('link', rel='icon', type='image/svg+xml') or
-                soup.find('link', rel='icon', type='image/webp')
-            )
+            icon_types = [
+                ('link', 'rel', 'icon'),
+                ('link', 'rel', 'shortcut icon'),
+                ('link', 'rel', 'apple-touch-icon'),
+                ('link', 'rel', 'icon', 'image/x-icon'),
+                ('link', 'rel', 'icon', 'image/png'),
+                ('link', 'rel', 'icon', 'image/jpeg'),
+                ('link', 'rel', 'icon', 'image/svg+xml'),
+                ('link', 'rel', 'icon', 'image/webp'),
+                ('img', 'class', 'logo'),
+                ('img', 'id', 'logo')
+            ]
 
-            if favicon_link:
-                favicon_url = favicon_link['href']
-                if not favicon_url.startswith('http'):
-                    favicon_url = urljoin(url, favicon_url)
-                return favicon_url
+            for tag, attribute, value, *optional_type in icon_types:
+                if optional_type:
+                    element = soup.find(tag, {attribute: value}, type=optional_type[0])
+                else:
+                    element = soup.find(tag, {attribute: value})
+                if element:
+                    logo_url = element.get('href') or element.get('src')
+                    if logo_url and not logo_url.startswith('http'):
+                        logo_url = urljoin(url, logo_url)
+                    if logo_url.lower().endswith(('png', 'jpg', 'jpeg', 'ico', 'svg', 'webp')):
+                        return logo_url
 
-            logo_img = soup.find('img', {'class': 'logo'}) or soup.find('img', {'id': 'logo'})
-            if logo_img:
-                logo_url = logo_img['src']
-                if not logo_url.startswith('http'):
-                    logo_url = urljoin(url, logo_url)
-                return logo_url
-
+            # Attempt to retrieve favicon as a fallback
             favicon_url = urljoin(url, 'favicon.ico')
-            response = requests.get(favicon_url, timeout=10)
+            response = requests.get(favicon_url, headers=headers, timeout=10)
             if response.status_code == 200:
                 return favicon_url
 
             return None
         except requests.RequestException as e:
-            logging.error(f"Erreur lors de l'extraction du logo : {e}")
+            logging.error(f"Error while extracting the logo: {e}")
             return None
 
-    def download_image_and_compute_sha256(self, image_url, data_id, directory='./'):
+    def download_image_and_compute_sha256(self, url):
         try:
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-
-            filename = os.path.join(directory, f"{data_id}.png")
-
-            response = requests.get(image_url, timeout=10)
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                              'AppleWebKit/537.36 (KHTML, like Gecko) '
+                              'Chrome/58.0.3029.110 Safari/537.3'
+            }
+            response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
-
-            with open(filename, 'wb') as file:
-                file.write(response.content)
-
-            # Vérifiez si l'image est correctement téléchargée et lisible
-            if cv2.imread(filename) is None:
-                logging.error(f"Le fichier téléchargé à partir de {image_url} n'est pas une image valide")
-                return None, None
-
-            sha256_hash = hashlib.sha256()
-
-            with open(filename, 'rb') as file:
-                while chunk := file.read(8192):
-                    sha256_hash.update(chunk)
-
-            return filename, sha256_hash.hexdigest()
-
+            image = Image.open(BytesIO(response.content))
+            return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR), hashlib.sha256(response.content).hexdigest()
         except requests.RequestException as e:
-            logging.error(f"Erreur lors du téléchargement de l'image : {e}")
-            return None, None
-
-    def process_url(self, url):
-        logo_url = self.extract_logo_url(url)
-
-        if logo_url:
-            logging.info(f"L'URL du logo du site est : {logo_url}")
-            data_id = hashlib.md5(url.encode()).hexdigest()
-            image_path, sha256_hash = self.download_image_and_compute_sha256(logo_url, data_id)
-
-            if sha256_hash:
-                logging.info(f"SHA-256 de l'image : {sha256_hash}")
-            return image_path, sha256_hash
-        else:
-            logging.info("Aucun logo trouvé pour ce site.")
+            logging.error(f"Error while downloading the image: {e}")
             return None, None
 
     def load_image(self, file_path):
         try:
             image = cv2.imread(file_path)
             if image is None:
-                logging.error(f"Impossible de charger l'image à partir de {file_path}")
+                logging.error(f"Unable to load image from {file_path}")
                 return None
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            return gray_image
+            return gray_image, None
         except Exception as e:
-            logging.error(f"Erreur lors du chargement de l'image : {e}")
-            return None
+            logging.error(f"Error while loading the image: {e}")
+            return None, None
 
     def resize_image(self, image, size):
-        resized_image = cv2.resize(image, size, interpolation=cv2.INTER_AREA)
-        return resized_image
+        return cv2.resize(image, size, interpolation=cv2.INTER_AREA)
 
     def compare_images(self, image_legitime, image_phishing):
-        size = (min(image_legitime.shape[1], image_phishing.shape[1]), min(image_legitime.shape[0], image_phishing.shape[0]))
+        # Resize both images to 32x32 for comparison
+        size = (32, 32)
+
         resized_image_legitime = self.resize_image(image_legitime, size)
         resized_image_phishing = self.resize_image(image_phishing, size)
-        similarity, _ = ssim(resized_image_legitime, resized_image_phishing, full=True)
+
+        # Convert to grayscale to ensure SSIM comparison works correctly
+        gray_image_legitime = cv2.cvtColor(resized_image_legitime, cv2.COLOR_BGR2GRAY)
+        gray_image_phishing = cv2.cvtColor(resized_image_phishing, cv2.COLOR_BGR2GRAY)
+
+        # Normalizing images to reduce effects of different lighting conditions
+        norm_image_legitime = cv2.normalize(gray_image_legitime, None, 0, 255, cv2.NORM_MINMAX)
+        norm_image_phishing = cv2.normalize(gray_image_phishing, None, 0, 255, cv2.NORM_MINMAX)
+
+        similarity, _ = ssim(norm_image_legitime, norm_image_phishing, full=True)
         return similarity
 
     def logo_info(self, url_legitime="https://www.orange.fr"):
-        image_path_legitime, hash_legitime = self.process_url(url_legitime)
-        image_path_phishing, hash_phishing = self.process_url(self.url)
-
         similarity_score = None
+        url_phishing = self.url
 
-        if image_path_legitime and image_path_phishing:
-            image_legitime = self.load_image(image_path_legitime)
-            image_phishing = self.load_image(image_path_phishing)
+        logo_url_legitime = self.extract_logo_url(url_legitime)
+        logo_url_phishing = self.extract_logo_url(url_phishing)
 
-            if image_legitime is not None and image_phishing is not None:
-                similarity_score = self.compare_images(image_legitime, image_phishing)
-                logging.info(f"Score de ressemblance entre les images : {similarity_score:.2f}")
-                logging.info(f"SHA-256 de l'image 1 : {hash_legitime}")
-                logging.info(f"SHA-256 de l'image 2 : {hash_phishing}")
+        image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
+        image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
 
+        similarity_score = self.compare_images(image_legitime, image_phishing)
+        print(f"Score de ressemblance entre les images : {similarity_score:.2f}")
+        print(f"SHA-256 de l'image 1 : {hash_legitime}")
+        print(f"SHA-256 de l'image 2 : {hash_phishing}")
         return hash_phishing, similarity_score
