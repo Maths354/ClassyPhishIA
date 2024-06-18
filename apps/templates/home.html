@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
+    <div id="overlay">
+        <div class="loader"></div>
+    </div>
     <header>
         <nav class="nav-bar animate__animated animate__fadeInDown">
             <a href="/" class="logo-nav">
@@ -34,7 +37,8 @@
                 <h2>Entrez le lien URL du site de phishing</h2>
                 <form id="phishing-link-form" action="/" method="POST">
                     <input type="text" name="phishing-link" placeholder="Entrez le lien URL ici">
-                    <button type="submit">Soumettre</button>
+                    <button type="submit" id="loading">Soumettre</button>
+                    <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
                 </form>
                 {% if error_message %}
                 <p class="error-message">{{ error_message }}</p>
