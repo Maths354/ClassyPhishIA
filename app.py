@@ -25,11 +25,12 @@ def home():
 
 @app.route('/stats')
 def stats():
-    phishing_sites=Questions().get_all_table(PhishingSite)
-    url, nbURL = CamamberExtension(phishing_sites).extract_url_extension()
+    domaines=Questions().get_all_table(ReccurentDomain)
+    liste_domains = json.dumps([d['domain'] for d in domaines])
+    liste_reccurent_nb = json.dumps([d['reccurent_nb'] for d in domaines])
 
-    return render_template('stats.html', url=url, nbURL=nbURL)
-
+    return render_template('stats.html', url=liste_domains, nbURL=liste_reccurent_nb)
+    
 @app.route('/informations')
 def informations():
     return render_template('informations.html')
