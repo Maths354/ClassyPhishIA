@@ -6,12 +6,13 @@ from apps.graph.graph import BarChart
 from apps.graph.stats_extension_phishing import CamamberExtension
 
 #Import DB things
-from apps.models.models import OfficalSite, PhishingSite, Score
+from apps.models.models import OfficalSite, PhishingSite, Score, ReccurentDomain
 from apps.models.questions import Questions
 from apps.models.post import Post
 
 from markupsafe import Markup # type: ignore
 import requests
+import json
 
 app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
 app.secret_key = 'secret_key_test'
