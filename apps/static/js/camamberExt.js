@@ -1,15 +1,15 @@
-
 function initPieChart(url, nbURL) {
     console.log(url, nbURL)
+
     const ctx = document.getElementById('myPieChart');
 
     new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['fr', 'com', 'bzh'],
+            labels: url,
             datasets: [{
                 label: 'Extensions d\'URL',
-                data: [13, 2, 3],
+                data: nbURL,
                 backgroundColor: [  
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
