@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy # type: ignore
 
 from analyse_phishing.main import Main
 from apps.graph.graph import BarChart
-from apps.graph.stats_extension_phishing import CamamberExtension
 
 #Import DB things
 from apps.models.models import OfficalSite, PhishingSite, Score, ReccurentDomain
