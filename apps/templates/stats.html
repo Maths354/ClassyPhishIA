@@ -35,8 +35,8 @@
             <canvas id="myPieChart"></canvas>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
-                    const url = '{{ url }}';
-                    const nbURL = '{{ nbURL }}';
+                    let url = JSON.parse('{{ url | safe }}');
+                    let nbURL = JSON.parse('{{ nbURL }}');
                     initPieChart(url, nbURL);
                 });
             </script>
