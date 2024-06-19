@@ -18,9 +18,8 @@ class Main:
 
         checkURL = CheckURL(self.url, official_sites)
         extractURL = ExtractUrlBalises(self.url, official_sites)
-        #extractLogo = ExtractLOGO(self.url)
+        extractLogo = ExtractLOGO(self.url, official_sites)
         extractCert = ExtractCert(self.url, official_sites)
-        extractBalises = ExtractBALISES(self.url, official_sites)
         extractBalises = ExtractBALISES(self.url, official_sites)
         extractKeyWord = ExtractKeyWord(self.url)
 
@@ -32,7 +31,7 @@ class Main:
 
         Domain_URL=checkURL.url_matching()
         Page_URL=extractURL.urls_balises_info()
-        #Logo=extractLogo.logo_info()
+        Logo=extractLogo.logo_info()
         Cert=extractCert.get_cert_info()
         Template=extractBalises.balises_info()
         KeyWord=extractKeyWord.analyze_text()
@@ -41,14 +40,14 @@ class Main:
             "scores":{ "resultModel": modelResult.prediction(),
                     "checkURL": Domain_URL[1],
                     "extractURL": Page_URL[1],
-                    "extractLogo": 0.0,#Logo[1],
+                    "extractLogo": Logo[1],
                     "extractCert": Cert[1],
                     "extractKeyword": 0.0
                     },
             "datas":{
                     "checkURL": Domain_URL[0],
                     "extractURL": Page_URL[0],
-                    "extractLogo": "logo",#Logo[0],
+                    "extractLogo": Logo[0],
                     "extractCert": Cert[0],
                     "extractTemplate": Template[0],
                     "extractKeyword": KeyWord
@@ -56,7 +55,7 @@ class Main:
             "id_official":{
                     "checkURL": Domain_URL[2],
                     "extractURL": Page_URL[2],
-                    "extractLogo": "logo",#Logo[2],
+                    "extractLogo": Logo[2],
                     "extractCert": Cert[2],
                     "extractKeyword": "mettre_site_trouvé"
                     }

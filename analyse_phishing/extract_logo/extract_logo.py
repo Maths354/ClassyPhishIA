@@ -11,8 +11,9 @@ import hashlib
 import os
 
 class ExtractLOGO:
-    def __init__(self, url=None):
+    def __init__(self, url, official_sites):
         self.url = url
+        self.official_sites=official_sites
 
     def extract_logo_url(self, url):
         try:
@@ -107,18 +108,26 @@ class ExtractLOGO:
         similarity, _ = ssim(norm_image_legitime, norm_image_phishing, full=True)
         return similarity
 
-    def logo_info(self, url_legitime="https://www.orange.fr"):
+    def logo_info(self):
         similarity_score = None
+        top_score=-1
+        top_company=""
         url_phishing = self.url
 
-        logo_url_legitime = self.extract_logo_url(url_legitime)
-        logo_url_phishing = self.extract_logo_url(url_phishing)
+        for company in self.official_sites:
+            url_legitime=company["url"]
+            logo_url_legitime = self.extract_logo_url(url_legitime)
+            logo_url_phishing = self.extract_logo_url(url_phishing)
 
-        image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
-        image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+            image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
+            image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
 
-        if image_legitime is not None and hash_legitime is not None:
-            self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
-        
-        similarity_score = self.compare_images(image_legitime, image_phishing)
-        return hash_phishing, similarity_score
+            if image_legitime is not None and hash_legitime is not None:
+                self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
+            
+            similarity_score = self.compare_images(image_legitime, image_phishing)
+
+            if similarity_score>top_score:
+                top_score = similarity_score
+                top_company = [company["id"], company["url"]]
+        return hash_phishing, top_score, top_company
