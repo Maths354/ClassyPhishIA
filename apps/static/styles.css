@@ -108,3 +108,76 @@ ul li {
 #back-button:hover {
     background-color: #0056b3;
 }
+
+/* styles.css */
+
+/* Styles existants ici */
+
+/* Styles pour les nouvelles colonnes */
+.columns-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.column {
+    width: 48%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour la colonne positive */
+.positive-column {
+    background-color: #e0ffe0;
+}
+
+.positive-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.positive-column ul li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #d4ffd4;
+}
+
+/* Style pour la colonne négative */
+.negative-column {
+    background-color: #ffe0e0;
+}
+
+.negative-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.negative-column ul li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #ffd4d4;
+}
+
+/* Style pour le conteneur du graphique */
+.graph-container {
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Styles pour les titres des colonnes */
+.column-title {
+    background-color: #333; /* gris foncé */
+    color: white;
+    padding: 10px;
+    margin: -20px -20px 10px -20px; /* Enlever la marge pour un alignement propre */
+    border-radius: 8px 8px 0 0; /* Arrondir les coins du haut */
+    text-align: center;
+}
