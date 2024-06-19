@@ -8,6 +8,7 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 import hashlib
+import os
 
 class ExtractLOGO:
     def __init__(self, url=None):
@@ -75,17 +76,15 @@ class ExtractLOGO:
             logging.error(f"Error while downloading the image: {e}")
             return None, None
 
-    def load_image(self, file_path):
-        try:
-            image = cv2.imread(file_path)
-            if image is None:
-                logging.error(f"Unable to load image from {file_path}")
-                return None
-            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            return gray_image, None
-        except Exception as e:
-            logging.error(f"Error while loading the image: {e}")
-            return None, None
+    def save_image_with_sha256_name(self, image, sha256, directory='images', size=(32, 32)):
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        resized_image = self.resize_image(image, size)
+        save_path = os.path.join(directory, f"{sha256}.png")
+        cv2.imwrite(save_path, resized_image)
+        logging.info(f"Saved image at: {save_path}")
+        return save_path
 
     def resize_image(self, image, size):
         return cv2.resize(image, size, interpolation=cv2.INTER_AREA)
@@ -118,5 +117,8 @@ class ExtractLOGO:
         image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
         image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
 
+        if image_legitime is not None and hash_legitime is not None:
+            self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
+        
         similarity_score = self.compare_images(image_legitime, image_phishing)
         return hash_phishing, similarity_score
