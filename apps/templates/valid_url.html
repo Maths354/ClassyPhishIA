@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analyse de site de phishing</title>
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
     <header>
@@ -23,7 +24,7 @@
     </header>
     <main>
     </main>
-    <div class="container">
+    <div class="container animate__animated animate__fadeInDown">
         <h1>Informations sur l'analyse d'un site de phishing</h1>
         <h3>URL analysé : {% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
         <div class="score">
@@ -65,10 +66,10 @@
                 </li>
 		        <li>
                     <details>
-                        <summary>Analyse mot-clé : {{ scores.extractKeyword * 100 }}%</summary>
+                        <summary>Mot-clés trouvé sur la page web</summary>
                         <ul>
                             <li>
-                                <p style="color: red">static html, insert data here</p>
+                                <p style="color: red">Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site "{{ id_official.extractKeyword }}"</p>
                             </li>
                         </ul>
                     </details>
