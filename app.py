@@ -2,14 +2,12 @@ from flask import Flask, request, redirect, url_for, render_template, session # 
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
 from analyse_phishing.main import Main
-from apps.graph.graph import BarChart
 
 #Import DB things
 from apps.models.models import OfficalSite, PhishingSite, Score, ReccurentDomain
 from apps.models.questions import Questions
 from apps.models.post import Post
 
-from markupsafe import Markup # type: ignore
 import requests
 import json
 
@@ -62,7 +60,6 @@ def valid_url_page():
     official_sites=Questions().get_all_table(OfficalSite)
 
     allDatas = Main(phishing_link).main(official_sites)
-    barchart = BarChart().grt()
 
     datas=allDatas["datas"]
     scores=allDatas["scores"]
@@ -80,7 +77,7 @@ def valid_url_page():
     cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
     Post().update_reccurent_ca(certificat=cert_issuer)
 
-    return render_template('valid_url.html', datas=datas, scores=scores, id_official=id_official, phishing_link=phishing_link, barchart=Markup(barchart))
+    return render_template('valid_url.html', datas=datas, scores=scores, id_official=id_official, phishing_link=phishing_link)
 
 
 if __name__ == '__main__':
