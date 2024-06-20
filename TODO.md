@@ -1,26 +1,3 @@
-# Taches actuel
-
-## Parsing script utilise la bdd pour la comparaison
-
-- ~~checkURL
-- ~~extractURL
-- extractLogo
-- ~~extractCert
-- extractBalises
-- extractKeyword
-
-## Metre au propre les scripts de parsing
-
-- ~~checkURL
-- ~~extractURL
-- extractLogo
-- extractCert
-- extractBalises
-- extractKeyword
-
-## DB
-
-- Lié la clé étrangère des PhishingSite vers le bon OfficialSite
 
 # Idée
 
