@@ -77,15 +77,15 @@ class ExtractLOGO:
             logging.error(f"Error while downloading the image: {e}")
             return None, None
 
-    # def save_image_with_sha256_name(self, image, sha256, directory='images', size=(32, 32)):
-    #     if not os.path.exists(directory):
-    #         os.makedirs(directory)
+    def save_image_with_sha256_name(self, image, sha256, directory='images', size=(32, 32)):
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
-    #     resized_image = self.resize_image(image, size)
-    #     save_path = os.path.join(directory, f"{sha256}.png")
-    #     cv2.imwrite(save_path, resized_image)
-    #     logging.info(f"Saved image at: {save_path}")
-    #     return save_path
+        resized_image = self.resize_image(image, size)
+        save_path = os.path.join(directory, f"{sha256}.png")
+        cv2.imwrite(save_path, resized_image)
+        logging.info(f"Saved image at: {save_path}")
+        return save_path
 
     def resize_image(self, image, size):
         return cv2.resize(image, size, interpolation=cv2.INTER_AREA)
@@ -124,9 +124,14 @@ class ExtractLOGO:
                 image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
                 image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
 
-        # if image_legitime is not None and hash_legitime is not None:
-        #     self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
-        
-        similarity_score = self.compare_images(image_legitime, image_phishing)
-        print(logo_url_legitime)
-        return logo_url_legitime, similarity_score
+                if image_legitime is not None and hash_legitime is not None:
+                    self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
+                
+                similarity_score = self.compare_images(image_legitime, image_phishing)
+
+                if similarity_score>top_score:
+                    top_score = similarity_score
+                    top_company = [company["id"], company["url"]]
+            return hash_phishing, top_score, top_company
+        else:
+            return 'no hash', 0.0, [0, 'Top_company not found']
