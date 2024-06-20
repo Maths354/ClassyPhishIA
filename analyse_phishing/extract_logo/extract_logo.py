@@ -114,20 +114,24 @@ class ExtractLOGO:
         top_company=""
         url_phishing = self.url
 
-        for company in self.official_sites:
-            url_legitime=company["url"]
-            logo_url_legitime = self.extract_logo_url(url_legitime)
-            logo_url_phishing = self.extract_logo_url(url_phishing)
+        logo_url_phishing = self.extract_logo_url(url_phishing)
 
-            image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
-            image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+        if logo_url_phishing != None:
+            for company in self.official_sites:
+                url_legitime=company["url"]
+                logo_url_legitime = self.extract_logo_url(url_legitime)
 
-            if image_legitime is not None and hash_legitime is not None:
-                self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
-            
-            similarity_score = self.compare_images(image_legitime, image_phishing)
+                image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
+                image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
 
-            if similarity_score>top_score:
-                top_score = similarity_score
-                top_company = [company["id"], company["url"]]
-        return hash_phishing, top_score, top_company
+                if image_legitime is not None and hash_legitime is not None:
+                    self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
+                
+                similarity_score = self.compare_images(image_legitime, image_phishing)
+
+                if similarity_score>top_score:
+                    top_score = similarity_score
+                    top_company = [company["id"], company["url"]]
+            return hash_phishing, top_score, top_company
+        else:
+            return 'no hash', 0.0, [0, 'Top_company not found']
