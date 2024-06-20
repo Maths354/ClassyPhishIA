@@ -1,27 +1,3 @@
-# Taches actuel
-
-## Parsing script utilise la bdd pour la comparaison
-
-- ~~checkURL
-- ~~extractURL
-- extractLogo
-- ~~extractCert
-- extractBalises
-- extractKeyword
-
-## Metre au propre les scripts de parsing
-
-- ~~checkURL
-- ~~extractURL
-- extractLogo
-- extractCert
-- extractBalises
-- extractKeyword
-
-## DB
-
-- Lié la clé étrangère des PhishingSite vers le bon OfficialSite
-
 # Idée
 
 ## Faire une analyse camamber des extensions des sites de phishing
@@ -55,4 +31,9 @@
 
 
 ## Mettre des couleurs pour le niveau du score (rouge, orange, vert)
+
+# Pour envoyer une alert au autoriété site malveillant
+
+# Si un site est déjà analysé alors afficher les infos en BDD et proposé au user de le réanalyser.
+
 

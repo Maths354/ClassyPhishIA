@@ -18,37 +18,37 @@ class Main:
 
         checkURL = CheckURL(self.url, official_sites)
         extractURL = ExtractUrlBalises(self.url, official_sites)
-        #extractLogo = ExtractLOGO(self.url)
+        extractLogo = ExtractLOGO(self.url, official_sites)
         extractCert = ExtractCert(self.url, official_sites)
         extractBalises = ExtractBALISES(self.url, official_sites)
-        extractBalises = ExtractBALISES(self.url, official_sites)
         extractKeyWord = ExtractKeyWord(self.url)
+
+        Domain_URL=checkURL.url_matching()
+        Page_URL=extractURL.urls_balises_info()
+        Logo=extractLogo.logo_info()
+        Cert=extractCert.get_cert_info()
+        Template=extractBalises.balises_info()
+        KeyWord=extractKeyWord.analyze_text()
 
         # IMPORTANT :  Mettre dans le Model que la partie score qui sont [1]
         #Il faut envoyer au model le score en 0 et 1 des analyse de l'url, logo, cert...
         #modelResult = Model(checkURL, extractLogo[1], extractCert[1])
-        modelResult = Model("0.90", "0.90", "0.90", "0.90")
-        #print("prediction :", modelResult.prediction())
 
-        Domain_URL=checkURL.url_matching()
-        Page_URL=extractURL.urls_balises_info()
-        #Logo=extractLogo.logo_info()
-        Cert=extractCert.get_cert_info()
-        Template=extractBalises.balises_info()
-        KeyWord=extractKeyWord.analyze_text()
+        modelResult = Model(Domain_URL[1], Logo[1], Cert[1])
+        #print("prediction :", modelResult.prediction())
 
         all_data = {
             "scores":{ "resultModel": modelResult.prediction(),
                     "checkURL": Domain_URL[1],
                     "extractURL": Page_URL[1],
-                    "extractLogo": 0.0,#Logo[1],
+                    "extractLogo": Logo[1],
                     "extractCert": Cert[1],
                     "extractKeyword": 0.0
                     },
             "datas":{
                     "checkURL": Domain_URL[0],
                     "extractURL": Page_URL[0],
-                    "extractLogo": "logo",#Logo[0],
+                    "extractLogo": Logo[0],
                     "extractCert": Cert[0],
                     "extractTemplate": Template[0],
                     "extractKeyword": KeyWord
@@ -56,7 +56,7 @@ class Main:
             "id_official":{
                     "checkURL": Domain_URL[2],
                     "extractURL": Page_URL[2],
-                    "extractLogo": "logo",#Logo[2],
+                    "extractLogo": Logo[2],
                     "extractCert": Cert[2],
                     "extractKeyword": "mettre_site_trouvé"
                     }
