@@ -1,8 +1,7 @@
 from flask import Flask # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 
-from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, Score
-
+from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, Score, ReccurentCA
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -65,6 +64,13 @@ class Questions():
                             "reccurent_nb" : data.reccurent_nb
                         } for data in datas
                         ]
+                    elif table == ReccurentCA:
+                        results = [
+                        {
+                            "ca": data.ca,
+                            "reccurent_nb" : data.reccurent_nb
+                        } for data in datas
+                        ]
                     return results
         except:
             raise Exception("Error while trying to use Flask app")
@@ -119,6 +125,13 @@ class Questions():
                         results = [
                         {
                             "domain": data.domain,
+                            "reccurent_nb" : data.reccurent_nb
+                        } for data in datas
+                        ]
+                    elif table == ReccurentCA:
+                        results = [
+                        {
+                            "ca": data.ca,
                             "reccurent_nb" : data.reccurent_nb
                         } for data in datas
                         ]
