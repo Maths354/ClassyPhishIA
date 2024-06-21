@@ -6,7 +6,6 @@ from analyse_phishing.extract_certificat.extract_cert import ExtractCert
 from analyse_phishing.extract_balises.extract_balises import ExtractBALISES
 from analyse_phishing.extract_key_word.extract_key_word import ExtractKeyWord
 
-
 from analyse_phishing.model.model import Model
 
 class Main:
@@ -35,7 +34,7 @@ class Main:
         #modelResult = Model(checkURL, extractLogo[1], extractCert[1])
 
         modelResult = Model(Domain_URL[1], Logo[1], Cert[1])
-        #modelResult = Model("1.0", "0.90", "0.80")
+        #modelResult = Model("1.00", "0.80", "0.90")
 
         #print("prediction :", modelResult.prediction())
 

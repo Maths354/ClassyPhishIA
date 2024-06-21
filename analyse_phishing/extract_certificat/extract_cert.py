@@ -98,9 +98,6 @@ class ExtractCert():
             phish_details += f"{field}: {phish}\n"
         self._cert_info_clean.append(official_details)
         self._cert_info_clean.append(phish_details)
-
-
-
             
 
     def get_cert_info(self):
