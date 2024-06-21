@@ -30,11 +30,10 @@
 
 ## Mettre la liste tout déroulé
 
-
 ## Mettre des couleurs pour le niveau du score (rouge, orange, vert)
 
-# Pour envoyer une alert au autoriété site malveillant
+## Pour envoyer une alert au autoriété site malveillant
 
-# Si un site est déjà analysé alors afficher les infos en BDD et proposé au user de le réanalyser.
+## Si un site est déjà analysé alors afficher les infos en BDD et proposé au user de le réanalyser.
 
 
