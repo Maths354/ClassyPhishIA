@@ -1,21 +1,19 @@
 import pandas as pd # type: ignore
 from sklearn.linear_model import LogisticRegression # type: ignore
-from sklearn.model_selection import train_test_split # type: ignore
-from sklearn.metrics import accuracy_score # type: ignore
+from sklearn.model_selection import train_test_split, GridSearchCV # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
+from sklearn.metrics import accuracy_score, classification_report # type: ignore
 
 class Model:
-    
+
     def __init__(self, score_url, score_logo, score_cert):
         self.score_url = score_url
         self.score_logo = score_logo
         self.score_cert = score_cert
 
-
     def prediction(self):
+        logistic_model, scaler = self.training()
 
-        logistic_model = self.training()
-
-        # Site de phishing à tester
         new_site_features = {
             'url_score': [self.score_url],
             'logo_similarity': [self.score_logo],
@@ -23,49 +21,42 @@ class Model:
         }
 
         new_site_df = pd.DataFrame(new_site_features)
+        new_site_df_scaled = scaler.transform(new_site_df)  # Standardisation
 
-        # Faire une prédiction avec le modèle
-        predicted_site_proba = logistic_model.predict_proba(new_site_df)
-        #print(f'The proba is : {predicted_site_proba[0][1]}')
-
-        print("%.3f" % predicted_site_proba[0][1])
-        return float("%.3f" % predicted_site_proba[0][1])
-        # Récupérer le nom du site légitime à partir de l'ID (supposons que `site_id_to_name` est un dictionnaire que vous avez créé)
-        # site_name = site_id_to_name[predicted_site_id[0]]
-        # print(f'The site is impersonating: {site_name}')
-
+        predicted_site_proba = logistic_model.predict_proba(new_site_df_scaled)
+        
+        probability = float("%.3f" % predicted_site_proba[0][1])
+        print(f"The predicted probability is: {probability}")
+        return probability
 
     def training(self):
-
-        # Données fictives d'entrainement à récupérer en BDD_SCORE.
         data = {
-            'url_score':        [1.00, 0.80, 0.60, 0.35, 0.15, 0.90, 0.20, 0.00, 1.00, 0.80, 0.00, 1.00, 0.30, 1.00, 0.87],
-            #'text_score':       [0.90, 0.65, 0.55, 0.25, 0.58, 0.20, 0.20, 0.62, 0.10, 0.20, 0.00, 1.00, 0.40, 0.00, 0.40, 1.00],
-            'logo_similarity':  [1.00, 0.10, 0.50, 1.00, 1.00, 1.00, 0.33, 0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.50, 0.10],
-            'cert_valid':       [0.80, 0.80, 0.85, 0.40, 0.30, 0.90, 0.05, 0.00, 1.00, 0.90, 0.50, 0.95, 0.90, 1.00, 1.00],
-            'site_identity':    [1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1]  # Identité réelle du site (label)
+            'url_score': [1.00, 0.80, 0.60, 0.35, 0.15, 0.90, 0.20, 0.00, 1.00, 0.80, 0.00, 1.00, 0.30, 1.00, 0.87],
+            'logo_similarity': [1.00, 0.10, 0.50, 1.00, 1.00, 1.00, 0.33, 0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.50, 0.10],
+            'cert_valid': [0.80, 0.80, 0.85, 0.40, 0.30, 0.90, 0.05, 0.00, 1.00, 0.90, 0.50, 0.95, 0.90, 1.00, 1.00],
+            'site_identity': [1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1]
         }
 
         df = pd.DataFrame(data)
-
-        #X = df[['url_score', 'text_sco re', 'logo_similarity', 'has_https', 'cert_valid']]
-        #X = df[['url_score', 'text_score', 'logo_similarity']]
         X = df[['url_score', 'logo_similarity', 'cert_valid']]
         y = df['site_identity']
 
-        # Séparation des données en ensembles d'entraînement et de test
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        # Standardisation des données
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
 
-        # Création et entraînement du modèle de régression logistique
-        logistic_model = LogisticRegression(random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+        # Recherche des meilleurs hyperparamètres
+        param_grid = {'C': [0.01, 0.1, 1, 10, 100]}
+        logistic_model = GridSearchCV(LogisticRegression(random_state=42), param_grid, cv=5)
         logistic_model.fit(X_train, y_train)
 
-        # Prédiction sur l'ensemble de test
         logistic_predictions = logistic_model.predict(X_test)
-        print(logistic_predictions)
+        print(f'Predictions: {logistic_predictions}')
+        print(f'Accuracy: {accuracy_score(y_test, logistic_predictions)}')
+        print(classification_report(y_test, logistic_predictions))
 
-        # Évaluation du modèle de régression logistique
-        logistic_accuracy = accuracy_score(y_test, logistic_predictions)
-        print(f'Logistic Regression Accuracy: {logistic_accuracy}')
-        
-        return logistic_model
+        return logistic_model.best_estimator_, scaler
+
+

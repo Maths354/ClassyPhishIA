@@ -25,10 +25,9 @@
     <main>
     </main>
     <div class="container animate__animated animate__fadeInDown">
-        <h1>Informations sur l'analyse d'un site de phishing</h1>
-        <h3>URL analysé : {% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
         <div class="score">
-            <h2>Similarité avec le site "Orange": {{ scores.resultModel * 100 }}% </h2>
+            <h1>Score de confiance : {{ scores.resultModel * 100 }}% </h1>
+            <h3>{% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
         </div>
         <div class="sub-scores">
             <h3>Sous-scores d'analyse :</h3>

@@ -35,6 +35,8 @@ class Main:
         #modelResult = Model(checkURL, extractLogo[1], extractCert[1])
 
         modelResult = Model(Domain_URL[1], Logo[1], Cert[1])
+        #modelResult = Model("1.0", "0.90", "0.80")
+
         #print("prediction :", modelResult.prediction())
 
         all_data = {
