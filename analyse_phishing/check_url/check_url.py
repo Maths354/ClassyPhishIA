@@ -8,9 +8,6 @@ class CheckURL:
         self.official_sites = official_sites
 
     def url_matching(self):
-
-        domain = self.url.split("/")[2]
-
         top_ratio=0
         top_string=""
         top_company=""
@@ -20,7 +17,7 @@ class CheckURL:
             company_str_len=len(company_url)
             for start_letter in range(company_str_len):
                 for end_letter in range(start_letter,company_str_len):
-                    ratio=difflib.SequenceMatcher(None, domain, company_url[start_letter:end_letter+1]).ratio()
+                    ratio=difflib.SequenceMatcher(None, self.url, company_url[start_letter:end_letter+1]).ratio()
                     if ratio>top_ratio:
                         top_ratio=ratio
                         top_string=company_url[start_letter:end_letter+1]

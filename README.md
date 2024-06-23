@@ -1,12 +1,24 @@
-# ClassyPhishIA
+## Get ClassyPhishIA
+___
 
 ```
-pip install -r requirements.txt
+git clone https://github.com/Maths354/ClassyPhishIA.git
 ```
 
-## Install Flask
+## Run ClassyPhishIA
+___
 
-pip install flask flask_sqlalchemy flask-migrate
+```
+make run
+```
+
+
+## Add datas of official sites
+___
+```
+make add_datas
+```
+
 
 ## Install animate.css
 
