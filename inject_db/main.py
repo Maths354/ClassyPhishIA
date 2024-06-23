@@ -24,7 +24,7 @@ class Main:
         all_data = {
             "datas":{
                     "extractURL": Page_URL,
-                    "extractLogo": "logo",#Logo,
+                    "extractLogo": Logo,
                     "extractCert": Cert,
                     "extractTemplate": Template,
                     "extractKeyword": "keyword"
