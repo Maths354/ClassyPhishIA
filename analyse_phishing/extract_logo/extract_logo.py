@@ -91,21 +91,26 @@ class ExtractLOGO:
         return cv2.resize(image, size, interpolation=cv2.INTER_AREA)
 
     def compare_images(self, image_legitime, image_phishing):
+        if image_legitime is None or image_phishing is None:
+            logging.error("One or both images are None.")
+            return 0.0  # or some default similarity score
+
         # Resize both images to 32x32 for comparison
         size = (32, 32)
 
         resized_image_legitime = self.resize_image(image_legitime, size)
         resized_image_phishing = self.resize_image(image_phishing, size)
 
-        # Convert to grayscale to ensure SSIM comparison works correctly
+        if resized_image_legitime is None or resized_image_phishing is None:
+            logging.error("Error resizing one or both images.")
+            return 0.0  # or some default similarity score
+
+        # Continue with image comparison
         gray_image_legitime = cv2.cvtColor(resized_image_legitime, cv2.COLOR_BGR2GRAY)
         gray_image_phishing = cv2.cvtColor(resized_image_phishing, cv2.COLOR_BGR2GRAY)
 
-        # Normalizing images to reduce effects of different lighting conditions
-        norm_image_legitime = cv2.normalize(gray_image_legitime, None, 0, 255, cv2.NORM_MINMAX)
-        norm_image_phishing = cv2.normalize(gray_image_phishing, None, 0, 255, cv2.NORM_MINMAX)
-
-        similarity, _ = ssim(norm_image_legitime, norm_image_phishing, full=True)
+        # Normalize and compare images using SSIM or other methods
+        similarity, _ = ssim(gray_image_legitime, gray_image_phishing, full=True)
         return similarity
 
     def logo_info(self):
@@ -134,5 +139,5 @@ class ExtractLOGO:
                     top_company = [company["id"], company["url"]]
             return logo_url_legitime, top_score, top_company
         else:
-            return 'no hash', 0.0, [0, 'Top_company not found']
+            return dict(), dict(), dict()
 
