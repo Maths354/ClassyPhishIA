@@ -19,28 +19,46 @@ import ssl
 import socket
 import ast
 from datetime import datetime
+from urllib.parse import urlparse
+
 
 class ExtractCert():
 
     def __init__(self, url, official_sites):
         assert isinstance(url, str)
+        self.full_url=url
         self.url=url.split("/")[2]
         self.official_sites=official_sites
-        self._port=443
+        self._port=int()
         self._score=0
         self._cert_info_raw=self.__get_cert()
         self._cert_info_clean=list()
         self._top_company=list()
 
+    def __get_port_from_url(self):
+        parsed_url = urlparse(self.full_url)
+        self._port = parsed_url.port
+
+        if self._port is None:
+            if parsed_url.scheme == 'http':
+                self._port = 80
+            elif parsed_url.scheme == 'https':
+                self._port = 443
+
+
     def __get_cert(self):
+        self.__get_port_from_url()
         try:
             context = ssl.create_default_context()
             with socket.create_connection((self.url, self._port)) as sock:
                 with context.wrap_socket(sock, server_hostname=self.url) as ssock:
                     cert = ssock.getpeercert()
                     return cert
+                    
         except:
             return dict()
+        
+        
     
     def __compare_subjects(self,offical_subject, phishing_subject):
         fields = ['countryName', 'stateOrProvinceName', 'localityName', 'organizationName', 'commonName']
