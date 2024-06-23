@@ -94,9 +94,9 @@
                 <div class="column positive-column">
                     <h3 class="column-title">Points positifs</h3>
                     <ul>
-                        <li>Élément positif 1</li>
-                        <li>Élément positif 2</li>
-                        <li>Élément positif 3</li>
+                        {% for point in positive_points %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
                 
@@ -104,14 +104,14 @@
                 <div class="column negative-column">
                     <h3 class="column-title">Points négatifs</h3>
                     <ul>
-                        <li>Élément négatif 1</li>
-                        <li>Élément négatif 2</li>
-                        <li>Élément négatif 3</li>
+                        {% for point in negative_points %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
     <footer>
         <p>© 2021 - All rights reserved</p>
     </footer>

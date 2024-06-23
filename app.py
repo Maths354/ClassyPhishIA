@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template, session # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
-
+from analyse_phishing.model.tab_positives_negatives import URLAnalyzer
 from analyse_phishing.main import Main
 
 #Import DB things
@@ -77,7 +77,11 @@ def valid_url_page():
     cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
     Post().update_reccurent_ca(certificat=cert_issuer)
 
-    return render_template('valid_url.html', datas=datas, scores=scores, id_official=id_official, phishing_link=phishing_link)
+    url_analyzer = URLAnalyzer(phishing_link)
+    positive_points, negative_points = url_analyzer.analyze()
+
+    return render_template('valid_url.html', datas=datas, scores=scores, id_official=id_official, 
+                           phishing_link=phishing_link, positive_points=positive_points, negative_points=negative_points)
 
 if __name__ == '__main__':
     app.run(debug=True)
