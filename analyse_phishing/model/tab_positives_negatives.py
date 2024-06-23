@@ -1,9 +1,7 @@
-# url_analyzer.py
-
 import requests
 from urllib.parse import urlparse
 import whois
-from datetime import datetime, timedelta
+from datetime import datetime
 
 class URLAnalyzer:
     def __init__(self, url):
