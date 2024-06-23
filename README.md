@@ -11,7 +11,7 @@ git clone https://github.com/Maths354/ClassyPhishIA.git
 ## Run ClassyPhishIA
 
 ```
-make run
+make
 ```
 
 

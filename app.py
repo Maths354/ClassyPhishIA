@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, url_for, render_template, session # 
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 from analyse_phishing.model.tab_positives_negatives import URLAnalyzer
 from analyse_phishing.main import Main
+from apps.config import Config
 
 #Import DB things
 from apps.models.models import OfficalSite, PhishingSite, Score, ReccurentDomain
@@ -12,9 +13,7 @@ import requests
 import json
 
 app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
-app.secret_key = 'secret_key_test'
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 @app.route('/')

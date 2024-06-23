@@ -3,8 +3,10 @@ from flask_sqlalchemy import SQLAlchemy # type: ignore
 
 from apps.models.models import db, OfficalSite, PhishingSite, ReccurentDomain, ReccurentCA, Score
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+from apps.config import Config
+
+app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
+app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 

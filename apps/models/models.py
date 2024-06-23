@@ -1,10 +1,12 @@
 from os import path
 from flask import Flask # type: ignore
 from flask_sqlalchemy import SQLAlchemy # type: ignore
+from apps.config import Config
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
+app.config.from_object(Config)
 db = SQLAlchemy(app)
+
 
 # Création table 'official_site'
 class OfficalSite(db.Model):
