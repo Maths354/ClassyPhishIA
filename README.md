@@ -1,12 +1,14 @@
+## ClassyPhishIA
+
+ClassyPhishIA est un outil d’analyse de phishing basé sur le machine learning, destiné à détecter la similarité entre des sites légitimes et des sites de phishing.
+
 ## Get ClassyPhishIA
-___
 
 ```
 git clone https://github.com/Maths354/ClassyPhishIA.git
 ```
 
 ## Run ClassyPhishIA
-___
 
 ```
 make run
@@ -14,13 +16,7 @@ make run
 
 
 ## Add datas of official sites
-___
+
 ```
 make add_datas
 ```
-
-
-## Install animate.css
-
-- npm install animate.css --save
-
