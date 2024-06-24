@@ -63,8 +63,11 @@ main {
 
 .chartExt {
     width: 25%;
-    padding-top: 50px;
-    margin: 0 auto;
+    padding-top: 75px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
