@@ -29,10 +29,6 @@ class Main:
         Template=extractBalises.balises_info()
         KeyWord=extractKeyWord.analyze_text()
 
-        # IMPORTANT :  Mettre dans le Model que la partie score qui sont [1]
-        #Il faut envoyer au model le score en 0 et 1 des analyse de l'url, logo, cert...
-        #modelResult = Model(checkURL, extractLogo[1], extractCert[1])
-
         modelResult = Model(Domain_URL[1], Logo[1], Cert[1])
         #modelResult = Model("1.00", "0.80", "0.90")
 
