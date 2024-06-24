@@ -23,91 +23,151 @@
         </nav>
     </header>
     <main>
-    </main>
-    <div class="container animate__animated animate__fadeInDown">
-        <div class="score">
-            <h1>Score de confiance : {{ scores.resultModel * 100 }}% </h1>
-            <h3>{% if phishing_link %} {{ phishing_link }} {% endif %} </h3>
-        </div>
-        <div class="sub-scores">
-            <h3>Sous-scores d'analyse :</h3>
-            <ul>
-                <li>
-                    <details>
-                        <summary>Analyse URL : {{ scores.checkURL * 100 }}%</summary>
-                        <ul>
-                            <li>
-                                <p style="color: red;">Site officiel le plus proche : {{ id_official.checkURL[1] }}</p>
-                                <p style="color: red;">Similarité sur l'url : {{ datas.checkURL }}</p>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
-                <li>
-                    <details>
-                        <summary>Analyse URL List : {{ scores.extractURL * 100 }}%</summary>
-                        <ul>
-                            <li>
-                                <p style="color: red">{{ datas.extractURL }}</p>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
-                <li>
-                    <details>
-                        <summary>Analyse logo : {{ scores.extractLogo * 100 }}%</summary>
-                        <ul>
-                            <li>
-                                <p style="color: red">{{ datas.extractLogo }}</p>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
-		        <li>
-                    <details>
-                        <summary>Mot-clés trouvé sur la page web</summary>
-                        <ul>
-                            <li>
-                                <p style="color: red">Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site "{{ id_official.extractKeyword }}"</p>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
-                <li>
-                    <details>
-                        <summary>Analyse certificat : {{ scores.extractCert * 100 }}%</summary>
-                        <ul>
-                            <li>
-                                <p style="color: black">Date émission certificat site de phishing</p>
-                                <p style="color: black">{{ datas.extractCert[0][0] }}</p>
-                                <p style="color: black">Comparaison localisation certificat</p>
-                                <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
-                                <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
-                                <p style="color: red">{{ datas.extractCert[1] }}</p>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
-            </ul>
-            <div class="columns-container">
-                <!-- Colonne positive -->
-                <div class="column positive-column">
-                    <h3 class="column-title">Points positifs</h3>
-                    <ul>
-                        {% for point in positive_points %}
-                        <li>{{ point }}</li>
-                        {% endfor %}
-                    </ul>
+        <div class="container animate__animated animate__fadeInDown">
+            <section class="score-section">
+                <h1>Analyse du site : {% if phishing_link %} "{{ phishing_link }}" {% endif %} </h1>
+                <div class="score-content">
+                    <h2>Score de confiance : </h2>
+                    <div class="gauge-container">
+                        <svg class="gauge" viewBox="0 0 36 36">
+                            <path class="circle-bg"
+                                d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path class="circle   {% if (scores.resultModel * 100) < 35 %}circle-low
+                            {% elif 35 <= (scores.resultModel * 100) < 60 %}circle-mid
+                            {% else %}circle-high{% endif %}"
+                                stroke-dasharray="{{ scores.resultModel * 100 }}, 100"
+                                d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <text x="18" y="20.35" class="percentage">{{ (scores.resultModel * 100) | round(1) }}%</text>
+                        </svg>
+                    </div>
                 </div>
-                
-                <!-- Colonne négative -->
-                <div class="column negative-column">
-                    <h3 class="column-title">Points négatifs</h3>
-                    <ul>
-                        {% for point in negative_points %}
-                        <li>{{ point }}</li>
-                        {% endfor %}
-                    </ul>
+            </section>
+
+            <section class="sub-scores">
+                <h3>Sous-scores d'analyse :</h3>
+                <div class="sub-score">
+                    <span class="label">URL</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.checkURL * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.checkURL * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">URL Liste</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractURL * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractURL * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Logo</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractLogo * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractLogo * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Mots-clés</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractKeyword * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractKeyword * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Certificat</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractCert * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractCert * 100) | round(1) }}%</span>
+                </div>
+            </section>
+
+            <div class="sub-scores">
+                <h3>Détail de l'analyse :</h3>
+                <ul>
+                    <li>
+                        <details>
+                            <summary>Analyse URL : {{ scores.checkURL * 100 }}%</summary>
+                            <ul>
+                                <li>
+                                    <p style="color: red;">Site officiel le plus proche : {{ id_official.checkURL[1] }}</p>
+                                    <p style="color: red;">Similarité sur l'url : {{ datas.checkURL }}</p>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary>Analyse URL List : {{ scores.extractURL * 100 }}%</summary>
+                            <ul>
+                                <li>
+                                    <p style="color: red">{{ datas.extractURL }}</p>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary>Analyse logo : {{ scores.extractLogo * 100 }}%</summary>
+                            <ul>
+                                <li>
+                                    <p style="color: red">{{ datas.extractLogo }}</p>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary>Mot-clés trouvé sur la page web</summary>
+                            <ul>
+                                <li>
+                                    <p style="color: red">Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site "{{ id_official.extractKeyword }}"</p>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary>Analyse certificat : {{ scores.extractCert * 100 }}%</summary>
+                            <ul>
+                                <li>
+                                    <p style="color: black">Date émission certificat site de phishing</p>
+                                    <p style="color: black">{{ datas.extractCert[0][0] }}</p>
+                                    <p style="color: black">Comparaison localisation certificat</p>
+                                    <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
+                                    <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
+                                    <p style="color: red">{{ datas.extractCert[1] }}</p>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+                <div class="columns-container">
+                    <!-- Colonne positive -->
+                    <div class="column positive-column">
+                        <h3 class="column-title">Points positifs</h3>
+                        <ul>
+                            {% for point in positive_points %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <!-- Colonne négative -->
+                    <div class="column negative-column">
+                        <h3 class="column-title">Points négatifs</h3>
+                        <ul>
+                            {% for point in negative_points %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
