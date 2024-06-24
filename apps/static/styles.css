@@ -244,7 +244,7 @@ ul li {
 
 .column {
     width: 48%;
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -300,4 +300,12 @@ ul li {
     margin: -20px -20px 10px -20px; /* Enlever la marge pour un alignement propre */
     border-radius: 8px 8px 0 0; /* Arrondir les coins du haut */
     text-align: center;
+}
+
+
+.icon {
+    width: 40px; /* Ajuste la taille des icônes selon tes besoins */
+    height: auto; /* Maintient les proportions de l'image */
+    margin-right: 15px; /* Espace entre l'image et le texte */
+    vertical-align: middle; /* Aligne l'image au milieu de la ligne de texte */
 }

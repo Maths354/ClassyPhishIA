@@ -151,7 +151,9 @@
                 <div class="columns-container">
                     <!-- Colonne positive -->
                     <div class="column positive-column">
-                        <h3 class="column-title">Points positifs</h3>
+                        <h3 class="column-title">
+                            <img src="static/ok.png" alt="OK" class="icon"> Points positifs
+                        </h3>
                         <ul>
                             {% for point in positive_points %}
                             <li>{{ point }}</li>
@@ -161,7 +163,9 @@
                     
                     <!-- Colonne négative -->
                     <div class="column negative-column">
-                        <h3 class="column-title">Points négatifs</h3>
+                        <h3 class="column-title">
+                            <img src="static/cross.png" alt="Cross" class="icon"> Points négatifs
+                        </h3>
                         <ul>
                             {% for point in negative_points %}
                             <li>{{ point }}</li>
