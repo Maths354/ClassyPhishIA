@@ -139,5 +139,5 @@ class ExtractLOGO:
                     top_company = [company["id"], company["url"]]
             return logo_url_legitime, top_score, top_company
         else:
-            return dict(), dict(), dict()
+            return dict(), 0.0, dict()
 
