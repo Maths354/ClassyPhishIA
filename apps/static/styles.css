@@ -5,6 +5,8 @@ body {
     background-image: linear-gradient(112.5deg, rgb(139,139,139) 0%, rgb(139,139,139) 10%,rgb(192,192,192) 10%, rgb(192,192,192) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157,157,157) 55%, rgb(157,157,157) 60%,rgb(186,185,185) 60%, rgb(186,185,185) 88%,rgb(166,166,166) 88%, rgb(166,166,166) 91%,rgb(139,139,139) 91%, rgb(139,139,139) 100%),linear-gradient(157.5deg, rgb(139,139,139) 0%, rgb(139,139,139) 10%,rgb(192,192,192) 10%, rgb(192,192,192) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157,157,157) 55%, rgb(157,157,157) 60%,rgb(186,185,185) 60%, rgb(186,185,185) 88%,rgb(166,166,166) 88%, rgb(166,166,166) 91%,rgb(139,139,139) 91%, rgb(139,139,139) 100%),linear-gradient(135deg, rgb(139,139,139) 0%, rgb(139,139,139) 10%,rgb(192,192,192) 10%, rgb(192,192,192) 53%,rgb(176, 176, 176) 53%, rgb(176, 176, 176) 55%,rgb(157,157,157) 55%, rgb(157,157,157) 60%,rgb(186,185,185) 60%, rgb(186,185,185) 88%,rgb(166,166,166) 88%, rgb(166,166,166) 91%,rgb(139,139,139) 91%, rgb(139,139,139) 100%),linear-gradient(90deg, rgb(192,192,192),rgb(192,192,192)); background-blend-mode:overlay,overlay,overlay,normal;
 }
 
+/* Barre de navigation */
+
 .nav-bar {
     position: absolute;
     padding: 50px;
@@ -43,16 +45,142 @@ body {
     font-weight: 600;
 }
 
+/* score global */
+
+.score-section {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.score-content {
+    display: flex;
+    align-items: center;
+}
+
+.score-content h2 {
+    margin: 0 20px 0 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.score-section:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.score-section .score {
+    font-size: 2em;
+    color: #48c774;
+}
+
+.gauge-container {
+    width: 100px;
+    margin: 0 auto;
+}
+
+.gauge {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 3.8;
+}
+
+.circle {
+    fill: none;
+    stroke: #48c774;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+}
+
+.percentage {
+    fill: #666;
+    font-size: 8px;
+    text-anchor: middle;
+}
+
+.circle-low {
+    stroke: #ff4c4c; /* Rouge pour faible score */
+}
+
+.circle-mid {
+    stroke: #fcaa12; /* Rouge pour faible score */
+}
+
+.circle-high {
+    stroke: #48c774; /* Vert pour bon score */
+}
+
+@keyframes progress {
+    from { stroke-dasharray: 0, 100; }
+}
+
+/* main de la page */
+
+/* Sub score */
+.sub-scores {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sub-score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.sub-score .label {
+    width: 8%;
+    text-align: left;
+}
+
+.progress-bar {
+    width: 60%;
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 10px;
+    background-color: #48c774;
+}
+
+.sub-score .percentage {
+    width: 15%;
+    text-align: right;
+}
+
+/* other */
+
+
 main { 
     padding-top: 150px;
 }
 
 .container {
     padding-top: 350px;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 50px auto;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* transition: box-shadow 0.3s ease-in-out; */
 }
 
 h1, h2, h3 {
@@ -82,14 +210,6 @@ ul {
 ul li {
     font-size: 18px;
     margin-bottom: 10px;
-}
-
-.container {
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.container:hover {
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 }
 
 #back-button {
