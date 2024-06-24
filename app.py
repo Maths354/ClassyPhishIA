@@ -5,7 +5,7 @@ from analyse_phishing.main import Main
 from apps.config import Config
 
 #Import DB things
-from apps.models.models import OfficalSite, PhishingSite, Score, ReccurentDomain
+from apps.models.models import OfficalSite, PhishingSite, Score, ReccurentDomain, ReccurentCA
 from apps.models.questions import Questions
 from apps.models.post import Post
 
@@ -26,7 +26,11 @@ def stats():
     liste_domains = json.dumps([d['domain'] for d in domaines])
     liste_reccurent_nb = json.dumps([d['reccurent_nb'] for d in domaines])
 
-    return render_template('stats.html', url=liste_domains, nbURL=liste_reccurent_nb)
+    certficat=Questions().get_all_table(ReccurentCA)
+    liste_cert = json.dumps([c['ca'] for c in certficat])
+    liste_cert_nb = json.dumps([c['reccurent_nb'] for c in certficat])
+
+    return render_template('stats.html', url=liste_domains, nbURL=liste_reccurent_nb, cert=liste_cert, nbCert=liste_cert_nb)
     
 @app.route('/informations')
 def informations():
