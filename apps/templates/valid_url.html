@@ -35,7 +35,7 @@
                                     a 15.9155 15.9155 0 0 1 0 31.831
                                     a 15.9155 15.9155 0 0 1 0 -31.831"
                             />
-                            <path class="circle   {% if (scores.resultModel * 100) < 35 %}circle-low
+                            <path class="circle {% if (scores.resultModel * 100) < 35 %}circle-low
                             {% elif 35 <= (scores.resultModel * 100) < 60 %}circle-mid
                             {% else %}circle-high{% endif %}"
                                 stroke-dasharray="{{ scores.resultModel * 100 }}, 100"
@@ -46,6 +46,10 @@
                             <text x="18" y="20.35" class="percentage">{{ (scores.resultModel * 100) | round(1) }}%</text>
                         </svg>
                     </div>
+                </div>
+                <!-- Ajout du bouton ici -->
+                <div class="report-button-container">
+                    <a href="https://phishing-initiative.eu/contrib/" class="report-button" target="_blank">Signaler le site</a>
                 </div>
             </section>
 
@@ -176,8 +180,18 @@
             </div>
         </div>
     </main>
-    <footer>
-        <p>© 2021 - All rights reserved</p>
+
+    <footer class="footer-adapte">
+        <div class="footer-container">
+            <div class="logo-container">
+                <img src="static/logo_site.png" alt="Logo de l'entreprise" class="footer-logo">
+            </div>
+            <div class="links-container">
+                <a href="/about">Mentions légales</a>
+                <a href="/about">À propos de ClassyPhishIA</a>
+            </div>
+        </div>
+        <p>© 2024 - Tous droits réservés</p>
     </footer>
 </body>
 </html>

@@ -36,6 +36,15 @@ def stats():
 def informations():
     return render_template('informations.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/legal')
+def legal():
+    return render_template('legal.html')
+
+
 @app.route('/', methods=['POST'])
 def validate_url():
     phishing_link = request.form['phishing-link']
