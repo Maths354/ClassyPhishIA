@@ -40,6 +40,14 @@
                     initPieChart(url, nbURL);
                 });
             </script>
+            <canvas id="myCertChart"></canvas>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    let cert = JSON.parse('{{ cert | safe }}');
+                    let nbCert = JSON.parse('{{ nbCert }}');
+                    initCertChart(cert, nbCert);
+                });
+            </script>
         </div>
     </main>
     
