@@ -64,17 +64,17 @@ def valid_url_page():
     scores=allDatas["scores"]
     id_official=allDatas["id_official"]
 
-    my_phish_site = PhishingSite(id_offical_site=1, phishing_url=phishing_link, url=str(datas["checkURL"]), list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"][1]), template=str(datas["extractTemplate"]))
-    Post().insert_table(upload=my_phish_site)
+    if scores["resultModel"] < 0.50:
+        my_phish_site = PhishingSite(id_offical_site=1, phishing_url=phishing_link, url=str(datas["checkURL"]), list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"][1]), template=str(datas["extractTemplate"]))
+        Post().insert_table(upload=my_phish_site)
 
-    last_phishing_id=Questions().get_last_phishing_id()
-    my_score = Score(id_phishing_site=last_phishing_id, score_url=scores["checkURL"], score_list_url=scores["extractURL"], score_certificate=scores["extractCert"], score_logo=scores["extractLogo"], score_key_word=scores["extractKeyword"])
-    Post().insert_table(upload=my_score)
+        last_phishing_id=Questions().get_last_phishing_id()
+        my_score = Score(id_phishing_site=last_phishing_id, score_url=scores["checkURL"], score_list_url=scores["extractURL"], score_certificate=scores["extractCert"], score_logo=scores["extractLogo"], score_key_word=scores["extractKeyword"])
+        Post().insert_table(upload=my_score)
 
-
-    Post().update_recurrant_domain(phishing_link=phishing_link)
-    cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
-    Post().update_reccurent_ca(certificat=cert_issuer)
+        Post().update_recurrant_domain(phishing_link=phishing_link)
+        cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
+        Post().update_reccurent_ca(certificat=cert_issuer)
 
     url_analyzer = URLAnalyzer(phishing_link)
     positive_points, negative_points = url_analyzer.analyze()
