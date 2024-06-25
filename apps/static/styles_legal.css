@@ -1,0 +1,138 @@
+/* Réinitialisation des styles par défaut pour une meilleure cohérence */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corps et HTML */
+body, html {
+    height: 100%;
+    font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #e0e0e0 25%, #f9f9f9 100%);
+    background-size: cover;
+    margin: 0;
+    color: #333;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 800px;
+    margin: 80px auto 50px auto; /* Ajout de la marge en haut pour la barre de navigation */
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Titres */
+h1, h2 {
+    text-align: center;
+    color: #1a73e8;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+h1 {
+    color: #000; /* Couleur noire pour le titre */
+}
+/* Paragraphes */
+p, ul {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-size: 1.1em;
+}
+
+/* Navigation */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 10px 20px;
+    background: transparent; /* Fond transparent */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: background 0.3s ease-in-out;
+}
+
+.nav-bar a {
+    color: #000; /* Liens en noir */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.nav-bar a:hover {
+    color: #555; /* Couleur légèrement plus claire au survol */
+}
+
+.nav-bar .logo-nav img {
+    width: 100px;
+    height: auto;
+}
+
+.nav-links ul {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links ul li {
+    list-style: none;
+}
+
+/* Liens actifs */
+.nav-links ul li.active a {
+    font-weight: 700;
+    color: #000; /* Conserver le noir */
+}
+
+/* Espacement principal */
+main {
+    padding-top: 80px; /* Laisser de la place pour la barre de navigation fixe */
+}
+
+/* Ajustement des animations */
+.animate__animated {
+    animation-duration: 1.5s;
+}
+
+.animate__fadeInDown {
+    animation-name: fadeInDown;
+}
+
+/* Animation personnalisée */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Style du bouton "Remonter" */
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 1000;
+}
+
+.scroll-to-top:hover {
+    background-color: #0056b3;
+    transform: translateX(-50%) scale(1.05);
+}

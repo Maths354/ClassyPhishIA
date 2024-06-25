@@ -145,12 +145,6 @@ button:hover {
     color: red;
 }
 
-footer {
-    display: flex;
-    flex-wrap: wrap; /* Permet aux enfants de passer à la ligne suivante si nécessaire */
-    justify-content: center; /* Centre le contenu horizontalement */
-    align-items: center; /* Centre le contenu verticalement */
-}
 
 /* Media queries pour ajuster le layout sur différentes tailles d'écran */
 @media (max-width: 768px) {
@@ -182,5 +176,73 @@ footer {
 
     #phishing-form {
         width: 100%; /* Le formulaire occupe 40% de la largeur de son conteneur */
+    }
+}
+
+
+
+
+
+.footer-adapte {
+    background: linear-gradient(90deg, rgba(139,139,139,0.8) 0%, rgba(192,192,192,0.8) 100%);
+    color: #fff;
+    padding: 10px 0; /* Ajuster le padding pour réduire la hauteur */
+    text-align: center;
+    margin-top: auto;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-top: 3px solid #ADD8E6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    flex-wrap: wrap;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.links-container {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    gap: 20px;
+    margin-top: 10px; /* Ajustez la marge supérieure si nécessaire */
+}
+
+.links-container a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+.links-container a:hover {
+    color: #ADD8E6;
+}
+
+footer p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .links-container {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 10px;
     }
 }

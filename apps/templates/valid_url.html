@@ -6,6 +6,7 @@
     <title>Analyse de site de phishing</title>
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_site.ico') }}">
     <script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
 </head>
 <body>
@@ -170,11 +171,8 @@
 
     <footer class="footer-adapte">
         <div class="footer-container">
-            <div class="logo-container">
-                <img src="static/logo_site.png" alt="Logo de l'entreprise" class="footer-logo">
-            </div>
             <div class="links-container">
-                <a href="/about">Mentions légales</a>
+                <a href="/legal">Mentions légales</a>
                 <a href="/about">À propos de ClassyPhishIA</a>
             </div>
         </div>
