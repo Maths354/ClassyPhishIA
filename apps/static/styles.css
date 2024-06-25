@@ -67,7 +67,6 @@ body {
 .score-content h2 {
     margin: 0 20px 0 0;
     font-size: 1.5em;
-    color: #333;
 }
 
 .score-section:hover {
@@ -135,6 +134,11 @@ body {
     margin: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.sub-scores:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 }
 
 .sub-score {
@@ -308,14 +312,6 @@ ul li {
     height: auto; /* Maintient les proportions de l'image */
     margin-right: 15px; /* Espace entre l'image et le texte */
     vertical-align: middle; /* Aligne l'image au milieu de la ligne de texte */
-}
-
-/* Style pour la section score-section */
-.score-section {
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    text-align: center;
 }
 
 /* Conteneur du bouton */
