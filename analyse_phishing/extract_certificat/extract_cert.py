@@ -125,5 +125,9 @@ class ExtractCert():
             - HTTP protocol (no cert available)
             - Website not hosted on port 443
         """
-        self.__manip_data()
+        if "https" in self.full_url:
+            self.__manip_data()
+        else : 
+            self._cert_info_clean = ""
+            self._top_company = [99999999, ""]
         return [self._cert_info_clean, self._cert_info_raw], self._score, self._top_company

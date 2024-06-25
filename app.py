@@ -86,8 +86,10 @@ def valid_url_page():
         Post().insert_table(upload=my_score)
 
         Post().update_recurrant_domain(phishing_link=phishing_link)
-        cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
-        Post().update_reccurent_ca(certificat=cert_issuer)
+
+        if datas["extractCert"][1]:
+            cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
+            Post().update_reccurent_ca(certificat=cert_issuer)
 
     url_analyzer = URLAnalyzer(phishing_link)
     positive_points, negative_points = url_analyzer.analyze()
