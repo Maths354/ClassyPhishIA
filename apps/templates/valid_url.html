@@ -6,6 +6,7 @@
     <title>Analyse de site de phishing</title>
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
 </head>
 <body>
     <header>
@@ -94,62 +95,42 @@
 
             <div class="sub-scores">
                 <h3>Détail de l'analyse :</h3>
-                <ul>
-                    <li>
-                        <details>
-                            <summary>Analyse URL : {{ scores.checkURL * 100 }}%</summary>
-                            <ul>
-                                <li>
-                                    <p style="color: red;">Site officiel le plus proche : {{ id_official.checkURL[1] }}</p>
-                                    <p style="color: red;">Similarité sur l'url : {{ datas.checkURL }}</p>
-                                </li>
-                            </ul>
-                        </details>
+                <ul class="collapsible-list">
+                    <li class="collapsible-item">
+                        <div class="collapsible-header">-> Analyse URL</div>
+                        <div class="collapsible-content">
+                            <p>Site officiel le plus proche : {{ id_official.checkURL[1] }}</p>
+                            <p>Similarité sur l'url : {{ datas.checkURL }}</p>
+                        </div>
                     </li>
-                    <li>
-                        <details>
-                            <summary>Analyse URL List : {{ scores.extractURL * 100 }}%</summary>
-                            <ul>
-                                <li>
-                                    <p style="color: red">{{ datas.extractURL }}</p>
-                                </li>
-                            </ul>
-                        </details>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header">-> Analyse URL List</div>
+                        <div class="collapsible-content">
+                            <p>{{ datas.extractURL }}</p>
+                        </div>
                     </li>
-                    <li>
-                        <details>
-                            <summary>Analyse logo : {{ scores.extractLogo * 100 }}%</summary>
-                            <ul>
-                                <li>
-                                    <p style="color: red">{{ datas.extractLogo }}</p>
-                                </li>
-                            </ul>
-                        </details>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header">-> Analyse Logo</div>
+                        <div class="collapsible-content">
+                            <p>{{ datas.extractLogo }}</p>
+                        </div>
                     </li>
-                    <li>
-                        <details>
-                            <summary>Mot-clés trouvé sur la page web</summary>
-                            <ul>
-                                <li>
-                                    <p style="color: red">Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site "{{ id_official.extractKeyword }}"</p>
-                                </li>
-                            </ul>
-                        </details>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header">-> Mot-clés trouvé</div>
+                        <div class="collapsible-content">
+                            <p>Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site "{{ id_official.extractKeyword }}"</p>
+                        </div>
                     </li>
-                    <li>
-                        <details>
-                            <summary>Analyse certificat : {{ scores.extractCert * 100 }}%</summary>
-                            <ul>
-                                <li>
-                                    <p style="color: black">Date émission certificat site de phishing</p>
-                                    <p style="color: black">{{ datas.extractCert[0][0] }}</p>
-                                    <p style="color: black">Comparaison localisation certificat</p>
-                                    <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
-                                    <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
-                                    <p style="color: red">{{ datas.extractCert[1] }}</p>
-                                </li>
-                            </ul>
-                        </details>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header">-> Analyse Certificat</div>
+                        <div class="collapsible-content">
+                            <p style="color: black">Date émission certificat site de phishing</p>
+                            <p style="color: black">{{ datas.extractCert[0][0] }}</p>
+                            <p style="color: black">Comparaison localisation certificat</p>
+                            <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
+                            <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
+                            <p style="color: red">{{ datas.extractCert[1] }}</p>
+                        </div>
                     </li>
                 </ul>
                 <div class="columns-container">
