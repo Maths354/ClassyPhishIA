@@ -66,16 +66,17 @@ class ExtractCert():
         similarity_score = 0
         comparison_result = {}
         
-        dict1 = {field[0][0]: field[0][1] for field in offical_subject}
-        dict2 = {field[0][0]: field[0][1] for field in phishing_subject}
+        dict_official = {field[0][0]: field[0][1] for field in offical_subject}
+        dict_phishing = {field[0][0]: field[0][1] for field in phishing_subject}
         
         for field in fields:
-            value1 = dict1.get(field)
-            value2 = dict2.get(field)
-            comparison_result[field] = (value1, value2, value1 == value2)
-            if value1 == value2:
-                similarity_score += 1
-        
+            value_official = dict_official.get(field)
+            value_phishing = dict_phishing.get(field)
+            comparison_result[field] = (value_official, value_phishing, value_official == value_phishing)
+            if value_phishing is not None:
+                if value_official == value_phishing:
+                    similarity_score += 1
+            
         return comparison_result, similarity_score
 
     def __manip_data(self):
