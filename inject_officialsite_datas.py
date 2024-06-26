@@ -13,19 +13,13 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 
-official_links=["https://x.com",
-               "https://www.orange.fr",
-               "https://www.youtube.com/",
-               "https://www.twitch.tv/",
-               "https://www.google.com/",
-               "https://www.netflix.com/",
-               "https://www.amazon.fr/"]
+with open("official_sites.txt") as official_links:
+    for official_link in official_links:
+        print(f"{official_link.rstrip()} début ajout")
+        allDatas = Main(official_link.rstrip()).main()
+        datas=allDatas["datas"]
+        print(f"{official_link.rstrip()} infos du sites récupérées")
 
-for official_link in official_links:
-    allDatas = Main(official_link).main()
-
-    datas=allDatas["datas"]
-
-    my_off_site = OfficalSite(url=official_link, list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"]), template=str(datas["extractTemplate"]))
-    Post().insert_table(upload=my_off_site)
-    
+        my_off_site = OfficalSite(url=official_link.rstrip(), list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"]), template=str(datas["extractTemplate"]))
+        Post().insert_table(upload=my_off_site)
+        print(f"{official_link.rstrip()} ajouté dans la bdd")
