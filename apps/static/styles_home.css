@@ -93,7 +93,7 @@ main {
 .head-top {
     text-align: center;
     padding: 5px 20px;
-    background: linear-gradient(135deg, #007b7b, #00aaff);
+    background: linear-gradient(135deg, #007b7b, #2c4f61);
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
