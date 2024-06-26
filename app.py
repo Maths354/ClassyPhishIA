@@ -78,7 +78,7 @@ def valid_url_page():
     id_official=allDatas["id_official"]
 
     if scores["resultModel"] < 0.50:
-        my_phish_site = PhishingSite(id_offical_site=1, phishing_url=phishing_link, url=str(datas["checkURL"]), list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"][1]), template=str(datas["extractTemplate"]))
+        my_phish_site = PhishingSite(phishing_url=phishing_link, url=str(datas["checkURL"]), list_url=str(datas["extractURL"]), logo=str(datas["extractLogo"]), key_word=str(datas["extractKeyword"]), certificate=str(datas["extractCert"][1]), template=str(datas["extractTemplate"]))
         Post().insert_table(upload=my_phish_site)
 
         last_phishing_id=Questions().get_last_phishing_id()

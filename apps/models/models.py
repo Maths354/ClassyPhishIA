@@ -24,7 +24,6 @@ class OfficalSite(db.Model):
 class PhishingSite(db.Model):
     __tablename__ = 'phishing_site'
     id = db.Column(db.Integer, primary_key=True)
-    id_offical_site = db.Column(db.Integer, db.ForeignKey('official_site.id'))
     phishing_url = db.Column(db.String(10000), nullable=False)
     url = db.Column(db.String(10000), nullable=False)
     list_url = db.Column(db.String(10000), nullable=False)
