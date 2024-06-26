@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ClassyPhishIA - Un outil pour vérifier la fiabilité d'un site web.">
     <title>Page d'accueil - Analyse de Site Web</title>
-    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles_home.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles_home.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_site.ico') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
@@ -16,37 +18,39 @@
     <header>
         <nav class="nav-bar animate__animated animate__fadeInDown">
             <a href="/" class="logo-nav">
-                <img src="{{ url_for('static', filename='logo_site.png') }}" class="logo-image">
+                <img src="{{ url_for('static', filename='logo_site.png') }}" class="logo-image" alt="Logo ClassyPhishIA">
             </a>
             <div class="nav-links">
                 <ul>
                     <li class="active"><a href="/">Accueil</a></li>
                     <li><a href="/stats">Stats</a></li>
-                    <li><a href="/informations">Information</a></li>
+                    <li><a href="/informations">Informations</a></li>
+                    <li><a></a><a></a><a>-----</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
     <main>
-        <div class="head-top">
+        <section class="head-top">
             <h1 class="animate__animated animate__fadeInDown">Bienvenue sur ClassyPhishIA</h1>
-            <p class="animate__animated animate__fadeInUp">Les sites de phishing sont présents partout sur le web. Notre outil a pour but d'analyser et d'identifier le site officiel qui est usurpé.</p>
-        </div>
-        <div class="main-content">
-            <img src="{{ url_for('static', filename='analyse.gif') }}" alt="Image Descriptive" class="left-image animate__animated animate__fadeInUp">
+            <p class="animate__animated animate__fadeInUp">Un outil pour vérifier la fiabilité d'un site web en ligne</p>
+        </section>
+        <section class="main-content">
+            <img src="{{ url_for('static', filename='analyse.gif') }}" alt="Analyse de site" class="left-image animate__animated animate__fadeInUp">
             <div id="phishing-form" class="container animate__animated animate__zoomIn">
-                <h2>Entrez le lien URL du site de phishing</h2>
-                <form id="phishing-link-form" action="/" method="POST">
-                    <input type="text" name="phishing-link" placeholder="Entrez le lien URL ici">
-                    <button type="submit" id="loading">Soumettre</button>
-                    <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
-                </form>
+                <h2>Entrez l'URL du site à vérifier</h2>
+                <form id="phishing-link-form" action="/" method="POST" class="search-bar" aria-label="Formulaire d'analyse de lien">
+                    <div class="search-input-container">
+                        <input type="text" name="phishing-link" placeholder="Site internet...">
+                        <button type="submit" id="loading" class="analyze-button">Analyser</button>
+                    </div>
+                </form>                
                 {% if error_message %}
                 <p class="error-message">{{ error_message }}</p>
                 {% endif %}
             </div>
-        </div>
+        </section>
     </main>
 
     <footer class="footer-adapte">
