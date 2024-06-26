@@ -92,8 +92,15 @@
                     </div>
                     <span>{{ (scores.extractCert * 100) | round(1) }}%</span>
                 </div>
+                <div class="sub-score">
+                    <span class="label">Template</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractTemplate * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractTemplate * 100) | round(1) }}%</span>
+                </div>
+            </div>
             </section>
-
             <div class="sub-scores">
                 <h3>Détail de l'analyse :</h3>
                 <ul class="collapsible-list">
