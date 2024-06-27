@@ -45,7 +45,6 @@ https://www.webmd.com
 https://www.healthline.com
 https://pubmed.ncbi.nlm.nih.gov
 https://www.sciencedirect.com
-https://www.nature.com
 https://www.ieee.org
 https://www.acm.org
 https://www.jstor.org
@@ -54,7 +53,6 @@ https://openlibrary.org
 https://librivox.org
 https://www.audible.com
 https://www.goodreads.com
-https://www.booking.com
 https://www.expedia.com
 https://www.airbnb.com
 https://www.lonelyplanet.com
@@ -83,11 +81,9 @@ https://apnews.com
 https://www.aljazeera.com
 https://www.bloomberg.com
 https://www.wsj.com
-https://www.ft.com
 https://www.forbes.com
 https://www.nationalgeographic.com
 https://www.scientificamerican.com
-https://www.nature.com
 https://www.theatlantic.com
 https://www.newyorker.com
 https://time.com
