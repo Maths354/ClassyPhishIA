@@ -12,21 +12,20 @@ class ExtractKeyWord:
         keywords = ["orange", "edf", "outlook", "banque", "domain", "examples"]
 
         texte = self.extract_text_from_url()
-
-        # Enlever les ponctuations du texte et convertir en minuscules
-        texte = texte.translate(str.maketrans('', '', string.punctuation)).lower()
-        
-        # Découper en mots
-        words = texte.split()
-        
         keyword_counts = {}
+        if texte != None:
+            # Enlever les ponctuations du texte et convertir en minuscules
+            texte = texte.translate(str.maketrans('', '', string.punctuation)).lower()
         
-        for word in words:
-            if word in keywords:
-                if word in keyword_counts:
-                    keyword_counts[word] += 1
-                else:
-                    keyword_counts[word] = 1
+            # Découper en mots
+            words = texte.split()
+            
+            for word in words:
+                if word in keywords:
+                    if word in keyword_counts:
+                        keyword_counts[word] += 1
+                    else:
+                        keyword_counts[word] = 1
 
 
         print("Mots-clés trouvés avec leurs occurrences :", keyword_counts)        
