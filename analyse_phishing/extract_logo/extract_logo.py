@@ -140,4 +140,3 @@ class ExtractLOGO:
             return logo_url_legitime, top_score, top_company
         else:
             return dict(), 0.0, dict()
-
