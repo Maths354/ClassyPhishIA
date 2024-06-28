@@ -120,7 +120,10 @@
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Logo</div>
                         <div class="collapsible-content">
-                            <p>{{ datas.extractLogo }}</p>
+                            <p>Logo site de phishing : {{ datas.extractLogo[1] }}</p>
+                            <img src="{{ datas.extractLogo[1] }}"/>
+                            <p>Correspondance logo : {{ datas.extractLogo[0] }}</p>
+                            <img src="{{ datas.extractLogo[0] }}"/>
                         </div>
                     </li>
                     <li class="collapsible-item">

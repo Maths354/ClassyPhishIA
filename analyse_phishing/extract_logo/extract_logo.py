@@ -136,6 +136,6 @@ class ExtractLOGO:
                     except:
                         pass
             top_logo_url = self.extract_logo_url(top_company[1])
-            return top_logo_url, top_score, top_company
+            return [top_logo_url, logo_url_phishing], top_score, top_company
         else:
-            return dict(), 0.0, dict()
+            return ["Pas de correspondance","Aucun logo trouvé sur le site de phishing"], 0.0, dict()
