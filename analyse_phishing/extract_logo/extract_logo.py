@@ -72,30 +72,20 @@ class ExtractLOGO:
             response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
             image = Image.open(BytesIO(response.content))
-            return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR), hashlib.sha256(response.content).hexdigest()
+            return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
         except requests.RequestException as e:
             logging.error(f"Error while downloading the image: {e}")
-            return None, None
+            return None
 
     def load_local_image_and_compute_sha256(self, file_path):
         try:
             with open(file_path, 'rb') as f:
                 image_data = f.read()
             image = Image.open(BytesIO(image_data))
-            return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR), hashlib.sha256(image_data).hexdigest()
+            return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
         except Exception as e:
             logging.error(f"Error while loading the image: {e}")
-            return None, None
-
-    def save_image_with_sha256_name(self, image, sha256, directory='images', size=(32, 32)):
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-
-        resized_image = self.resize_image(image, size)
-        save_path = os.path.join(directory, f"{sha256}.png")
-        cv2.imwrite(save_path, resized_image)
-        logging.info(f"Saved image at: {save_path}")
-        return save_path
+            return None
 
     def resize_image(self, image, size):
         return cv2.resize(image, size, interpolation=cv2.INTER_AREA)
@@ -126,8 +116,6 @@ class ExtractLOGO:
     def logo_info(self):
         similarity_score = None
         top_score=-1
-        top_company=""
-        top_logo_url=""
         url_phishing = self.url
 
         logo_url_phishing = self.extract_logo_url(url_phishing)
@@ -135,21 +123,19 @@ class ExtractLOGO:
         if logo_url_phishing != None:
             for company in self.official_sites:
                 if "None" not in company["logo"]:
-                    try:
-                        url_legitime=company["url"]
-                        logo_url_legitime = self.extract_logo_url(url_legitime)
-                        
-                        image_legitime, hash_legitime = self.load_local_image_and_compute_sha256(f"analyse_phishing/extract_logo/images/{company["logo"]}.png")
-                        image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+                    try:                        
+                        image_legitime = self.load_local_image_and_compute_sha256(f"analyse_phishing/extract_logo/images/{company["logo"]}.png")
+                        image_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
                         
                         similarity_score = self.compare_images(image_legitime, image_phishing)
 
                         if similarity_score>top_score:
                             top_score = similarity_score
                             top_company = [company["id"], company["url"]]
-                            top_logo_url = logo_url_legitime
+                            
                     except:
                         pass
+            top_logo_url = self.extract_logo_url(top_company[1])
             return top_logo_url, top_score, top_company
         else:
             return dict(), 0.0, dict()
