@@ -254,6 +254,8 @@ ul li {
     background-color: rgb(223, 223, 223);
     color: black;
     border-bottom: 1px solid #000000;
+    display: flex;
+    justify-content: start;
 }
 
 .collapsible-header:hover {
