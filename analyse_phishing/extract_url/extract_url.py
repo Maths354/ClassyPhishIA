@@ -35,8 +35,9 @@ class ExtractUrlBalises:
         if response.status_code == 200:
             # Extraire les URL avec l'expression régulière
             regex_urls = re.findall(r'https?://(?:www\.)?[^\s<>"]+|www\.[^\s<>"]+|http://[^\s<>"]+', response.text)
+            unique_urls = list(set(regex_urls))
 
-            return regex_urls
+            return unique_urls
         else:
             return []
 
@@ -52,6 +53,15 @@ class ExtractUrlBalises:
         # Si les deux URLs sont valides, calculer le score de similarité des balises
         if self.urls_balises_phishing:
             similarity_score, top_company = self.compute_similarity_score()
+
+        longURL = len(self.urls_balises_phishing)
+
+        if longURL > 0 and longURL <= 3 and similarity_score < 0.90:
+            similarity_score = similarity_score + 0.10
+        elif longURL > 3 and longURL <= 6 and similarity_score < 0.80:
+            similarity_score = similarity_score + 0.20
+        elif longURL > 6 and similarity_score < 0.50:	
+            similarity_score = similarity_score + 0.50
 
         # Retourner les balises HTML extraites
         return self.urls_balises_phishing, similarity_score, top_company

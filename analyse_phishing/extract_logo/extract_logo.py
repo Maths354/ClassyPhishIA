@@ -124,7 +124,7 @@ class ExtractLOGO:
             for company in self.official_sites:
                 if "None" not in company["logo"]:
                     try:                        
-                        image_legitime = self.load_local_image_and_compute_sha256(f"analyse_phishing/extract_logo/images/{company["logo"]}.png")
+                        image_legitime = self.load_local_image_and_compute_sha256(f"analyse_phishing/extract_logo/images/{company['logo']}.png")
                         image_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
                         
                         similarity_score = self.compare_images(image_legitime, image_phishing)

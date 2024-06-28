@@ -5,5 +5,5 @@ document.getElementById('loading').addEventListener('click', function() {
     overlay.style.display = 'flex';
     setTimeout(function() {
         overlay.style.display = 'none';
-    }, 12000);
+    }, 17000);
 });

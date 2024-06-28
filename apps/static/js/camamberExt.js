@@ -1,5 +1,5 @@
 function initPieChart(url, nbURL) {
-    console.log(url, nbURL)
+    console.log("d : ", url, nbURL)
 
     const ctx = document.getElementById('myPieChart');
 
@@ -44,9 +44,8 @@ function initPieChart(url, nbURL) {
     });
 }
 
-
 function initCertChart(cert, nbCert) {
-    console.log(cert, nbCert)
+    console.log("test : ", cert, nbCert)
 
     const ctx = document.getElementById('myCertChart');
 

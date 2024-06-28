@@ -30,6 +30,8 @@ def stats():
     liste_cert = json.dumps([c['ca'] for c in certficat])
     liste_cert_nb = json.dumps([c['reccurent_nb'] for c in certficat])
 
+    liste_cert = liste_cert.replace("'", "")
+
     return render_template('stats.html', url=liste_domains, nbURL=liste_reccurent_nb, cert=liste_cert, nbCert=liste_cert_nb)
     
 @app.route('/informations')
@@ -89,6 +91,10 @@ def valid_url_page():
 
         if datas["extractCert"][1]:
             cert_issuer = datas["extractCert"][1]["issuer"][1][0][1]
+
+            # remove ' for cert_issuer
+            # cert_issuer = cert_issuer.replace("'", "")
+
             Post().update_reccurent_ca(certificat=cert_issuer)
 
     url_analyzer = URLAnalyzer(phishing_link)

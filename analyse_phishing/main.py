@@ -29,9 +29,8 @@ class Main:
         Template=extractBalises.balises_info()
         KeyWord=extractKeyWord.analyze_text()
 
-        modelResult = Model(Domain_URL[1], Logo[1], Cert[1])
+        modelResult = Model(Domain_URL[1], Logo[1], Cert[1], Page_URL[1])
         #modelResult = Model("1.00", "0.80", "0.90")
-
         #print("prediction :", modelResult.prediction())
 
         all_data = {
@@ -41,7 +40,7 @@ class Main:
                     "extractLogo": Logo[1],
                     "extractCert": Cert[1],
                     "extractKeyword": 0.0,
-                    "extractTemplate": 0.0
+                    "extractTemplate": Template[1]
                     },
             "datas":{
                     "checkURL": Domain_URL[0],
@@ -58,7 +57,7 @@ class Main:
                     "extractLogo": Logo[2],
                     "extractCert": Cert[2],
                     "extractKeyword": "mettre_site_trouvé",
-                    "extractTemplate": "no_info"
+                    "extractTemplate": Template[2]
                     }
         }
         return all_data

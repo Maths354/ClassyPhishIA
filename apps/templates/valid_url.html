@@ -93,13 +93,13 @@
                     </div>
                     <span>{{ (scores.extractCert * 100) | round(1) }}%</span>
                 </div>
-                <!-- <div class="sub-score">
+                <div class="sub-score">
                     <span class="label">Template</span>
                     <div class="progress-bar">
                         <div class="progress" style="width: {{ (scores.extractTemplate * 100) | round(1) }}%;"></div>
                     </div>
                     <span>{{ (scores.extractTemplate * 100) | round(1) }}%</span>
-                </div> -->
+                </div>
             </section>
             <div class="sub-scores">
                 <h3>Détail de l'analyse :</h3>
@@ -112,7 +112,7 @@
                         </div>
                     </li>
                     <li class="collapsible-item">
-                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse URL List</div>
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse URL List (ensemble des urls unique)</div>
                         <div class="collapsible-content">
                             <p>{{ datas.extractURL }}</p>
                         </div>
@@ -135,6 +135,7 @@
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Template de la page</div>
                         <div class="collapsible-content">
+                            <!-- <p>{{ id_official.extractTemplate[1] }} : </p> -->
                             <p>{{ datas.extractTemplate }}</p>
                         </div>
                     </li>
@@ -142,7 +143,7 @@
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Certificat</div>
                         <div class="collapsible-content">
                             <p style="color: black">Date émission certificat site de phishing</p>
-                            <p style="color: black">{{ datas.extractCert[0][0] }}</p>
+                            <p style="color: black"><b>{{ datas.extractCert[0][0] }}</b></p>
                             <p style="color: black">Comparaison localisation certificat</p>
                             <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
                             <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
