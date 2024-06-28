@@ -76,6 +76,8 @@ class ExtractCert():
             if value_phishing is not None:
                 if value_official == value_phishing:
                     similarity_score += 1
+                    if field == "commonName":
+                        similarity_score=5
             
         return comparison_result, similarity_score
 
