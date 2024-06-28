@@ -7,6 +7,7 @@
     <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_site.ico') }}">
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-right.css' rel='stylesheet'>
     <script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
 </head>
 <body>
@@ -92,50 +93,50 @@
                     </div>
                     <span>{{ (scores.extractCert * 100) | round(1) }}%</span>
                 </div>
-                <div class="sub-score">
+                <!-- <div class="sub-score">
                     <span class="label">Template</span>
                     <div class="progress-bar">
                         <div class="progress" style="width: {{ (scores.extractTemplate * 100) | round(1) }}%;"></div>
                     </div>
                     <span>{{ (scores.extractTemplate * 100) | round(1) }}%</span>
-                </div>
+                </div> -->
             </section>
             <div class="sub-scores">
                 <h3>Détail de l'analyse :</h3>
                 <ul class="collapsible-list">
                     <li class="collapsible-item">
-                        <div class="collapsible-header">-> Analyse URL</div>
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse URL</div>
                         <div class="collapsible-content">
                             <p>Site officiel le plus proche : {{ id_official.checkURL[1] }}</p>
                             <p>Similarité sur l'url : {{ datas.checkURL }}</p>
                         </div>
                     </li>
                     <li class="collapsible-item">
-                        <div class="collapsible-header">-> Analyse URL List</div>
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse URL List</div>
                         <div class="collapsible-content">
                             <p>{{ datas.extractURL }}</p>
                         </div>
                     </li>
                     <li class="collapsible-item">
-                        <div class="collapsible-header">-> Analyse Logo</div>
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Logo</div>
                         <div class="collapsible-content">
                             <p>{{ datas.extractLogo }}</p>
                         </div>
                     </li>
                     <li class="collapsible-item">
-                        <div class="collapsible-header">-> Mot-clés trouvé</div>
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Mot-clés trouvé</div>
                         <div class="collapsible-content">
                             <p>Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site "{{ id_official.extractKeyword }}"</p>
                         </div>
                     </li>
                     <li class="collapsible-item">
-                        <div class="collapsible-header">-> Template de la page</div>
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Template de la page</div>
                         <div class="collapsible-content">
                             <p>{{ datas.extractTemplate }}</p>
                         </div>
                     </li>
                     <li class="collapsible-item">
-                        <div class="collapsible-header">-> Analyse Certificat</div>
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Certificat</div>
                         <div class="collapsible-content">
                             <p style="color: black">Date émission certificat site de phishing</p>
                             <p style="color: black">{{ datas.extractCert[0][0] }}</p>
