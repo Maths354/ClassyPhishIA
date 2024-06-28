@@ -77,6 +77,16 @@ class ExtractLOGO:
             logging.error(f"Error while downloading the image: {e}")
             return None, None
 
+    def load_local_image_and_compute_sha256(self, file_path):
+        try:
+            with open(file_path, 'rb') as f:
+                image_data = f.read()
+            image = Image.open(BytesIO(image_data))
+            return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR), hashlib.sha256(image_data).hexdigest()
+        except Exception as e:
+            logging.error(f"Error while loading the image: {e}")
+            return None, None
+
     def save_image_with_sha256_name(self, image, sha256, directory='images', size=(32, 32)):
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -117,27 +127,29 @@ class ExtractLOGO:
         similarity_score = None
         top_score=-1
         top_company=""
+        top_logo_url=""
         url_phishing = self.url
 
         logo_url_phishing = self.extract_logo_url(url_phishing)
 
         if logo_url_phishing != None:
             for company in self.official_sites:
-                url_legitime=company["url"]
-                logo_url_legitime = self.extract_logo_url(url_legitime)
+                if "None" not in company["logo"]:
+                    try:
+                        url_legitime=company["url"]
+                        logo_url_legitime = self.extract_logo_url(url_legitime)
+                        
+                        image_legitime, hash_legitime = self.load_local_image_and_compute_sha256(f"analyse_phishing/extract_logo/images/{company["logo"]}.png")
+                        image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+                        
+                        similarity_score = self.compare_images(image_legitime, image_phishing)
 
-                image_legitime, hash_legitime = self.download_image_and_compute_sha256(logo_url_legitime)
-                image_phishing, hash_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
-
-                if image_legitime is not None and hash_legitime is not None:
-                    self.save_image_with_sha256_name(image_legitime, hash_legitime, size=(32, 32))
-                
-                similarity_score = self.compare_images(image_legitime, image_phishing)
-
-                if similarity_score>top_score:
-                    top_score = similarity_score
-                    top_company = [company["id"], company["url"]]
-            return logo_url_legitime, top_score, top_company
+                        if similarity_score>top_score:
+                            top_score = similarity_score
+                            top_company = [company["id"], company["url"]]
+                            top_logo_url = logo_url_legitime
+                    except:
+                        pass
+            return top_logo_url, top_score, top_company
         else:
             return dict(), 0.0, dict()
-
