@@ -12,6 +12,7 @@ class URLAnalyzer:
         self.parsed_url = urlparse(url)
         self.positive_points = []
         self.negative_points = []
+        self.domain_info = whois.whois(self.parsed_url.hostname)
 
     def check_protocol(self):
         """Vérifie si l'URL utilise HTTPS ou HTTP."""
@@ -36,8 +37,8 @@ class URLAnalyzer:
     def check_domain_age(self):
         """Vérifie l'âge du domaine."""
         try:
-            domain_info = whois.whois(self.parsed_url.hostname)
-            creation_date = domain_info.creation_date
+            
+            creation_date = self.domain_info.creation_date
             if isinstance(creation_date, list):
                 creation_date = creation_date[0]
             if creation_date:
@@ -54,8 +55,7 @@ class URLAnalyzer:
     def check_domain_expiration(self):
         """Vérifie la date d'expiration du domaine."""
         try:
-            domain_info = whois.whois(self.parsed_url.hostname)
-            expiration_date = domain_info.expiration_date
+            expiration_date = self.domain_info.expiration_date
             if isinstance(expiration_date, list):
                 expiration_date = expiration_date[0]
             if expiration_date:
@@ -86,9 +86,8 @@ class URLAnalyzer:
     def check_whois_visibility(self):
         """Vérifie si les informations du propriétaire du domaine sont masquées ou non dans la base WHOIS."""
         try:
-            domain_info = whois.whois(self.parsed_url.hostname)
-            if domain_info:
-                if domain_info.privacy or "REDACTED" in str(domain_info):
+            if self.domain_info:
+                if self.domain_info.privacy or "REDACTED" in str(self.domain_info):
                     self.negative_points.append("Les informations du propriétaire du domaine sont masquées dans la base WHOIS, ce qui peut être un indicateur de manque de transparence.")
                 else:
                     self.positive_points.append("Les informations du propriétaire du domaine sont visibles dans la base WHOIS, ce qui indique de la transparence.")
