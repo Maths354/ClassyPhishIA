@@ -10,10 +10,14 @@ git clone https://github.com/Maths354/ClassyPhishIA.git
 
 ## Run ClassyPhishIA
 
+#### Linux
 ```
 make
 ```
-
+#### Windows
+```
+.\build.ps1 -target all
+```
 
 ## Add datas of official sites
 

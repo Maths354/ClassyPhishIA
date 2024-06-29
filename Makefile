@@ -19,7 +19,7 @@ add_datas:
 	$(PYTHON) inject_db/inject_officialsite_datas.py
 
 run: 
-	$(GUNICORN) -w 4 -b 0.0.0.0:8000 wsgi:app
+	$(GUNICORN) -w 4 -b localhost:8000 wsgi:app
 
 dev: 
 	$(PYTHON) wsgi.py
