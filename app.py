@@ -23,14 +23,22 @@ def home():
 @app.route('/stats')
 def stats():
     domaines=Questions().get_all_table(ReccurentDomain)
-    liste_domains = json.dumps([d['domain'] for d in domaines])
-    liste_reccurent_nb = json.dumps([d['reccurent_nb'] for d in domaines])
+    if domaines:
+        liste_domains = json.dumps([d['domain'] for d in domaines])
+        liste_reccurent_nb = json.dumps([d['reccurent_nb'] for d in domaines])
+    else:
+        liste_domains = "[Nodata]"
+        liste_reccurent_nb = "[1]"
 
-    certficat=Questions().get_all_table(ReccurentCA)
-    liste_cert = json.dumps([c['ca'] for c in certficat])
-    liste_cert_nb = json.dumps([c['reccurent_nb'] for c in certficat])
+    certificat=Questions().get_all_table(ReccurentCA)
+    if certificat:
+        liste_cert = json.dumps([c['ca'] for c in certificat])
+        liste_cert_nb = json.dumps([c['reccurent_nb'] for c in certificat])
+        liste_cert = liste_cert.replace("'", "")
+    else:
+        liste_cert = "[Nodata]"
+        liste_cert_nb = "[1]"
 
-    liste_cert = liste_cert.replace("'", "")
 
     return render_template('stats.html', url=liste_domains, nbURL=liste_reccurent_nb, cert=liste_cert, nbCert=liste_cert_nb)
     

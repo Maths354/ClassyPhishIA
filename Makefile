@@ -20,3 +20,6 @@ add_datas:
 
 run: 
 	$(GUNICORN) -w 4 -b 0.0.0.0:8000 wsgi:app
+
+dev: 
+	$(PYTHON) wsgi.py
