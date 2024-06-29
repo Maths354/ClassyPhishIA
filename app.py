@@ -102,6 +102,3 @@ def valid_url_page():
 
     return render_template('valid_url.html', datas=datas, scores=scores, id_official=id_official, 
                            phishing_link=phishing_link, positive_points=positive_points, negative_points=negative_points)
-
-if __name__ == '__main__':
-    app.run()
