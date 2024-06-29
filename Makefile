@@ -1,7 +1,7 @@
 VENV_DIR = venv
 PYTHON = $(VENV_DIR)/bin/python
 PIP = $(VENV_DIR)/bin/pip
-FLASK = $(VENV_DIR)/bin/flask
+GUNICORN = $(VENV_DIR)/bin/gunicorn
 TESTS_DIR = tests
 REQUIREMENTS_FILE = requirements.txt
 
@@ -19,4 +19,4 @@ add_datas:
 	$(PYTHON) inject_officialsite_datas.py
 
 run: 
-	$(PYTHON) app.py
+	$(GUNICORN) -w 4 -b 0.0.0.0:8000 app:app
