@@ -4,12 +4,16 @@ from bs4 import BeautifulSoup
 
 class ExtractKeyWord:
 
-    def __init__(self, url):
+    def __init__(self, url, official_sites):
         self.url = url
+        self.official_sites = official_sites
 
     def analyze_text(self):
 
-        keywords = ["orange", "edf", "outlook", "banque", "domain", "examples"]
+        keywords = list()
+
+        for company in self.official_sites:
+            keywords.append(company["key_word"])
 
         texte = self.extract_text_from_url()
         keyword_counts = {}

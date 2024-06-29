@@ -98,17 +98,19 @@ class ExtractCert():
 
         for company in self.official_sites:
             company_cert = ast.literal_eval(company["certificate"])
-
-            subject_comparison, subject_score = self.__compare_subjects(company_cert["subject"], self._cert_info_raw["subject"])
-            if subject_score > best_score:
-                best_score = subject_score/5
-                best_comparison = subject_comparison
-                if best_score > self._score:
-                    self._score=best_score
-                    self._top_company=[company["id"],company["url"]]
-
-            if self._cert_info_raw["serialNumber"] == company_cert["serialNumber"]:
-                self._score=1
+            
+            if 'subject' in company_cert.keys():
+                subject_comparison, subject_score = self.__compare_subjects(company_cert["subject"], self._cert_info_raw["subject"])
+                if subject_score > best_score:
+                    best_score = subject_score/5
+                    best_comparison = subject_comparison
+                    if best_score > self._score:
+                        self._score=best_score
+                        self._top_company=[company["id"],company["url"]]
+                        
+            if 'serialNumber' in company_cert.keys():
+                if self._cert_info_raw["serialNumber"] == company_cert["serialNumber"]:
+                    self._score=1
 
         # Stocker les informations dans des variables
         official_details = ""
