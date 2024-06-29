@@ -20,7 +20,7 @@ class Main:
         extractLogo = ExtractLOGO(self.url, official_sites)
         extractCert = ExtractCert(self.url, official_sites)
         extractBalises = ExtractBALISES(self.url, official_sites)
-        extractKeyWord = ExtractKeyWord(self.url)
+        extractKeyWord = ExtractKeyWord(self.url, official_sites)
 
         Domain_URL=checkURL.url_matching()
         Page_URL=extractURL.urls_balises_info()
