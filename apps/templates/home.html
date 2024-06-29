@@ -31,17 +31,19 @@
     <main>
         <div class="head-top">
             <h1 class="animate__animated animate__fadeInDown">Bienvenue sur ClassyPhishIA</h1>
-            <p class="animate__animated animate__fadeInUp">Les sites de phishing sont présents partout sur le web. Notre outil a pour but d'analyser et d'identifier le site officiel qui est usurpé.</p>
+            <p class="animate__animated animate__fadeInUp">Analyser le site web que vous désirer, et découvrez les résultats de l'analyse !</p>
         </div>
-        <div class="main-content">
-            <img src="{{ url_for('static', filename='analyse.gif') }}" alt="Image Descriptive" class="left-image animate__animated animate__fadeInUp">
+        <section class="main-content">
+            <img src="{{ url_for('static', filename='analyse.gif') }}" alt="Analyse de site" class="left-image animate__animated animate__fadeInUp">
             <div id="phishing-form" class="container animate__animated animate__zoomIn">
-                <h2>Entrez le lien URL du site de phishing</h2>
-                <form id="phishing-link-form" action="/" method="POST">
-                    <input type="text" name="phishing-link" placeholder="Entrez le lien URL ici">
-                    <button type="submit" id="loading">Soumettre</button>
-                    <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
-                </form>
+                <h2>Recherche</h2>
+                <form id="phishing-link-form" action="/" method="POST" class="search-bar" aria-label="Formulaire d'analyse de lien">
+                    <div class="search-input-container">
+                        <input type="text" name="phishing-link" placeholder="Site internet...">
+                        <button type="submit" id="loading" class="analyze-button">Analyser</button>
+                        <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
+                    </div>
+                </form>                
                 {% if error_message %}
                 <p class="error-message">{{ error_message }}</p>
                 {% endif %}
