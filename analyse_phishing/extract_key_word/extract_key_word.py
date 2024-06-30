@@ -32,12 +32,17 @@ class ExtractKeyWord:
                     else:
                         keyword_counts[word] = 1
 
+        if keyword_counts:
+            score=1
+        else:
+            score=0
+
         for company in self.official_sites:
             if company["key_word"] in list(keyword_counts.keys()):
                 if company["url"] not in company_match:
                     company_match.append(company["url"])
 
-        return keyword_counts, 0.0, company_match
+        return keyword_counts, score, company_match
     
 
     def extract_text_from_url(self):
