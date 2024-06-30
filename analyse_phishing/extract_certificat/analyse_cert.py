@@ -7,36 +7,6 @@ from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.x509.oid import NameOID, ExtensionOID
 
-def check_domain_reputation(domain, api_key):
-    base_url = "https://www.virustotal.com/api/v3/"
-    headers = {
-        "accept": "application/json",
-        "x-apikey": api_key
-    }
-    
-    url = f"{base_url}domains/{domain}"
-    response = requests.get(url, headers=headers)
-    
-    if response.status_code == 200:
-        data = response.json()
-        stats = data['data']['attributes']['last_analysis_stats']
-        reputation_score = data['data']['attributes']['reputation']
-        
-        total_scans = sum(stats.values())
-        malicious_scans = stats['malicious']
-        suspicious_scans = stats['suspicious']
-        
-        print("test : ", total_scans, malicious_scans, suspicious_scans, reputation_score)
-        
-        return {
-            "reputation_score": reputation_score,
-            "total_scans": total_scans,
-            "malicious_scans": malicious_scans,
-            "suspicious_scans": suspicious_scans
-        }
-    else:
-        return None
-    
 
 def get_certificate(hostname, port=443):
     context = ssl.create_default_context()
@@ -113,38 +83,14 @@ def assess_legitimacy(analysis, url, api_key):
     if any(hosting_domain in domain for hosting_domain in free_hosting_domains):
         score -= 4
         reasons.append("Site hosted on a free hosting service (higher risk of abuse)")
-
-    # Analyse virus total
-    reputation_data = check_domain_reputation(domain, api_key)
     
-    if reputation_data:
-        if reputation_data["reputation_score"] > 0:
-            score += 4
-            reasons.append(f"Domain has positive VirusTotal reputation score: {reputation_data['reputation_score']}")
-        elif reputation_data["reputation_score"] == 0:
-            score += 2
-            reasons.append(f"Le domaine est neutre, le score de réputation de VirusTotal : {reputation_data['reputation_score']}")
-        elif reputation_data["reputation_score"] < 0:
-            score -= 3
-            reasons.append(f"Domain has negative VirusTotal reputation score: {reputation_data['reputation_score']}")
-
-        if reputation_data["malicious_scans"] > 1:
-            score -=5
-            reasons.append(f"Le domain est flag par VirusTotal {reputation_data['malicious_scans']}")
-        elif reputation_data["malicious_scans"] == 0:
-            score +=4
-            reasons.append(f"Le domain n'est pas flag par VirusTotal {reputation_data['malicious_scans']}")
-    else:
-        reasons.append("Unable to check domain reputation")
-    
-    max_score = 12  # On peux ajuster le score max si besoin
+    max_score = 10  # On peux ajuster le score max si besoin
     legitimacy_percentage = max(0, min(100, (score / max_score) * 100))
     
     return legitimacy_percentage, reasons, score
     
 def main():
     url = input("Enter the full URL to analyze (e.g., https://www.example.com): ")
-    api_key = input("Enter your VirusTotal API key: ")
     parsed_url = urlparse(url)
     
     if not parsed_url.scheme:
@@ -156,7 +102,7 @@ def main():
     try:
         cert = get_certificate(hostname)
         analysis = analyze_certificate(url, cert)
-        legitimacy_score, reasons, raw_score = assess_legitimacy(analysis, url, api_key)
+        legitimacy_score, reasons, raw_score = assess_legitimacy(analysis, url)
 
         print(f"\nAnalysis for {url}")
         print(f"Certificate Type: {analysis['certificate_type']}")

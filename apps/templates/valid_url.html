@@ -100,6 +100,13 @@
                     </div>
                     <span>{{ (scores.extractTemplate * 100) | round(1) }}%</span>
                 </div>
+                <div class="sub-score">
+                    <span class="label">Virus Total</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.checkVirusTotal * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.checkVirusTotal * 100) | round(1) }}%</span>
+                </div>
             </section>
             <div class="sub-scores">
                 <h3>Détail de l'analyse :</h3>
@@ -153,6 +160,12 @@
                             <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
                             <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
                             <p style="color: red">{{ datas.extractCert[1] }}</p>
+                        </div>
+                    </li>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Virus Total</div>
+                        <div class="collapsible-content">
+                            <p>{{ datas.checkVirusTotal }}</p>
                         </div>
                     </li>
                 </ul>
