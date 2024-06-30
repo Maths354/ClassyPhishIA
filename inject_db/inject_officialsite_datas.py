@@ -19,8 +19,9 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
+file_path = input("Fichier txt à lire (ex : inject_db/official_sites_1000.txt): ")
 
-with open("inject_db/official_sites_1000.txt") as official_links:
+with open(file_path) as official_links:
     for official_link in official_links:
         try:
             print(f"{official_link.rstrip()} début ajout")
