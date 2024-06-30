@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil - Analyse de Site Web</title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles_stats.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_site.ico') }}">
+    <script src="{{ url_for('static', filename='js/camamberExt.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+    <header>
+        <nav class="nav-bar animate__animated animate__fadeInDown">
+            <a href="/" class="logo-nav">
+                <img src="{{ url_for('static', filename='logo_site.png') }}" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li class="active"><a href="/stats">Stats</a></li>
+                    <li><a href="/informations">Information</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="head-top">
+            <h1 class="animate__animated animate__fadeInDown">Les stats de ClassyPhishIA</h1>
+            <p class="animate__animated animate__fadeInUp">Retrouver l'ensemble des statistiques des sites de phishing que nous avons analysé.</p>
+        </div>
+        <div class="chartExt">
+            <canvas id="myPieChart"></canvas>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    let url = JSON.parse('{{ url | safe }}');
+                    let nbURL = JSON.parse('{{ nbURL }}');
+                    initPieChart(url, nbURL);
+                });
+            </script>
+            <canvas id="myCertChart"></canvas> 
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    let cert = JSON.parse('{{ cert | safe }}');
+                    let nbCert = JSON.parse('{{ nbCert }}');
+                    initCertChart(cert, nbCert);
+                });
+            </script>
+        </div>
+    </main>
+    
+
+    <footer>
+        <div>
+            <p>&copy; 2024 Mon Site Web. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+
+

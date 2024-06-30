@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos de ClassyPhishIA</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles_about.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_site.ico') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Barre de navigation -->
+    <nav class="nav-bar">
+        <a href="/" class="logo-nav animate__animated animate__fadeInDown">
+            <img src="{{ url_for('static', filename='logo_site.png') }}" class="logo-image">
+        </a>
+        <div class="nav-links">
+            <ul>
+                <li class="active"><a href="/">Accueil</a></li>
+                <li><a href="/stats">Stats</a></li>
+                <li><a href="/informations">Information</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main>
+        <div class="container main-content">
+            <h1>À propos de ClassyPhishIA</h1>
+            <h3>Contexte</h3>
+            <p>Dans un monde dans lequel les technologies sont omniprésentes dans nos vies, il est important de mettre en œuvre tous les moyens nécessaires afin de pouvoir garantir la fiabilité et la sécurité de tous les appareils que nous utilisons. C’est aujourd’hui une priorité pour les professionnels et défenseurs travaillant dans la cybersécurité de pouvoir protéger les usagers ainsi que les entreprises et les gouvernements des nombreuses menaces qu’ils les guettent.</p>
+            <p>Le phishing est une des premières principales menaces aujourd’hui en ligne d’après le rapport d’activité 2023 disponible sur cybermalveillance.gouv.fr</p>
+            <p>Notre objectif principal est de fournir un outil qui proposera plusieurs fonctionnalités d’analyse essentielles sur un site de phishing et d'ainsi de déterminer un score de confiance.</p>
+            <h3>Fonctionnement</h3>
+            <p>Pour déterminer le score de fiabilité d'un site, ClassyPhishIA utilise le machine learning avec un modèle de classification par régression logistique. Le modèle est entrainé à l'aide de données collectées en ligne, qui représentent diverses informations que l'on peut retrouver sur un site</p>
+            <h3>Utilisation</h3>
+            <p>Après avoir récupéré l'outil sur Github, l'utilisateur doit avoir installé les différentes dépendances Python pour faire fonctionner les programmes. L'utilisateur peut ensuite lancer le serveur Flask, insérer une URL, consulter les résultats de l'analyse et signaler si besoin, le site au gouvernement.</p>
+            <h3>Avantages de ClassyPhishIA</h3>
+            <p>ClassyPhishIA fournit un résultat et une analyse détaillée d'un site web à l'aide d'un score de confiance global. Plus ce score tend vers 0, moins le site est fiable. Egalement, un affichage détaillé sur les informations collectées est consultable dans la page des résultats. Pour finir, un tableau référençant diverses informations sur le site analysé est visionnable, permmettant ainsi de renforcer l'avis de l'utilisateur sur le site en question.</p>
+        </div>
+    </main>
+</body>
+</html>

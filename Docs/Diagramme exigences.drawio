@@ -1,0 +1,226 @@
+<mxfile host="app.diagrams.net" modified="2024-06-09T13:31:26.363Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0" etag="9G5LFEJ2rGsCj6sJNCii" version="24.5.2" type="device">
+  <diagram name="Page-1" id="CR-Ju6o2w32Jvxik7PY4">
+    <mxGraphModel dx="3218" dy="1891" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-1" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;ClassyPhishIA&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="410" y="280" width="215" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-2" value="&lt;div&gt;Machine learning qui permet de&lt;/div&gt;&lt;div&gt;comparer un site de phishing à des&lt;/div&gt;&lt;div&gt;&amp;nbsp;sites légitimeset de renvoyer à&lt;/div&gt;&lt;div&gt;l&#39;utilisateur un score de confiance&lt;/div&gt;&lt;div&gt;ainsi que plusieurs statitisques.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-1">
+          <mxGeometry x="-5" y="54" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-3" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Modèle machine learning&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="410" y="520" width="215" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-4" value="&lt;div&gt;Un type de modèle de machine&lt;/div&gt;&lt;div&gt;learning doit être défini afin de&lt;/div&gt;&lt;div&gt;garantir un traitement des données&lt;/div&gt;&lt;div&gt;de manière fiable.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-3">
+          <mxGeometry x="-2.5" y="54" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-5" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Algorithme d&#39;apprentissage&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="410" y="760" width="216" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-6" value="&lt;div&gt;L&#39;algorithme d&#39;apprentissage sera de&lt;/div&gt;&lt;div&gt;type non supervisé en classification&lt;/div&gt;&lt;div&gt;pour la conception du modèle de&amp;nbsp;&lt;/div&gt;&lt;div&gt;ClassyPhshIA.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-5">
+          <mxGeometry x="-10" y="54" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-7" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Langage du ML&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="411" y="1000" width="215" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-8" value="&lt;div&gt;Le modèle de machine learning&lt;/div&gt;&lt;div&gt;utilisé par ClassyPhishIA doit êre&lt;/div&gt;&lt;div&gt;développé en Python.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-7">
+          <mxGeometry x="5" y="59" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-9" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Expérience utilisateur&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="690" y="280" width="215" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-10" value="&lt;div&gt;Une interface utilisateur doit être&lt;/div&gt;&lt;div&gt;développée pour permettre une&lt;/div&gt;&lt;div&gt;interaction entre le modèle et&lt;/div&gt;&lt;div&gt;l&#39;utilisateur.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-9">
+          <mxGeometry x="7.5" y="54" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-11" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Forme d&#39;envoi des données&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="970" y="280" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-12" value="&lt;div&gt;L&#39;interface utilisateur développée doit &lt;br&gt;&lt;/div&gt;&lt;div&gt;permmettre à un usager de fournir&lt;/div&gt;&lt;div&gt;une url d&#39;entrée.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-11">
+          <mxGeometry x="-8" y="59" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-13" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Retour de résultats&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="690" y="40" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-14" value="&lt;div&gt;ClassyPhishIA doit pouvoir renvoyer&lt;/div&gt;&lt;div&gt;dans l&#39;interface utilisateur des&lt;/div&gt;&lt;div&gt;résultats après traitement.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-13">
+          <mxGeometry x="2.5" y="59" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-15" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Indice de confiance&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="970" y="40" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-16" value="&lt;div&gt;Un indice de confiance sous la forme&amp;nbsp;&lt;/div&gt;&lt;div&gt;d&#39;un score sera affichée dans l&#39;interface.&amp;nbsp;&lt;/div&gt;&lt;div&gt;Il peut prendre la forme d&#39;un&amp;nbsp;&lt;/div&gt;&lt;div&gt;pourcentage ou bien d&#39;une plage de&amp;nbsp;&lt;/div&gt;&lt;div&gt;chiffres entre0 et 1.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-15">
+          <mxGeometry x="-13" y="59" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-17" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Graphisques et statitisques&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="970" y="-200" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-18" value="&lt;div&gt;Des graphiques, statistiques et autres&lt;/div&gt;&lt;div&gt;données détaillées sur les traitements&amp;nbsp;&lt;/div&gt;&lt;div&gt;effectués, doivent être affiché.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Ces graphiques peuvent prendre&lt;/div&gt;&lt;div&gt;la forme de camemberts, nuages&amp;nbsp;&lt;/div&gt;&lt;div&gt;à points ou bien de tableaux.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-17">
+          <mxGeometry x="-10" y="50" width="240" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-19" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;DataSet&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="130" y="280" width="215" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-20" value="&lt;div&gt;Les données de sites récupérés&lt;/div&gt;&lt;div&gt;doivent constituer le dataset de&lt;/div&gt;&lt;div&gt;ClassyPhishIA et servir de base&lt;/div&gt;&lt;div&gt;d&#39;apprentissage pour le modèle.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-19">
+          <mxGeometry x="7.5" y="54" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-21" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Montée en compétence&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="130" y="40" width="223.75" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-22" value="&lt;div align=&quot;center&quot;&gt;Chacun des membres du groupe&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;devra monter en compétence pour&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;développer le code du modèle et des&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;programmes.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-21">
+          <mxGeometry x="-6.25" y="55" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-23" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Les langages de développement&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="-150" y="40" width="222.5" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-24" value="&lt;div&gt;Les langages à connaitre et à pratiquer&lt;/div&gt;&lt;div&gt;seront les suivants:&lt;/div&gt;&lt;div&gt;- Python&lt;/div&gt;&lt;div&gt;- ChartJS&lt;/div&gt;&lt;div&gt;HTML &amp;amp; CSS&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-23">
+          <mxGeometry x="-8.75" y="55" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-25" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Les modèles&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="132" y="-200" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-26" value="&lt;div&gt;Un premier modèle de test sera&lt;/div&gt;&lt;div&gt;développé afin d&#39;identifier la meilleure&lt;/div&gt;&lt;div&gt;technique de classification pour les&lt;/div&gt;&lt;div&gt;besoins de ClassyPhishIA.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Un second modèle sera par la suite&lt;/div&gt;&lt;div&gt;développé et représentera la solution&lt;/div&gt;&lt;div&gt;finale intégrée. &lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-25">
+          <mxGeometry x="-5" y="50" width="230" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-29" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Stockage des données&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="129" y="520" width="217.5" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-30" value="&lt;div&gt;Les données récupérées et traitées&lt;/div&gt;&lt;div&gt;doivent être enregistrés dans une&lt;/div&gt;&lt;div&gt;base de donnée, pour par la suite&lt;/div&gt;&lt;div&gt;être utilisée par le modèle.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-29">
+          <mxGeometry x="-2.5" y="54" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-33" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Préparation des données&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="-145" y="280" width="217.5" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-34" value="&lt;div&gt;L&#39;ensemble des données extraites&lt;/div&gt;&lt;div&gt;des sites doivent être adaptés sous&lt;/div&gt;&lt;div&gt;une structure correcte et&lt;/div&gt;&lt;div&gt;compréhensible par le modèle.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-33">
+          <mxGeometry x="-4.5" y="54" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-35" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Récupération des données&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="-430" y="280" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-37" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Minimum d&#39;artéfacts&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="-145" y="520" width="215" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-38" value="&lt;div&gt;Le plafond minimum d&#39;artéfacts&lt;/div&gt;&lt;div&gt;récupérés sur les sites est de 4 :&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;- Balises HTML&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;- Logo &lt;br&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;- Url du site&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;- Certificat&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-37">
+          <mxGeometry x="7.5" y="54" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-39" value="&lt;div&gt;&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Évaluation de la précision&lt;br&gt;&lt;/div&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#ffff88;strokeColor=#36393d;" vertex="1" parent="1">
+          <mxGeometry x="690" y="520" width="217.5" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-40" value="&lt;div&gt;Une évaluation de la précision du&lt;/div&gt;&lt;div&gt;modèle doit être intégrée afin de&lt;/div&gt;&lt;div&gt;mesurée la fiabilité et la cohérence&lt;/div&gt;&lt;div&gt;des résultats finaux.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="ZPvJgHnBLlY34Y61mZZf-39">
+          <mxGeometry x="-2.5" y="54" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-41" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-1" target="ZPvJgHnBLlY34Y61mZZf-39">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="620" as="sourcePoint" />
+            <mxPoint x="830" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-42" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-5" target="ZPvJgHnBLlY34Y61mZZf-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="950" y="920" as="sourcePoint" />
+            <mxPoint x="1000" y="870" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-43" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-1" target="ZPvJgHnBLlY34Y61mZZf-29">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="490" as="sourcePoint" />
+            <mxPoint x="515" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-44" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-1" target="ZPvJgHnBLlY34Y61mZZf-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="532" y="490" as="sourcePoint" />
+            <mxPoint x="470" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-45" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-1" target="ZPvJgHnBLlY34Y61mZZf-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="630" y="380" as="sourcePoint" />
+            <mxPoint x="528" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-46" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="ZPvJgHnBLlY34Y61mZZf-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="380" as="sourcePoint" />
+            <mxPoint x="340" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-47" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-1" target="ZPvJgHnBLlY34Y61mZZf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="465" y="210" as="sourcePoint" />
+            <mxPoint x="400" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-48" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-1" target="ZPvJgHnBLlY34Y61mZZf-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="580" y="220" as="sourcePoint" />
+            <mxPoint x="520" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-50" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-23" target="ZPvJgHnBLlY34Y61mZZf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="60" y="220" as="sourcePoint" />
+            <mxPoint x="110" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-51" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-25" target="ZPvJgHnBLlY34Y61mZZf-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="-10" as="sourcePoint" />
+            <mxPoint x="540" y="-60" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-52" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-13" target="ZPvJgHnBLlY34Y61mZZf-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="840" y="-50" as="sourcePoint" />
+            <mxPoint x="890" y="-100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-53" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-17" target="ZPvJgHnBLlY34Y61mZZf-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1240" y="10" as="sourcePoint" />
+            <mxPoint x="1295" y="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-54" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-9" target="ZPvJgHnBLlY34Y61mZZf-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="925" y="400" as="sourcePoint" />
+            <mxPoint x="940" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-55" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-7" target="ZPvJgHnBLlY34Y61mZZf-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="993.5" y="1150" as="sourcePoint" />
+            <mxPoint x="601.5" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-56" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=1;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-19" target="ZPvJgHnBLlY34Y61mZZf-37">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-10" y="870" as="sourcePoint" />
+            <mxPoint x="40" y="820" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-57" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-33" target="ZPvJgHnBLlY34Y61mZZf-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="380" as="sourcePoint" />
+            <mxPoint x="130" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-58" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-33" target="ZPvJgHnBLlY34Y61mZZf-35">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-170" y="400" as="sourcePoint" />
+            <mxPoint x="-193" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-36" value="&lt;div&gt;Les données de sites choisies doivent&lt;/div&gt;&lt;div&gt;être récupérés à l&#39;aide de plusieurs&lt;/div&gt;&lt;div&gt;programmes d&#39;extractions.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-441" y="334" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZPvJgHnBLlY34Y61mZZf-59" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="ZPvJgHnBLlY34Y61mZZf-29" target="ZPvJgHnBLlY34Y61mZZf-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="190" y="560" as="sourcePoint" />
+            <mxPoint x="240" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse de site de phishing</title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_site.ico') }}">
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-right.css' rel='stylesheet'>
+    <script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="nav-bar">
+            <a href="/" class="logo-nav animate__animated animate__fadeInDown">
+                <img src="{{ url_for('static', filename='logo_site.png') }}" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <ul>
+                    <li class="active"><a href="/">Accueil</a></li>
+                    <li><a href="/stats">Stats</a></li>
+                    <li><a href="/informations">Information</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container animate__animated animate__fadeInDown">
+            <section class="score-section">
+                <h1>Analyse du site : {% if phishing_link %} "{{ phishing_link }}" {% endif %} </h1>
+                <div class="score-content">
+                    <h2>Score de confiance : </h2>
+                    <div class="gauge-container">
+                        <svg class="gauge" viewBox="0 0 36 36">
+                            <path class="circle-bg"
+                                d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path class="circle {% if (scores.resultModel * 100) < 35 %}circle-low
+                            {% elif 35 <= (scores.resultModel * 100) < 60 %}circle-mid
+                            {% else %}circle-high{% endif %}"
+                                stroke-dasharray="{{ scores.resultModel * 100 }}, 100"
+                                d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <text x="18" y="20.35" class="percentage">{{ (scores.resultModel * 100) | round(1) }}%</text>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Ajout du bouton ici -->
+                <div class="report-button-container">
+                    <a href="https://phishing-initiative.eu/contrib/" class="report-button" target="_blank">Signaler le site</a>
+                </div>
+            </section>
+
+            <section class="sub-scores">
+                <h3>Sous-scores d'analyse :</h3>
+                <div class="sub-score">
+                    <span class="label">URL</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.checkURL * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.checkURL * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">URL Liste</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractURL * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractURL * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Logo</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractLogo * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractLogo * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Mots-clés</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractKeyword * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractKeyword * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Certificat</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractCert * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractCert * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Template</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.extractTemplate * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.extractTemplate * 100) | round(1) }}%</span>
+                </div>
+                <div class="sub-score">
+                    <span class="label">Virus Total</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ (scores.checkVirusTotal * 100) | round(1) }}%;"></div>
+                    </div>
+                    <span>{{ (scores.checkVirusTotal * 100) | round(1) }}%</span>
+                </div>
+            </section>
+            <div class="sub-scores">
+                <h3>Détail de l'analyse :</h3>
+                <ul class="collapsible-list">
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse URL</div>
+                        <div class="collapsible-content">
+                            <p>Site officiel le plus proche : {{ id_official.checkURL[1] }}</p>
+                            <p>Similarité sur l'url : {{ datas.checkURL }}</p>
+                        </div>
+                    </li>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse URL List (ensemble des urls unique)</div>
+                        <div class="collapsible-content">
+                            <p>{{ datas.extractURL }}</p>
+                        </div>
+                    </li>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Logo</div>
+                        <div class="collapsible-content">
+                            <p>Logo site de phishing : {{ datas.extractLogo[1] }}</p>
+                            <img src="{{ datas.extractLogo[1] }}"/>
+                            <p>Correspondance logo : {{ datas.extractLogo[0] }}</p>
+                            <img src="{{ datas.extractLogo[0] }}"/>
+                        </div>
+                    </li>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Mot-clés trouvé</div>
+                        <div class="collapsible-content">
+                            <p>Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site :</p>
+                            <ul>
+                            {% for site in id_official.extractKeyword %}
+                                <li>{{ site }}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Template de la page</div>
+                        <div class="collapsible-content">
+                            <!-- <p>{{ id_official.extractTemplate[1] }} : </p> -->
+                            <p>{{ datas.extractTemplate }}</p>
+                        </div>
+                    </li>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Certificat</div>
+                        <div class="collapsible-content">
+                            <p style="color: black">Date émission certificat site de phishing</p>
+                            <p style="color: black"><b>{{ datas.extractCert[0][0] }}</b></p>
+                            <p style="color: black">Comparaison localisation certificat</p>
+                            <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
+                            <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
+                            <p style="color: red">{{ datas.extractCert[1] }}</p>
+                        </div>
+                    </li>
+                    <li class="collapsible-item">
+                        <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Virus Total</div>
+                        <div class="collapsible-content">
+                            <p>{{ datas.checkVirusTotal }}</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="columns-container">
+                    <!-- Colonne positive -->
+                    <div class="column positive-column">
+                        <h3 class="column-title">
+                            <img src="static/ok.png" alt="OK" class="icon"> Points positifs
+                        </h3>
+                        <ul>
+                            {% for point in positive_points %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <!-- Colonne négative -->
+                    <div class="column negative-column">
+                        <h3 class="column-title">
+                            <img src="static/cross.png" alt="Cross" class="icon"> Points négatifs
+                        </h3>
+                        <ul>
+                            {% for point in negative_points %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-adapte">
+        <div class="footer-container">
+            <div class="links-container">
+                <a href="/legal">Mentions légales</a>
+                <a href="/about">À propos de ClassyPhishIA</a>
+            </div>
+        </div>
+        <p>© 2024 - Tous droits réservés</p>
+    </footer>
+</body>
+</html>

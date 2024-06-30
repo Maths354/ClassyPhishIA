@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil - Analyse de Site Web</title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles_info.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_site.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <header>
+        <nav class="nav-bar">
+            <a href="/" class="logo-nav animate__animated animate__fadeInDown">
+                <img src="{{ url_for('static', filename='logo_site.png') }}" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/stats">Stats</a></li>
+                    <li class="active"><a href="/informations">Information</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="head-top">
+            <h1 class="animate__animated animate__fadeInDown">Les informations de ClassyPhishIA</h1>
+            <p class="animate__animated animate__fadeInUp">Les sites de phishing sont présents partout sur le web. Notre outil a pour but d'analyser et d'identifier le site officiel qui est usurpé.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <p>&copy; 2024 Mon Site Web. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
