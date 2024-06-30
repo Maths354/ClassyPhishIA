@@ -7,7 +7,7 @@ REQUIREMENTS_FILE = requirements.txt
 
 .PHONY: all venv install run test clean
 
-all: install run 
+all: install 
 
 venv:
 	python3 -m venv $(VENV_DIR)
