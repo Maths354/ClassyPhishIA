@@ -264,17 +264,13 @@ https://fr.wikipedia.org
 https://ebay.com
 https://sourceforge.net
 https://godaddy.com
-https://ncbi.nlm.nih.gov
 https://wsj.com
 https://thenextweb.com
-https://cdc.gov
 https://photos.google.com
 https://trends.google.com
 https://opera.com
-https://ftc.gov
 https://j.mp
 https://about.me
-https://gov.uk
 https://i.ytimg.com
 https://squareup.com
 https://google.co.uk
@@ -287,7 +283,6 @@ https://google.com.au
 https://myspace.com
 https://theglobeandmail.com
 https://shopify.com
-https://whitehouse.gov
 https://marketingplatform.google.com
 https://kickstarter.com
 https://freelancer.com
@@ -324,7 +319,6 @@ https://feeds.feedburner.com
 https://trello.com
 https://ted.com
 https://researchgate.net
-https://fda.gov
 https://instructables.com
 https://google.de
 https://digitalocean.com
@@ -334,7 +328,6 @@ https://variety.com
 https://indiegogo.com
 https://salesforce.com
 https://uk.linkedin.com
-https://nasa.gov
 https://codepen.io
 https://newyorker.com
 https://abcnews.go.com
@@ -377,7 +370,6 @@ https://mashable.com
 https://upwork.com
 https://bitly.com
 https://music.apple.com
-https://loc.gov
 https://news.google.com
 https://spotify.com
 https://netflix.com
@@ -484,7 +476,6 @@ https://hulu.com
 https://greenpeace.org
 https://spiegel.de
 https://apps.facebook.com
-https://census.gov
 https://app.box.com
 https://windows.microsoft.com
 https://yandex.com
@@ -543,7 +534,6 @@ https://hollywoodreporter.com
 https://freshbooks.com
 https://heise.de
 https://chicagotribune.com
-https://epa.gov
 https://anchor.fm
 https://telegram.org
 https://ikea.com
@@ -593,7 +583,6 @@ https://smugmug.com
 https://inc.com
 https://google.it
 https://zazzle.com
-https://dol.gov
 https://scoop.it
 https://yadi.sk
 https://eclipse.org
@@ -645,7 +634,6 @@ https://access.redhat.com
 https://s.ytimg.com
 https://it.linkedin.com
 https://dashlane.com
-https://copyright.gov
 https://news.bbc.co.uk
 https://mentalfloss.com
 https://zeit.de
@@ -680,7 +668,6 @@ https://theverge.com
 https://aub.edu.lb
 https://digiday.com
 https://gimp.org
-https://treasury.gov
 https://geocities.com
 https://healthline.com
 https://3.bp.blogspot.com
@@ -763,7 +750,6 @@ https://yoursite.com
 https://automattic.com
 https://podbean.com
 https://sublimetext.com
-https://archives.gov
 https://vizio.com
 https://thelancet.com
 https://guardian.co.uk
@@ -839,7 +825,6 @@ https://blockchain.info
 https://untappd.com
 https://espn.com
 https://cbs.com
-https://michigan.gov
 https://oprah.com
 https://ok.ru
 https://mhlw.go.jp
@@ -890,7 +875,6 @@ https://drift.com
 https://postmates.com
 https://geek.com
 https://geocities.jp
-https://beian.gov.cn
 https://meet.google.com
 https://flattr.com
 https://webroot.com
@@ -906,7 +890,6 @@ https://capterra.com
 https://ea.com
 https://hawaii.edu
 https://stock.adobe.com
-https://osha.gov
 https://buzzfeednews.com
 https://jstor.org
 https://adssettings.google.com
@@ -925,7 +908,6 @@ https://en.advertisercommunity.com
 https://download.microsoft.com
 https://s-media-cache-ak0.pinimg.com
 https://ctt.ec
-https://cia.gov
 https://docker.com
 https://homedepot.com
 https://humblebundle.com
@@ -950,7 +932,6 @@ https://gum.co
 https://idealo.de
 https://imore.com
 https://rakuten.com
-https://fbi.gov
 https://google.pt
 https://event.on24.com
 https://nejm.org
@@ -966,7 +947,6 @@ https://stats.g.doubleclick.net
 https://ign.com
 https://blog.hubspot.com
 https://1.envato.market
-https://accessdata.fda.gov
 https://google.be
 https://help.apple.com
 https://technorati.com
@@ -978,7 +958,6 @@ https://nicovideo.jp
 https://indiewire.com
 https://mp.weixin.qq.com
 https://codeproject.com
-https://1.usa.gov
 https://gleam.io
 https://space.com
 https://gitter.im
@@ -1047,7 +1026,6 @@ https://cdbaby.com
 https://vsco.co
 https://nvidia.com
 https://stadt-bremerhaven.de
-https://faa.gov
 https://blogs.yahoo.co.jp
 https://bild.de
 https://lenovo.com
