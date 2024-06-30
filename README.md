@@ -29,3 +29,21 @@ make add_datas
 ```
 .\build.ps1 -target add_datas
 ```
+
+## ✅ Quick Start
+
+### 📚 CLI Example
+
+#### With Makefile 
+```
+make run
+```
+
+#### With Powershell
+```
+.\build.ps1 -target run
+```
+
+### 📈 Web display
+
+AJOUTER UN GIF QUI MONTRE LE PROCESS DANALYSE
