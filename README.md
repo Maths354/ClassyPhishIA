@@ -10,17 +10,33 @@ git clone https://github.com/Maths354/ClassyPhishIA.git
 
 ## Run ClassyPhishIA
 
-#### Linux
+#### Use Makefile
+
+###### Run 
 ```
 make
 ```
-#### Windows
+###### Dev
 ```
-.\build.ps1 -target all
+make dev
 ```
-
-## Add datas of official sites
+###### Add datas from official sites to db
 
 ```
 make add_datas
+```
+
+#### Windows
+###### Run 
+```
+.\build.ps1 -target all
+```
+###### Dev
+```
+.\build.ps1 -target dev
+```
+###### Add datas from official sites to db
+
+```
+.\build.ps1 -target add_datas
 ```
