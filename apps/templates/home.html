@@ -38,6 +38,9 @@
             <div id="phishing-form" class="container animate__animated animate__zoomIn">
                 <!-- <h3>Analyser une URL</h3> -->
                 <form id="phishing-link-form" action="/" method="POST" class="search-bar" aria-label="Formulaire d'analyse de lien">
+                    <div class="search-api-key">
+                        <input type="text" name="apiKey" placeholder="Clé API de virus total...">
+                    </div>
                     <div class="search-input-container">
                         <input type="text" name="phishing-link" placeholder="Site internet...">
                         <button type="submit" id="loading" class="analyze-button">Analyser</button>

@@ -125,7 +125,27 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     margin-top: 20px;
+}
+
+.search-api-key {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    max-width: 1000px;
+    margin-bottom: 10px;
+}
+
+.search-api-key input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    font-size: 12px;
+    border: 2px solid #3498db;
+    border-radius: 25px 25px 25px 25px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
 .search-input-container {

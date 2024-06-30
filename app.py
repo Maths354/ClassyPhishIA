@@ -58,6 +58,7 @@ def legal():
 @app.route('/', methods=['POST'])
 def validate_url():
     phishing_link = request.form['phishing-link']
+    apiKey = request.form['apiKey']
 
     # Vérifier de l'URL
     if (phishing_link.startswith('http://') or phishing_link.startswith('https://')) and len(phishing_link)<=255:
@@ -65,6 +66,8 @@ def validate_url():
         try:
             requests.get(phishing_link)
             session['phishing_link'] = phishing_link
+            session['api_Key'] = apiKey
+
             return redirect(url_for('valid_url_page'))
         except requests.ConnectionError:
             error_message = "URL non disponible."
@@ -78,10 +81,11 @@ def validate_url():
 @app.route('/valid-url', methods=['GET', 'POST'])
 def valid_url_page():
     phishing_link = session.pop('phishing_link', None)  # Récupérer l'URL depuis la session
-    
+    apiKey = session.pop('api_Key', None)
+
     official_sites=Questions().get_all_table(OfficalSite)
 
-    allDatas = Main(phishing_link).main(official_sites)
+    allDatas = Main(phishing_link, apiKey).main(official_sites)
 
     datas=allDatas["datas"]
     scores=allDatas["scores"]

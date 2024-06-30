@@ -5,8 +5,9 @@ from urllib.parse import urlparse
 
 class CheckVirusTotal:
     
-    def __init__(self, url):
+    def __init__(self, url, apiKey):
         self.url=url
+        self.apiKey=apiKey
 
     def reputation_score(self, reputation_score, malicious_scans, suspicious_scans):
         normalized_reputation = 0.00
@@ -36,9 +37,9 @@ class CheckVirusTotal:
         return normalized_reputation
 
     def check_domain_reputation(self):
+        
+        api_key = self.apiKey
 
-        #api_key = input("Enter your VirusTotal API key: ")
-        api_key = ""
         if api_key != "":
 
             domain = urlparse(self.url).netloc
@@ -84,7 +85,10 @@ class CheckVirusTotal:
                 }
             else:
                 print(f"Erreur lors de la requête à VirusTotal: {response.status_code}")
-                return None
+                return {
+                    "Erreur": "Erreur clé api",
+                    "confidence_score": 0.00
+                }
         else:
             return {
                     "no_api": "No api",

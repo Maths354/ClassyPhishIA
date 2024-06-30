@@ -11,8 +11,9 @@ from analyse_phishing.model.model import Model
 
 class Main:
     
-    def __init__(self, url):
+    def __init__(self, url, apiKey):
         self.url = url
+        self.apiKey = apiKey
 
     def main(self, official_sites):
 
@@ -22,7 +23,7 @@ class Main:
         extractCert = ExtractCert(self.url, official_sites)
         extractBalises = ExtractBALISES(self.url, official_sites)
         extractKeyWord = ExtractKeyWord(self.url, official_sites)
-        checkVirusTotal = CheckVirusTotal(self.url)
+        checkVirusTotal = CheckVirusTotal(self.url, self.apiKey)
 
         Domain_URL=checkURL.url_matching()
         Page_URL=extractURL.urls_balises_info()
