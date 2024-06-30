@@ -20,7 +20,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 
-with open("inject_db/legitURL.txt") as official_links:
+with open("inject_db/official_sites_1000.txt") as official_links:
     for official_link in official_links:
         try:
             print(f"{official_link.rstrip()} début ajout")

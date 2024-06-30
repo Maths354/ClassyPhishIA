@@ -39,7 +39,7 @@ class Main:
                     "extractURL": Page_URL[1],
                     "extractLogo": Logo[1],
                     "extractCert": Cert[1],
-                    "extractKeyword": 0.0,
+                    "extractKeyword": KeyWord[1],
                     "extractTemplate": Template[1]
                     },
             "datas":{
@@ -48,7 +48,7 @@ class Main:
                     "extractLogo": Logo[0],
                     "extractCert": Cert[0],
                     "extractTemplate": Template[0],
-                    "extractKeyword": KeyWord,
+                    "extractKeyword": KeyWord[0],
                     "extractTemplate": Template[0]
                     },
             "id_official":{
@@ -56,7 +56,7 @@ class Main:
                     "extractURL": Page_URL[2],
                     "extractLogo": Logo[2],
                     "extractCert": Cert[2],
-                    "extractKeyword": "mettre_site_trouvé",
+                    "extractKeyword": KeyWord[2],
                     "extractTemplate": Template[2]
                     }
         }

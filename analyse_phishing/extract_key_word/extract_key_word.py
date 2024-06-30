@@ -10,7 +10,8 @@ class ExtractKeyWord:
 
     def analyze_text(self):
 
-        keywords = list()
+        keywords = []
+        company_match = []
 
         for company in self.official_sites:
             keywords.append(company["key_word"])
@@ -31,9 +32,12 @@ class ExtractKeyWord:
                     else:
                         keyword_counts[word] = 1
 
+        for company in self.official_sites:
+            if company["key_word"] in list(keyword_counts.keys()):
+                if company["url"] not in company_match:
+                    company_match.append(company["url"])
 
-        print("Mots-clés trouvés avec leurs occurrences :", keyword_counts)        
-        return keyword_counts
+        return keyword_counts, 0.0, company_match
     
 
     def extract_text_from_url(self):

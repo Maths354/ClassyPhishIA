@@ -129,7 +129,12 @@
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Mot-clés trouvé</div>
                         <div class="collapsible-content">
-                            <p>Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site "{{ id_official.extractKeyword }}"</p>
+                            <p>Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site :</p>
+                            <ul>
+                            {% for site in id_official.extractKeyword %}
+                                <li>{{ site }}</li>
+                            {% endfor %}
+                            </ul>
                         </div>
                     </li>
                     <li class="collapsible-item">
