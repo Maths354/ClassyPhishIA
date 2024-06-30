@@ -34,13 +34,12 @@ class ExtractKeyWord:
 
         if keyword_counts:
             score=1
+            for company in self.official_sites:
+                if company["key_word"] in list(keyword_counts.keys()):
+                    if company["url"] not in company_match:
+                        company_match.append(company["url"])
         else:
             score=0
-
-        for company in self.official_sites:
-            if company["key_word"] in list(keyword_counts.keys()):
-                if company["url"] not in company_match:
-                    company_match.append(company["url"])
 
         return keyword_counts, score, company_match
     
