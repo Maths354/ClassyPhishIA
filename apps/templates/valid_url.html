@@ -165,7 +165,15 @@
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Virus Total</div>
                         <div class="collapsible-content">
-                            <p>{{ datas.checkVirusTotal }}</p>
+                            <!-- <p>{{ datas.checkVirusTotal }}</p> -->
+                            <ul class="result-list">
+                                {% for key, value in datas.checkVirusTotal.items() %}
+                                    <li class="result-item">
+                                        <span class="result-label">{{ key|replace('_', ' ')|title }}:</span>
+                                        <span>{{ value }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </li>
                 </ul>

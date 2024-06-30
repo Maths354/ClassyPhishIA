@@ -375,10 +375,25 @@ ul li {
     background-color: #FF4500; /* Rouge un peu plus foncé (orange foncé) */
 }
 
+/* Style de liste Analyse virus total */
 
+.result-list {
+    list-style-type: none;
+    padding: 0;
+}
+.result-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 3px;
+}
+.result-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
 
-
-
+/* Footer */
 
 .footer-adapte {
     background: linear-gradient(90deg, rgba(139,139,139,0.8) 0%, rgba(192,192,192,0.8) 100%);

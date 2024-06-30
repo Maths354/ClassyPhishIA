@@ -76,21 +76,21 @@ class CheckVirusTotal:
                 print(f"Score de confiance final: {final_confidence_score:.2f}")
                 
                 return {
-                    "reputation_score": reputation_score,
-                    "total_scans": total_scans,
-                    "malicious_scans": malicious_scans,
-                    "suspicious_scans": suspicious_scans,
-                    "harmless_scans": harmless_scans,
-                    "confidence_score": final_confidence_score
+                    "scan_totale": total_scans,
+                    "score_de_réputation": reputation_score,
+                    "scan_malveillant": malicious_scans,
+                    "scan_suspicieux": suspicious_scans,
+                    "scan_inoffensif": harmless_scans,
+                    "score_de_confiance": final_confidence_score
                 }
             else:
                 print(f"Erreur lors de la requête à VirusTotal: {response.status_code}")
                 return {
                     "Erreur": "Erreur clé api",
-                    "confidence_score": 0.00
+                    "score_de_confiance": 0.00
                 }
         else:
             return {
                     "no_api": "No api",
-                    "confidence_score": 0.00
+                    "score_de_confiance": 0.00
                 }

@@ -33,7 +33,7 @@ class Main:
         KeyWord=extractKeyWord.analyze_text()
         virusTotal = checkVirusTotal.check_domain_reputation()
 
-        print("virus total : ", virusTotal, virusTotal["confidence_score"])
+        print("virus total : ", virusTotal)
 
         modelResult = Model(Domain_URL[1], Logo[1], Cert[1], Page_URL[1])
         #modelResult = Model("1.00", "0.80", "0.90")
@@ -47,7 +47,7 @@ class Main:
                     "extractCert": Cert[1],
                     "extractKeyword": KeyWord[1],
                     "extractTemplate": Template[1],
-                    "checkVirusTotal": virusTotal["confidence_score"]
+                    "checkVirusTotal": virusTotal["score_de_confiance"]
                     },
             "datas":{
                     "checkURL": Domain_URL[0],
