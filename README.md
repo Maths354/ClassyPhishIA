@@ -66,7 +66,7 @@ make add_datas
 ```
 .\build.ps1 -target add_datas
 ```
-:warning: Les sites insérés dans la base de données font parti d'une liste de sites légitimes et vérifiés stockés sous la forme d'un fichier texte accessible dans 'inject_db/official_sites_XXX.txt'. La durée d'insertion des données dépends de la quantité de sites, mais aussi des sécurités présentes qui peuvent empêchés la récupération des données complètes. Egalement, il est possible qu'un banissement soit réalisé à votre encontre si trop de requêtes sont effectués à partir d'une même IP, nous vous conseillons donc d'insérer les sites par petites quantités afin d'éviter tout disfonctionnement.
+:warning: Les sites insérés dans la base de données font partie d'une liste de sites légitimes et vérifiés stockés sous la forme d'un fichier texte accessible dans 'inject_db/official_sites_XXX.txt'. La durée d'insertion des données dépend de la quantité de sites, mais aussi des sécurités présentes qui peuvent empêcher la récupération des données complètes. Également, il est possible qu'un bannissement soit réalisé à votre encontre si trop de requêtes sont effectués à partir d'une même IP, nous vous conseillons donc d'insérer les sites par petites quantités afin d'éviter tout dysfonctionnement.
 
 ## ✅ Lancement de l'outil
 
