@@ -71,7 +71,7 @@ make run
 
 ### 📈 Affichage attendu
 
-AJOUTER UN GIF QUI MONTRE LE PROCESS DANALYSE
+AJOUTER UN GIF QUI MONTRE LE PROCESSus D'ANALYSE
 
 ## Remerciements spéciaux
 
@@ -91,6 +91,4 @@ Ce projet est destiné uniquement à des fins éducatives et défensives. Les cr
 
 * Il est est possible qu'un bannissement soit réalisé à votre encontre si trop de requêtes sont effectués à partir d'une même adresse IP, nous vous conseillons donc d'insérer les sites dans la base de données par petites quantités afin d'éviter tout dysfonctionnement.
 
-* Due à des sécurités avancés sur certains sites légitimes et également les sites douteux, il est possible que certaines données ne soient pas récupérés correctement et empêche ainsi d'obtenir une analyse concrète. Des évolutions sont donc envisagés dans une prochaine version, qui incluera : 
-- Un bypass de captcha
-- 
+* Due à des sécurités avancés sur certains sites légitimes et également les sites douteux, il est possible que certaines données ne soient pas récupérés correctement et empêche ainsi d'obtenir une analyse concrète. Des évolutions sont donc envisagés dans une prochaine version.
