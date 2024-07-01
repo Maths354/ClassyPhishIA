@@ -35,7 +35,7 @@ Pour réaliser une prédiction, le modèle de ClassyPhishIA se base sur divers a
 * Certificats
 * Balises HTML
 
-### Affichage & intéractions sous Flask/SQLite
+### 💾 Affichage & intéractions sous Flask/SQLite
 
 ClassyPhishIA utilise le framework web Flask, qui permet de créer facilement des applications et des sites locaux d'une façon légère et extensible. Il intéragit avec la base de données SQLite pour afficher les données.
 
