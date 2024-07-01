@@ -58,6 +58,8 @@ make
 make add_datas
 ```
 
+:warning: Lors de l'exécution de l'outil, une erreur peut apparaître en fonction de la distribution Linux utilisée, cela est dû à un paquet manquant `libgl1`. 
+
 :warning: Les sites insérés dans la base de données font partie d'une liste de sites légitimes et vérifiés stockés sous la forme d'un fichier texte accessible dans 'inject_db/official_sites_XXX.txt'. La durée d'insertion des données dépend de la quantité de sites, mais aussi des sécurités présentes qui peuvent empêcher la récupération des données complètes.
 
 ## ✅ Lancement de l'outil
