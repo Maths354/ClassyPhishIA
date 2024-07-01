@@ -1,3 +1,7 @@
+<p align = "center">
+<img src = "apps/static/logo_site.png"height = "100" width="auto">
+</p>
+
 ## 🤖 ClassyPhishIA
 
 ClassyPhishIA est un outil d’analyse de phishing basé sur le machine learning, destiné à détecter la similarité entre des sites légitimes et des sites de phishing.
