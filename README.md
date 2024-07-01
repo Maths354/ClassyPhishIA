@@ -41,45 +41,32 @@ ClassyPhishIA utilise le framework web Flask, qui permet de créer facilement de
 
 ## 🛠️ Installation
 
-#### Avec un Makefile (pour Linux🐧)
+#### Makefile
 ```
 git clone https://github.com/Maths354/ClassyPhishIA.git
 cd ClassyPhishIA/
 make
 ```
 
-#### Avec Powershell (pour Windows🪟)
-```
-git clone https://github.com/Maths354/ClassyPhishIA.git
-cd ClassyPhishIA/
-.\build.ps1 -target all
-```
+:warning: L'exécution de cette outil ne fonctionne pour l'instant que sur Linux🐧 
+
 :warning: Un environnement venv Python est créé afin de vous permettre d'exécuter et d'utiliser l'outil correctement, sans casser les distributions Python présentes sur votre système.
 ## 🗃️ Insertions des données dans la base
 
-#### Avec un Makefile (pour Linux🐧)
+#### Makefile
 ```
 make add_datas
 ```
 
-#### Avec Powershell (pour Windows🪟)
-```
-.\build.ps1 -target add_datas
-```
 :warning: Les sites insérés dans la base de données font partie d'une liste de sites légitimes et vérifiés stockés sous la forme d'un fichier texte accessible dans 'inject_db/official_sites_XXX.txt'. La durée d'insertion des données dépend de la quantité de sites, mais aussi des sécurités présentes qui peuvent empêcher la récupération des données complètes.
 
 ## ✅ Lancement de l'outil
 
-### 📚 CLI Example
+### 📚 Exemple CLI
 
-#### Avec un Makefile (pour Linux🐧)
+#### Avec un Makefile
 ```
 make run
-```
-
-#### Avec Powershell (pour Windows🪟)
-```
-.\build.ps1 -target run
 ```
 
 ### 📈 Affichage attendu
