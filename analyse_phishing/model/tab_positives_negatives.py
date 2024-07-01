@@ -12,7 +12,7 @@ class URLAnalyzer:
         self.parsed_url = urlparse(url)
         self.positive_points = []
         self.negative_points = []
-        self.domain_info = whois.query(self.parsed_url.hostname)
+        self.domain_info = whois.whois(self.parsed_url.hostname)
 
     def check_protocol(self):
         """Vérifie si l'URL utilise HTTPS ou HTTP."""
