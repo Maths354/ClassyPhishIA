@@ -12,30 +12,30 @@ class ExtractBALISES:
         self.official_sites = official_sites
 
     def parse_html_string(self, html_string, orientation):
-        # Using re library to get all tags
-        tags = re.findall(r'<[^>]+>', html_string)
+        # Utilisation de la bibliothèque re pour récupérer toutes les balises
+        balises = re.findall(r'<[^>]+>', html_string)
 
-        # String variable used to concatenate parsed tag
-        parsed_tag = ""
+        # Variable chaîne de caractères utilisée pour concaténer les balises analysées
+        balise_analysee = ""
 
-        # Check every tag
-        for tag in tags:
-            # Condition used to get only the start of the tag, for example "span" from <span class="time">
-            if " " in tag:
-                tag = tag.replace(tag, tag.split(" ")[0])
-            # Condition used to get only start tag like <span>
-            if "/" not in tag:
-                tag = tag.split("<")[1].split(">")[0]
-                parsed_tag += f"{tag}+("
-            # Condition used to get only end tag like </span>
+        # Vérifier chaque balise
+        for balise in balises:
+            # Condition utilisée pour obtenir seulement le début de la balise, par exemple "span" de <span class="time">
+            if " " in balise:
+                balise = balise.replace(balise, balise.split(" ")[0])
+            # Condition utilisée pour obtenir seulement la balise ouvrante comme <span>
+            if "/" not in balise:
+                balise = balise.split("<")[1].split(">")[0]
+                balise_analysee += f"{balise}+("
+            # Condition utilisée pour obtenir seulement la balise fermante comme </span>
             else:
-                parsed_tag += ")"
+                balise_analysee += ")"
         
-        # If the tags are horizontal, modify the parsed_tag format
+        # Si les balises sont horizontales, modifier le format de balise_analysee
         if orientation == 'horizontal':
-            parsed_tag = parsed_tag.replace("+(", " > ").replace(")", " <")
+            balise_analysee = balise_analysee.replace("+(", " > ").replace(")", " <")
         
-        return parsed_tag
+        return balise_analysee
 
     def clean_text_tags(self, tag):
         # Supprime complètement le contenu de la balise
@@ -95,26 +95,26 @@ class ExtractBALISES:
                     cleaned_html = cleaned_html.replace("[", "").replace("]", "")
 
                     # Nettoyage et réécriture des balises ouvrantes et fermantes
-                    lines = cleaned_html.split(">")
-                    cleaned_lines = []
+                    lignes = cleaned_html.split(">")
+                    lignes_nettoyees = []
 
-                    for line in lines:
-                        line = line.strip()
+                    for ligne in lignes:
+                        ligne = ligne.strip()
 
-                        if line:
-                            if line.startswith("<"):
+                        if ligne:
+                            if ligne.startswith("<"):
                                 # Balise ouvrante et fermante
-                                tag = line.split()[0]
-                                cleaned_lines.append(tag + ">")
-                            elif line.endswith("</"):
+                                balise = ligne.split()[0]
+                                lignes_nettoyees.append(balise + ">")
+                            elif ligne.endswith("</"):
                                 # Balise fermante
-                                tag = line.split()[0].replace("</", "<")
-                                cleaned_lines.append(tag)
+                                balise = ligne.split()[0].replace("</", "<")
+                                lignes_nettoyees.append(balise)
                             else:
                                 # Contenu texte
-                                cleaned_lines.append(line)
+                                lignes_nettoyees.append(ligne)
 
-                    cleaned_html = ">".join(cleaned_lines)
+                    cleaned_html = ">".join(lignes_nettoyees)
 
                     # Correction des balises en double
                     cleaned_html = cleaned_html.replace(">>", ">")
@@ -144,7 +144,7 @@ class ExtractBALISES:
         similarity_ratio = difflib.SequenceMatcher(None, parsed_tags_legitime, parsed_tags_phishing).ratio()
         return similarity_ratio
 
-    def balises_info(self, url_legitime="https://www.orange.fr"):
+    def balises_info(self):
         """Traite les URLs, extrait les balises HTML et les sauvegarde dans les fichiers Excel."""
         
         # Définition du pattern d'URL
