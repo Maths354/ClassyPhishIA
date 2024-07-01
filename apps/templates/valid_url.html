@@ -114,8 +114,16 @@
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse URL</div>
                         <div class="collapsible-content">
-                            <p>Site officiel le plus proche : {{ id_official.checkURL[1] }}</p>
-                            <p>Similarité sur l'url : {{ datas.checkURL }}</p>
+                            <ul class="result-list">
+                                <li class="result-item">
+                                    <span class="result-label">Site officiel le plus proche :</span>
+                                    <span> {{ id_official.checkURL[1] }}</span>
+                                </li>
+                                <li class="result-item">
+                                    <span class="result-label">Similarité sur l'url :</span>
+                                    <span> {{ datas.checkURL }}</span>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                     <li class="collapsible-item">
@@ -127,20 +135,42 @@
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Logo</div>
                         <div class="collapsible-content">
-                            <p>Logo site de phishing : {{ datas.extractLogo[1] }}</p>
-                            <img src="{{ datas.extractLogo[1] }}"/>
-                            <p>Correspondance logo : {{ datas.extractLogo[0] }}</p>
-                            <img src="{{ datas.extractLogo[0] }}"/>
+                            <ul class="result-list">
+                                <li class="result-item">
+                                    <span class="result-label">Logo site de phishing :</span>
+                                    <span> <img src="{{ datas.extractLogo[1] }}"/> {{ datas.extractLogo[1] }}</span>
+                                </li>
+                                <li class="result-item">
+                                    <span class="result-label">Correspondance logo :</span>
+                                    <span> <img src="{{ datas.extractLogo[0] }}"/> {{ datas.extractLogo[0] }}</span>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Mot-clés trouvé</div>
                         <div class="collapsible-content">
-                            <p>Les mots clés {{ datas.extractKeyword }} match avec les mots clé du site :</p>
-                            <ul>
-                            {% for site in id_official.extractKeyword %}
-                                <li>{{ site }}</li>
-                            {% endfor %}
+                            <ul class="result-list">
+                                <li class="result-item">
+                                    <span class="result-label">Mot clés trouvé :</span>
+                                    <span>
+                                        <ul>
+                                        {% for key, value in datas.extractKeyword.items() %}
+                                            <li>{{ key }} : {{ value }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    </span>
+                                </li>
+                                <li class="result-item">
+                                    <span class="result-label">Correspondance sites :</span>
+                                    <span>
+                                        <ul>
+                                            {% for site in id_official.extractKeyword %}
+                                                <li>{{ site }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </span>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -154,12 +184,24 @@
                     <li class="collapsible-item">
                         <div class="collapsible-header"><i class="gg-arrow-right" style="margin-right: 1em;"></i>Analyse Certificat</div>
                         <div class="collapsible-content">
-                            <p style="color: black">Date émission certificat site de phishing</p>
-                            <p style="color: black"><b>{{ datas.extractCert[0][0] }}</b></p>
-                            <p style="color: black">Comparaison localisation certificat</p>
-                            <p style="color: black">Site officiel le plus proche : {{ datas.extractCert[0][1] }}</p>
-                            <p style="color: black">Localisation certificat site de phishing : {{ datas.extractCert[0][2] }}</p>
-                            <p style="color: red">{{ datas.extractCert[1] }}</p>
+                            <ul class="result-list">
+                                <li class="result-item">
+                                    <span class="result-label">Date émission certificat site de phishing :</span>
+                                    <span>{{ datas.extractCert[0][0] }}</span>
+                                </li>
+                                <li class="result-item">
+                                    <span class="result-label">Site officiel le plus proche :</span>
+                                    <span>{{ datas.extractCert[0][1] }}</span>
+                                </li>
+                                <li class="result-item">
+                                    <span class="result-label">Certificat site de phishing :</span>
+                                    <span>{{ datas.extractCert[0][2] }}</span>
+                                </li>
+                                <li class="result-item">
+                                    <span class="result-label">Données brut :</span>
+                                    <span">{{ datas.extractCert[1] }}</span>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                     <li class="collapsible-item">
