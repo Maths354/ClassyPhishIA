@@ -66,7 +66,7 @@ make add_datas
 ```
 .\build.ps1 -target add_datas
 ```
-:warning: Les sites insérés dans la base de données font partie d'une liste de sites légitimes et vérifiés stockés sous la forme d'un fichier texte accessible dans 'inject_db/official_sites_XXX.txt'. La durée d'insertion des données dépend de la quantité de sites, mais aussi des sécurités présentes qui peuvent empêcher la récupération des données complètes. Également, il est possible qu'un bannissement soit réalisé à votre encontre si trop de requêtes sont effectués à partir d'une même IP, nous vous conseillons donc d'insérer les sites par petites quantités afin d'éviter tout dysfonctionnement.
+:warning: Les sites insérés dans la base de données font partie d'une liste de sites légitimes et vérifiés stockés sous la forme d'un fichier texte accessible dans 'inject_db/official_sites_XXX.txt'. La durée d'insertion des données dépend de la quantité de sites, mais aussi des sécurités présentes qui peuvent empêcher la récupération des données complètes.
 
 ## ✅ Lancement de l'outil
 
@@ -99,3 +99,9 @@ AJOUTER UN GIF QUI MONTRE LE PROCESS DANALYSE
 ## Information
 
 Ce projet est destiné uniquement à des fins éducatives et défensives. Les créateurs et contributeurs ne sont pas responsables de toute utilisation abusive ou malveillante de cet outil. Utilisez-le de manière responsable et éthique, en respectant toutes les lois et réglementations pertinentes.
+
+## Problèmes connus
+
+* Il est est possible qu'un bannissement soit réalisé à votre encontre si trop de requêtes sont effectués à partir d'une même IP, nous vous conseillons donc d'insérer les sites dans la base de données par petites quantités afin d'éviter tout dysfonctionnement.
+
+* Due à des sécurités avancés sur certains sites légitimes comme douteux, il est possible que certaines données ne soient pas récupérés correctement et empêche ainsi d'obtenir une analyse concrète.
