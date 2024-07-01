@@ -48,7 +48,7 @@ cd ClassyPhishIA/
 make
 ```
 
-:warning: L'exécution de cette outil ne fonctionne pour l'instant que sur Linux🐧 
+:warning: L'exécution de cet outil ne fonctionne pour l'instant que sur Linux🐧 
 
 :warning: Un environnement venv Python est créé afin de vous permettre d'exécuter et d'utiliser l'outil correctement, sans casser les distributions Python présentes sur votre système.
 ## 🗃️ Insertions des données dans la base
