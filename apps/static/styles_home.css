@@ -245,11 +245,10 @@ h2 {
 
 
 
-
 .footer-adapte {
     background: linear-gradient(90deg, rgba(139,139,139,0.8) 0%, rgba(192,192,192,0.8) 100%);
     color: #fff;
-    padding: 10px 0; /* Ajuster le padding pour réduire la hauteur */
+    padding: 10px 0;
     text-align: center;
     margin-top: auto;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
@@ -258,7 +257,8 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+} 
+
 
 .footer-container {
     display: flex;
