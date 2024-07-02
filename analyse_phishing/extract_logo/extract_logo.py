@@ -23,7 +23,7 @@ class ExtractLOGO:
                               'Chrome/58.0.3029.110 Safari/537.3'
             }
             # Envoie une requête HTTP GET à l'URL spécifiée avec les en-têtes spécifiés
-            response = requests.get(url, headers=headers, timeout=5)
+            response = requests.get(url, headers=headers, timeout=10)
             # Vérifie si la requête a réussi
             response.raise_for_status()
             # Analyse le contenu HTML de la page
@@ -59,7 +59,7 @@ class ExtractLOGO:
 
             # Tentative de récupération du favicon comme solution de secours
             favicon_url = urljoin(url, 'favicon.ico')
-            response = requests.get(favicon_url, headers=headers, timeout=5)
+            response = requests.get(favicon_url, headers=headers, timeout=10)
             if response.status_code == 200:
                 return favicon_url
 
@@ -76,7 +76,7 @@ class ExtractLOGO:
                               'Chrome/58.0.3029.110 Safari/537.3'
             }
             # Télécharge l'image à partir de l'URL spécifiée
-            response = requests.get(url, headers=headers, timeout=5)
+            response = requests.get(url, headers=headers, timeout=10)
             # Vérifie si la requête a réussi
             response.raise_for_status()
             # Ouvre l'image et la convertit en format compatible avec OpenCV
