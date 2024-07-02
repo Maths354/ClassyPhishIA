@@ -8,7 +8,9 @@ Cet outil analyse à l'aide du machine learning, des sites de phishing et les co
 
 ## Capture-d'écran
 <img src = "apps/static/home.png">
-
+<p align = "center">
+Page d'accueil
+</p>
 ## 📃 Fonctionnalités
 
 Les fonctionnalités actuellement disponible dans l'outil sont :
