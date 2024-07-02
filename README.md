@@ -11,6 +11,22 @@ Cet outil analyse à l'aide du machine learning, des sites de phishing et les co
 <p align = "center">
 Page d'accueil
 </p>
+
+<img src = "apps/static/resultat.png">
+<p align = "center">
+Page des résultats (scores)
+</p>
+
+<img src = "apps/static/details.png">
+<p align = "center">
+Page des résultats (détails des données)
+</p>
+
+<img src = "apps/static/tableau.png">
+<p align = "center">
+Page des résultats (tableau points positifs/négatifs)
+</p>
+
 ## 📃 Fonctionnalités
 
 Les fonctionnalités actuellement disponible dans l'outil sont :
