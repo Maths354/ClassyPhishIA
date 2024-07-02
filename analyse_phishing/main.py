@@ -33,7 +33,6 @@ class Main:
         KeyWord=extractKeyWord.analyze_text()
         virusTotal = checkVirusTotal.check_domain_reputation()
 
-        print("virus total : ", virusTotal)
 
         modelResult = Model(Domain_URL[1], Logo[1], Cert[1], Page_URL[1])
         #modelResult = Model("1.00", "0.80", "0.90")
@@ -54,6 +53,7 @@ class Main:
                     "extractURL": Page_URL[0],
                     "extractLogo": Logo[0],
                     "extractCert": Cert[0],
+                    "analyseCert": Cert[3],
                     "extractTemplate": Template[0],
                     "extractKeyword": KeyWord[0],
                     "extractTemplate": Template[0],
