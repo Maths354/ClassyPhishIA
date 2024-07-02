@@ -185,6 +185,15 @@
                         <div class="collapsible-content">
                             <ul class="result-list">
                                 <li class="result-item">
+                                    <span class="result-label">Domaine d'hébergement gratuit : </span><span>{{ datas.analyseCert["free_hosting_domain"] }}</span><br>
+                                    <span class="result-label">Type de certificat : </span><span>{{ datas.analyseCert["certificate_type"] }}</span><br>
+                                    <span class="result-label">Émetteur du certificat : </span><span>{{ datas.analyseCert["issuer"] }}</span><br>
+                                    <span class="result-label">Valide depuis : </span><span>{{ datas.analyseCert["valid_from"] }}</span><br>
+                                    <span class="result-label">Valide jusqu'à : </span><span>{{ datas.analyseCert["valid_until"] }}</span><br>
+                                    <span class="result-label">Temps jusqu'à expiration : </span><span>{{ datas.analyseCert["days_until_expiry"] }} jours</span><br>
+                                    <span class="result-label">Expiré : </span><span>{{ datas.analyseCert["is_expired"] }}</span><br>
+                                </li>
+                                <li class="result-item">
                                     <span class="result-label">Date émission certificat site de phishing :</span>
                                     <span>{{ datas.extractCert[0][0] }}</span>
                                 </li>
