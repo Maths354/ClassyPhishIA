@@ -89,10 +89,6 @@ make add_datas
 make run
 ```
 
-### 📈 Affichage attendu
-
-AJOUTER UN GIF QUI MONTRE LE PROCESSus D'ANALYSE
-
 ## Remerciements spéciaux
 
 * Nous tenons à remercier toutes les personnes qui nous ont soutenus tout au long de notre projet. 
