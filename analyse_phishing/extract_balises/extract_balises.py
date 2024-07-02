@@ -31,6 +31,10 @@ class ExtractBALISES:
             else:
                 balise_analysee += ")"
         
+        # Suppression du DOCTYPE s'il est présent au début
+        if balise_analysee.startswith("!DOCTYPE+("):
+            balise_analysee = balise_analysee[len("!DOCTYPE+("):]
+        
         # Si les balises sont horizontales, modifier le format de balise_analysee
         if orientation == 'horizontal':
             balise_analysee = balise_analysee.replace("+(", " > ").replace(")", " <")
