@@ -23,7 +23,7 @@ class ExtractLOGO:
                               'Chrome/58.0.3029.110 Safari/537.3'
             }
             # Envoie une requête HTTP GET à l'URL spécifiée avec les en-têtes spécifiés
-            response = requests.get(url, headers=headers, timeout=10)
+            response = requests.get(url, headers=headers, timeout=5)
             # Vérifie si la requête a réussi
             response.raise_for_status()
             # Analyse le contenu HTML de la page
@@ -59,7 +59,7 @@ class ExtractLOGO:
 
             # Tentative de récupération du favicon comme solution de secours
             favicon_url = urljoin(url, 'favicon.ico')
-            response = requests.get(favicon_url, headers=headers, timeout=10)
+            response = requests.get(favicon_url, headers=headers, timeout=5)
             if response.status_code == 200:
                 return favicon_url
 
@@ -76,7 +76,7 @@ class ExtractLOGO:
                               'Chrome/58.0.3029.110 Safari/537.3'
             }
             # Télécharge l'image à partir de l'URL spécifiée
-            response = requests.get(url, headers=headers, timeout=10)
+            response = requests.get(url, headers=headers, timeout=5)
             # Vérifie si la requête a réussi
             response.raise_for_status()
             # Ouvre l'image et la convertit en format compatible avec OpenCV
@@ -133,14 +133,18 @@ class ExtractLOGO:
         # Extrait l'URL du logo à partir du site de phishing
         logo_url_phishing = self.extract_logo_url(url_phishing)
 
-        if logo_url_phishing != None:
+        # Télécharge l'image du site de phishing
+        try:
+            image_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+        except:
+            image_phishing = None
+        if image_phishing is not None:
             for company in self.official_sites:
                 if "None" not in company["logo"]:
                     try:
                         # Charge l'image légitime depuis un fichier local
                         image_legitime = self.load_local_image_and_compute_sha256(f"analyse_phishing/extract_logo/images/{company['logo']}.png")
-                        # Télécharge l'image du site de phishing
-                        image_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+
                         
                         # Compare les images et calcule un score de similarité
                         similarity_score = self.compare_images(image_legitime, image_phishing)
