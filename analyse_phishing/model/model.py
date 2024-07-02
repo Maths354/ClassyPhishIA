@@ -6,12 +6,13 @@ from sklearn.metrics import accuracy_score, classification_report
 
 class Model:
 
-    def __init__(self, score_url, score_logo, score_cert, list_url):
+    def __init__(self, score_url, score_logo, score_cert, list_url, template):
         # Initialisation des attributs du modèle
         self.score_url = score_url
         self.score_logo = score_logo
         self.score_cert = score_cert
         self.list_url = list_url
+        self.template = template
 
     def prediction(self):
         # Prédiction basée sur les nouvelles données
@@ -22,7 +23,8 @@ class Model:
             'url_score': [self.score_url],
             'logo_similarity': [self.score_logo],
             'cert_valid': [self.score_cert],
-            'list_url': [self.list_url]
+            'list_url': [self.list_url],
+            'template': [self.template],
         }
 
         new_site_df = pd.DataFrame(new_site_features)
@@ -37,15 +39,16 @@ class Model:
     def training(self):
         # Entraînement du modèle avec les données existantes
         data = {
-            'url_score': [1.00, 0.80, 0.60, 0.35, 0.15, 0.90, 0.20, 0.00, 1.00, 0.80, 0.00, 1.00, 0.30, 1.00, 0.87, 0.12, 0.23, 1.00, 1.00, 1.00, 0.77, 0.75],
-            'logo_similarity': [1.00, 0.10, 0.50, 1.00, 1.00, 1.00, 0.33, 0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.50, 0.10, 0.00, 0.00, 0.33, 0.20, 0.80, 0.00, 0.30],
-            'cert_valid': [0.80, 0.80, 0.85, 0.40, 0.30, 0.90, 0.05, 0.00, 1.00, 0.90, 0.50, 0.95, 0.90, 1.00, 1.00, 0.40, 0.50, 0.80, 0.74, 0.90, 0.80, 0.60],
-            'list_url': [1.00, 1.00, 1.00, 0.10, 0.00, 0.60, 0.10, 0.00, 1.00, 0.80, 0.00, 0.88, 0.95, 0.50, 0.96, 0.20, 0.00, 1.00, 0.70, 0.90, 0.60, 0.50],
-            'site_identity': [1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1]
+            'url_score':        [1.00, 0.80, 0.60, 0.35, 0.15, 0.90, 0.20, 0.00, 1.00, 0.80, 0.00, 1.00, 0.30, 1.00, 0.87, 0.12, 0.23, 1.00, 1.00, 1.00, 0.77, 0.75, 0.20, 0.30],
+            'logo_similarity':  [1.00, 0.10, 0.50, 1.00, 1.00, 1.00, 0.33, 0.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.50, 0.10, 0.00, 0.00, 0.33, 0.20, 0.80, 0.00, 0.30, 0.10, 0.10],
+            'cert_valid':       [0.80, 0.80, 0.85, 0.40, 0.30, 0.90, 0.05, 0.00, 1.00, 0.90, 0.50, 0.95, 0.90, 1.00, 1.00, 0.40, 0.50, 0.80, 0.74, 0.90, 0.80, 0.60, 0.80, 0.90],
+            'list_url':         [1.00, 1.00, 1.00, 0.10, 0.00, 0.60, 0.10, 0.00, 1.00, 0.80, 0.00, 0.88, 0.95, 0.50, 0.96, 0.20, 0.00, 1.00, 0.70, 0.90, 0.60, 0.50, 0.90, 0.80],
+            'template':         [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.15, 0.00, 1.00, 0.90, 0.15, 1.00, 1.00, 1.00, 0.90, 0.35, 0.20, 0.20, 1.00, 1.00, 0.95, 1.00, 0.10, 0.20],
+            'site_identity':    [1,    1,    1,    0,    0,    1,    0,    0,    1,    1,    0,    1,    1,    1,    1,    0,    0,    1,    1,    1,    1,    1,    1,    1]
         }
 
         df = pd.DataFrame(data) # Création du DataFrame
-        X = df[['url_score', 'logo_similarity', 'cert_valid', 'list_url']] # Sélection des caractéristiques
+        X = df[['url_score', 'logo_similarity', 'cert_valid', 'list_url', 'template']] # Sélection des caractéristiques
         y = df['site_identity'] # Sélection de la cible
 
         # Standardisation des données
