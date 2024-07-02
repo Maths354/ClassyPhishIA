@@ -20,6 +20,7 @@ import socket
 import ast
 from datetime import datetime
 from urllib.parse import urlparse
+from analyse_phishing.extract_certificat.sslAnalyzer import SSLAnalyzer
 
 class ExtractCert():
 
@@ -133,5 +134,11 @@ class ExtractCert():
         else:
             self._cert_info_clean = ""
             self._top_company = [99999999, ""]  # Valeur par défaut si le site n'est pas HTTPS
+            
+        analyseCert = SSLAnalyzer(self.full_url)
+        dataCert = analyseCert.analyze_cert()
+
+        if dataCert["free_hosting_domain"] != None:
+            self._score = 0.00
         
-        return [self._cert_info_clean, self._cert_info_raw], self._score, self._top_company
+        return [self._cert_info_clean, self._cert_info_raw], self._score, self._top_company, dataCert
