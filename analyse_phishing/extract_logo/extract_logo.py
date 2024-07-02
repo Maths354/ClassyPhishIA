@@ -133,14 +133,18 @@ class ExtractLOGO:
         # Extrait l'URL du logo à partir du site de phishing
         logo_url_phishing = self.extract_logo_url(url_phishing)
 
-        if logo_url_phishing != None:
+        # Télécharge l'image du site de phishing
+        try:
+            image_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+        except:
+            image_phishing = None
+        if image_phishing is not None:
             for company in self.official_sites:
                 if "None" not in company["logo"]:
                     try:
                         # Charge l'image légitime depuis un fichier local
                         image_legitime = self.load_local_image_and_compute_sha256(f"analyse_phishing/extract_logo/images/{company['logo']}.png")
-                        # Télécharge l'image du site de phishing
-                        image_phishing = self.download_image_and_compute_sha256(logo_url_phishing)
+
                         
                         # Compare les images et calcule un score de similarité
                         similarity_score = self.compare_images(image_legitime, image_phishing)
