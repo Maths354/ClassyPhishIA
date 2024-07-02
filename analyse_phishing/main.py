@@ -34,12 +34,16 @@ class Main:
         virusTotal = checkVirusTotal.check_domain_reputation()
 
 
-        modelResult = Model(Domain_URL[1], Logo[1], Cert[1], Page_URL[1])
+        modelResult = Model(Domain_URL[1], Logo[1], Cert[1], Page_URL[1], Template[1])
+        prediction = modelResult.prediction()
         #modelResult = Model("1.00", "0.80", "0.90")
         #print("prediction :", modelResult.prediction())
 
+        if virusTotal["scan_malveillant"] == 0 and prediction < 0.50:
+            prediction = prediction + 0.20
+
         all_data = {
-            "scores":{ "resultModel": modelResult.prediction(),
+            "scores":{ "resultModel": prediction,
                     "checkURL": Domain_URL[1],
                     "extractURL": Page_URL[1],
                     "extractLogo": Logo[1],
