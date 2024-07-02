@@ -39,8 +39,9 @@ class Main:
         #modelResult = Model("1.00", "0.80", "0.90")
         #print("prediction :", modelResult.prediction())
 
-        if virusTotal["scan_malveillant"] == 0 and prediction < 0.50:
-            prediction = prediction + 0.20
+        if virusTotal["score_de_confiance"] != 0.0:
+            if virusTotal["scan_malveillant"] == 0 and prediction < 0.50:
+                prediction = prediction + 0.20
 
         all_data = {
             "scores":{ "resultModel": prediction,
