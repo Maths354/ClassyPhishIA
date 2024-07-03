@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, url_for, render_template, session # 
 from flask_sqlalchemy import SQLAlchemy # type: ignore
 from analyse_phishing.model.tab_positives_negatives import URLAnalyzer
 from analyse_phishing.main import Main
-from apps.config import Config
+from apps.config import Config, Dev, Prod
 
 #Import DB things
 from apps.models.models import OfficalSite, PhishingSite, Score, ReccurentDomain, ReccurentCA
@@ -13,7 +13,7 @@ import requests
 import json
 
 app = Flask(__name__, template_folder="apps/templates", static_folder="apps/static")
-app.config.from_object(Config)
+app.config.from_object(Dev)
 db = SQLAlchemy(app)
 
 @app.route('/')

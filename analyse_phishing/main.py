@@ -33,27 +33,32 @@ class Main:
         KeyWord=extractKeyWord.analyze_text()
         virusTotal = checkVirusTotal.check_domain_reputation()
 
-        print("virus total : ", virusTotal, virusTotal["confidence_score"])
 
-        modelResult = Model(Domain_URL[1], Logo[1], Cert[1], Page_URL[1])
+        modelResult = Model(Domain_URL[1], Logo[1], Cert[1], Page_URL[1], Template[1])
+        prediction = modelResult.prediction()
         #modelResult = Model("1.00", "0.80", "0.90")
         #print("prediction :", modelResult.prediction())
 
+        if virusTotal["score_de_confiance"] != 0.0:
+            if virusTotal["scan_malveillant"] == 0 and prediction < 0.50:
+                prediction = prediction + 0.20
+
         all_data = {
-            "scores":{ "resultModel": modelResult.prediction(),
+            "scores":{ "resultModel": prediction,
                     "checkURL": Domain_URL[1],
                     "extractURL": Page_URL[1],
                     "extractLogo": Logo[1],
                     "extractCert": Cert[1],
                     "extractKeyword": KeyWord[1],
                     "extractTemplate": Template[1],
-                    "checkVirusTotal": virusTotal["confidence_score"]
+                    "checkVirusTotal": virusTotal["score_de_confiance"]
                     },
             "datas":{
                     "checkURL": Domain_URL[0],
                     "extractURL": Page_URL[0],
                     "extractLogo": Logo[0],
                     "extractCert": Cert[0],
+                    "analyseCert": Cert[3],
                     "extractTemplate": Template[0],
                     "extractKeyword": KeyWord[0],
                     "extractTemplate": Template[0],

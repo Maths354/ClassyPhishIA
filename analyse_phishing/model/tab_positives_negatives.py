@@ -96,64 +96,6 @@ class URLAnalyzer:
         except Exception as e:
             self.negative_points.append(f"Erreur lors de la vérification des informations WHOIS : {str(e)}")
 
-    def check_domain_reputation(self):
-        """Vérifie la réputation du domaine via des bases de données de sécurité."""
-        try:
-            # Placeholder for actual implementation
-            # For example, integrate with Google Safe Browsing, VirusTotal API, etc.
-            self.positive_points.append("Le domaine n'est pas listé dans les bases de données de sites malveillants (hypothétique).")
-        except Exception as e:
-            self.negative_points.append(f"Erreur lors de la vérification de la réputation du domaine : {str(e)}")
-
-    def check_content_security(self):
-        """Vérifie les headers de sécurité HTTP."""
-        try:
-            response = requests.head(self.url, timeout=5)
-            headers = response.headers
-            security_headers = ["Content-Security-Policy", "Strict-Transport-Security"]
-            missing_headers = [header for header in security_headers if header not in headers]
-            if not missing_headers:
-                self.positive_points.append("Les headers de sécurité essentiels sont présents.")
-            else:
-                self.negative_points.append(f"Les headers de sécurité suivants sont manquants : {', '.join(missing_headers)}.")
-        except Exception as e:
-            self.negative_points.append(f"Erreur lors de la vérification des headers de sécurité HTTP : {str(e)}")
-
-    def check_privacy_policy(self):
-        """Vérifie la présence de la politique de confidentialité et des mentions légales."""
-        try:
-            response = requests.get(self.url, timeout=5)
-            content = response.text.lower()
-            if "politique de confidentialité" in content or "privacy policy" in content:
-                self.positive_points.append("La politique de confidentialité est présente.")
-            else:
-                self.negative_points.append("La politique de confidentialité n'est pas trouvée.")
-            
-            if "mentions légales" in content or "legal notice" in content:
-                self.positive_points.append("Les mentions légales sont présentes.")
-            else:
-                self.negative_points.append("Les mentions légales ne sont pas trouvées.")
-        except Exception as e:
-            self.negative_points.append(f"Erreur lors de la vérification de la politique de confidentialité et des mentions légales : {str(e)}")
-
-    def check_user_reviews(self):
-        """Vérifie la réputation du site sur des plateformes d'avis."""
-        try:
-            # Placeholder for actual implementation
-            # For example, scraping Trustpilot or similar sites
-            self.positive_points.append("Le site a de bonnes critiques sur les plateformes d'avis (hypothétique).")
-        except Exception as e:
-            self.negative_points.append(f"Erreur lors de la vérification des avis des utilisateurs : {str(e)}")
-
-    def check_social_media_activity(self):
-        """Vérifie l'activité du site sur les réseaux sociaux."""
-        try:
-            # Placeholder for actual implementation
-            # For example, use APIs from Twitter, Facebook, etc.
-            self.positive_points.append("Le site est actif sur les réseaux sociaux (hypothétique).")
-        except Exception as e:
-            self.negative_points.append(f"Erreur lors de la vérification de l'activité sur les réseaux sociaux : {str(e)}")
-
     def check_page_speed(self):
         """Vérifie la vitesse de chargement du site."""
         try:
@@ -167,15 +109,6 @@ class URLAnalyzer:
         except Exception as e:
             self.negative_points.append(f"Erreur lors de la vérification de la vitesse de chargement du site : {str(e)}")
 
-    def check_uptime_history(self):
-        """Vérifie l'historique de disponibilité du site."""
-        try:
-            # Placeholder for actual implementation
-            # For example, integrate with services like UptimeRobot or similar
-            self.positive_points.append("Le site a une bonne disponibilité historique (hypothétique).")
-        except Exception as e:
-            self.negative_points.append(f"Erreur lors de la vérification de l'historique de disponibilité du site : {str(e)}")
-
     def analyze(self):
         """Effectue l'analyse complète de l'URL."""
         self.check_protocol()
@@ -184,11 +117,5 @@ class URLAnalyzer:
         self.check_domain_expiration()
         self.check_server_location()
         self.check_whois_visibility()
-        self.check_domain_reputation()
-        self.check_content_security()
-        self.check_privacy_policy()
-        self.check_user_reviews()
-        self.check_social_media_activity()
         self.check_page_speed()
-        self.check_uptime_history()
         return self.positive_points, self.negative_points
