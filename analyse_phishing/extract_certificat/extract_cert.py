@@ -138,6 +138,7 @@ class ExtractCert():
         analyseCert = SSLAnalyzer(self.full_url)
         dataCert = analyseCert.analyze_cert()
 
+        print(dataCert)
         if dataCert["free_hosting_domain"] != None:
             self._score = 0.00
         
