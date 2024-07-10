@@ -93,7 +93,7 @@ make run
 
 * Nous tenons à remercier toutes les personnes qui nous ont soutenus tout au long de notre projet. 
 
-* Nous exprimons notre profonde gratitude à notre tuteur, M. Maxime Aubry, dont la connaissance approfondie de la formation, des aspects techniques et des attentes du jury nous a permis de nous organiser plus efficacement et de préparer le projet de manière optimale. 
+* Nous exprimons notre profonde gratitude à notre tuteur, Maxime, dont la connaissance approfondie de la formation, des aspects techniques et des attentes du jury nous a permis de nous organiser plus efficacement et de préparer le projet de manière optimale. 
 
 * Nous remercions également l’ensemble des intervenants de la formation pour leurs précieuses informations sur les différentes méthodes de machine learning. 
 
